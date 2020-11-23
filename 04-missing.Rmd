@@ -1,1 +1,85 @@
+---
+title: "EDAV Final Missing values"
+author: Myles Ingram, Colin Payne-Rogers
+output:
+  html_document:
+    fig_height: 5
+    fig_width: 9
+urlcolor: blue
+---
+
+```{r include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(plyr)
+require(scales)
+library(mi)
+```
+
 # Missing values
+
+
+```{r include=FALSE}
+dairy <- read_csv("resources/processed_data/dairy.csv")
+fats <- read_csv("resources/processed_data/fats.csv")
+fruits <- read_csv("resources/processed_data/fruits.csv")
+grains <- read_csv("resources/processed_data/grains.csv")
+incidence <- read_csv("resources/processed_data/incidence.csv")
+meateggsnuts <- read_csv("resources/processed_data/meateggsnuts.csv")
+mortality <- read_csv("resources/processed_data/mortality.csv")
+sugars <- read_csv("resources/processed_data/sugars.csv")
+vegetables <- read_csv("resources/processed_data/vegetables.csv")
+```
+
+
+Example of how the Missing data section will be done for fats spreadsheet, which has missing data and sugars data which does not have missing data
+
+# Fats
+```{r}
+colSums(is.na(fats)) %>%
+  sort(decreasing=TRUE)
+```
+
+```{r}
+fats <- as.data.frame(fats)
+fats_df <- fats[2:15]
+x <- mi::missing_data.frame(fats_df)
+image(x)
+colnames(fats_df)
+fats_tidy <- gather(fats_df, food_type, value, -Year)
+```
+
+```{r}
+ggplot(fats_tidy) +
+  geom_tile(aes(x=food_type, y=Year, fill=value)) +
+  theme(axis.text.x = element_text(angle=60, hjust=1),
+        axis.text.y = element_text(size=5))
+```
+
+# Sugars
+
+```{r}
+colSums(is.na(sugars)) %>%
+  sort(decreasing=TRUE)
+```
+
+```{r}
+sugars_df <- as.data.frame(sugars)
+sugars_df <- sugars_df[2:8]
+s <- mi::missing_data.frame(sugars_df)
+image(s)
+colnames(fats_df)
+sugars_tidy <- gather(sugars_df, food_type, value, -Year)
+```
+```{r}
+ggplot(sugars_tidy) +
+  geom_tile(aes(x=food_type, y=Year, fill=value)) +
+  theme(axis.text.x = element_text(angle=60, hjust=1),
+        axis.text.y = element_text(size=5))
+```
+
+For fats, it seems that the pattern of missing data starts in 2000 for some food types and others the missing data starts in 2010. It seems like either the fats database is updated every decade or added fats is gradually being excluded from this dataset. 
+
+All values are present in the sugars spreadsheet
+
