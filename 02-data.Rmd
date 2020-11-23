@@ -1,6 +1,16 @@
+---
+title: "EDAV Final Data Sources"
+author: Myles Ingram, Colin Payne-Rogers
+output:
+  html_document:
+    fig_height: 5
+    fig_width: 9
+urlcolor: blue
+---
+
 # Data sources
 
-Data collection
+## Data collection
 
 For this project, we are using 3 different data sources: Male and female digestive system cancer mortality across 9 SEER cancer regristries for each year from 2000-2017, Male and female digestive system cancer incidence across 9 SEER cancer registries for each year from 2000-2017, and average daily per capita calorie intake from 1970-2017 for major and minor food groups in the US. Digestive system cancer includes stomach, gallbladder, colorectal (CRC), pancreatic, liver and esophageal cancers. These data sources were collected by Myles Ingram. 
 
@@ -8,7 +18,7 @@ The SEER digestive system cancer data sets were collected using SEER *Stat, a st
 
 The average daily calorie intake data was downloaded from the USDA's Food Availabity (Per Capita) Data System. The data set is used to approximate the actual consumption of food on a national level. The data we used was loss-adjusted meaning food spoilage, late waste, etc. was included in the creation of the data to more closely resemble actual consumption.
 
-Data Overview
+## Data Overview
 
 The SEER digestive cancer incidence spreadsheet contains 5 variables and 54 rows The variables include Year, Gender, Rate per 100,000 persons (number of people who contracted digestive cancer out of every 100,000 persons), Cases (total number of cancer cases in given year), and total US population in that year.
 
@@ -16,8 +26,8 @@ SEER digestive cancer mortality spreadsheet contains 5 variables and 54 rows The
 
 Average daily calorie intake data includes 8 different spreadsheets. Each spreadsheet has 48 rows, one row per year. The totals spreadsheet gives the total average calorie intake for each major food group which includes meat/protein, dairy, fruit, vegatables, flour/cereal products, added fats/oils/dairy fats, added sugar/sweeteners, and total calorie intake. Each food group has a seperate spreadsheet that breaks down the foods and calorie intakes of each food inside the category. 
 
-Data Issues
+## Data Issues
 
 One issue for the SEER data is that the entire U.S. is not included in the analysis only 18 SEER regristries from around the U.S.
 
-For the USDA data, calorie intakes for certain food types are missing within the data for certain years. This issues is especially prevelant for added fatss and oils and dairy fats category.
+For the USDA data, calorie intakes for certain food types are missing within the data for certain years. This issues is especially prevelent for added fatss and oils and dairy fats category.
