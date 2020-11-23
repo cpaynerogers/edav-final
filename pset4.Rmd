@@ -18,7 +18,6 @@ b) How do you plan to divide up the work? (Grading is on a group basis. The poin
 
 > Myles will focus on data collecting and transformation. Colin will focus on managing the GitHub repository setup. With only two of us, we think we can manage collaborating more closely on plot creation and chapter writing.
 
-
 c) What is your plan for managing the git/GitHub workflow? That is, who will merge pull requests? How will you attempt to avoid conflicts? How will you communicate?
 
 > With just two of us, we plan to merge each other's pull requests. The team member who writes a given contribution is responsible for resolving merge conflicts. The other team member will serve as reviewer, approve pull requests, and merge them.
@@ -29,14 +28,11 @@ c) What is your plan for managing the git/GitHub workflow? That is, who will mer
 
 List three questions that you hope you will be able to answer from your research. (It's ok if these change as your work progresses.)
 
-a) 
-  
-  
-b) 
-  
-  
-c) 
-  
+a) Does a population-level increase in consumption (calories) relate to population-level increases in digestive cancer incidence?
+
+b) What about the nutritional content of food being eaten? Does a greater proportion of sugar or meat coincide with higher cancer incidence?
+
+c) Is there a relationship between cancer incidence and cancer mortality? For instance, with higher incidence does treatment get better? Or, does incidence lead to a load on oncology units, decreasing quality of care?
 
 ### 3. GitHub repo
 

@@ -1,1 +1,41 @@
+---
+title: "EDAV Final Data Prep"
+author: Myles Ingram, Colin Payne-Rogers
+output:
+  html_document:
+    fig_height: 5
+    fig_width: 9
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  cache = TRUE,
+  message = FALSE,
+  warning = FALSE)
+```
+
 # Data transformation
+
+The goal of this markdown file, as a draft, is to load raw project data from file and save that data in a form more conducive to future analyses. This format will change when draft chapters are combined into a final book.
+
+The raw data for the project consists of two `.csv` files and one `.xls` file. Each `.csv` corresponds to digestive system cancer incidence and digestive system cancer mortality, respectively, for the years 2000 to 2017. The `.xls` file contains information on per capita consumption from the years 1970 to the present.
+
+## Digestive Cancer Incidence
+
+First, load the `.csv` data from file.
+
+```{r, eval=TRUE}
+incidence <- read.csv(
+  file='resources/raw_data/digestive_cancer_incidence.csv',
+  header=FALSE,
+  stringsAsFactors=TRUE)
+head(incidence)
+```
+
+Remove the summary rows, whose first column contains `2000-2017`.
+
+```{r, eval=TRUE}
+incidence <- incidence[!incidence$'"V1"' == "2000-2017",]
+head(incidence)
+```
