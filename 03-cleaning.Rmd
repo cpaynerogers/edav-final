@@ -15,6 +15,11 @@ knitr::opts_chunk$set(
   warning = FALSE)
 ```
 
+```{r, eval=TRUE, include=FALSE}
+library("dplyr")
+library("readxl")
+```
+
 # Data transformation
 
 The goal of this markdown file, as a draft, is to load raw project data from file and save that data in a form more conducive to future analyses. This format will change when draft chapters are combined into a final book.
@@ -23,19 +28,225 @@ The raw data for the project consists of two `.csv` files and one `.xls` file. E
 
 ## Digestive Cancer Incidence
 
-First, load the `.csv` data from file.
+Load the `.csv` data from file, remove summary rows whose first column contains `2000-2017` or whose values are a combination of the `Male` and `Female` data, and rename the columns.
 
 ```{r, eval=TRUE}
 incidence <- read.csv(
   file='resources/raw_data/digestive_cancer_incidence.csv',
   header=FALSE,
   stringsAsFactors=TRUE)
-head(incidence)
+names(incidence) = c("Year", "Sex", "V3", "V4", "V5")
+incidence <- incidence[!(incidence$Year == "2000-2017"),]
+incidence <- incidence[!(incidence$Sex == "Male and female"),]
+rownames(incidence) <- NULL
+head(incidence, 5)
 ```
 
-Remove the summary rows, whose first column contains `2000-2017`.
+## Digestive Cancer Mortality
+
+Load the `.csv` data from file, remove summary rows whose first column contains `2000-2017` or whose values are a combination of the `Male` and `Female` data, and rename the columns.
 
 ```{r, eval=TRUE}
-incidence <- incidence[!incidence$'"V1"' == "2000-2017",]
-head(incidence)
+mortality <- read.csv(
+  file='resources/raw_data/digestive_system_cancer_mortality.csv',
+  header=FALSE,
+  stringsAsFactors=TRUE)
+names(mortality) = c("Year", "Sex", "V3", "V4", "V5")
+mortality <- mortality[!(mortality$Year == "2000-2017"),]
+mortality <- mortality[!(mortality$Sex == "Male and female"),]
+rownames(mortality) <- NULL
+head(mortality, 5)
+```
+
+## Food Consumption
+
+The `tidyverse` `readxl` package is used to parse the `.xls` data. First, get the name of each sheet we have available.
+
+```{r, eval=TRUE}
+calories <- 'resources/raw_data/calories.xls'
+calories_sheets <- readxl::excel_sheets(calories)
+head(calories_sheets, 10)
+```
+
+### Meat, Eggs and Nuts
+
+A first pass at loading these sheets will use hand-jammed column names, instead of trying to decode the merged cells programmatically. Columns with `Total` are then removed since they represent summaries of the rest of the data.
+
+```{r, eval=TRUE}
+meateggsnuts <- readxl::read_excel(
+  calories,
+  sheet = calories_sheets[4],
+  range = readxl::cell_rows(6:53),
+  col_names = c(
+    "Year",
+    "Beef", "Veal", "Pork", "Lamb", "Total Red Meat",
+    "Chicken", "Turkey", "Total Poultry",
+    "Fish", "Shellfish", "Total Fish",
+    "Salmon", "Sardines", "Tune", "Shellfish", "Other", "Total Canned Fish",
+    "Cured", "Total Fish Shellfish", "Total So Far",
+    "Eggs", "Peanuts",
+    "Almonds", "Hazelnuts", "Pecans", "Walnuts", "Macadamia nuts", "Pistachios",
+      "Other nuts", "Total Tree Nuts",
+    "Coconuts", "Total Nuts",
+    "Total Meat", "Total Eggs", "Total Nuts",
+    "Total Total"))
+meateggsnuts <- dplyr::select(meateggsnuts, -dplyr::contains("Total"))
+head(meateggsnuts, 5)
+```
+
+### Dairy
+
+The same pattern used for `Meat, Eggs and Nuts` is used to process the remaining sheets.
+
+```{r, eval=TRUE}
+dairy <- readxl::read_excel(
+  calories,
+  sheet = calories_sheets[5],
+  range = readxl::cell_rows(7:54),
+  col_names = c(
+    "Year",
+    "Whole Milk", "2 Percent Milk", "1 Percent Milk", "Skim Milk", "Total Plain Milk",
+    "Whole Flavored Milk", "Low Fat Flavored", "Total Flavored Milk",
+    "Buttermilk", "Total Milk",
+    "Yogurt", "Total Fluid Milk",
+    "American Cheese", "Other American Cheese", "Total American Cheese",
+    "Provolone", "Romano", "Parmesan", "Mozzarella", "Ricotta",
+      "Other Italian Cheese", "Total Italian Cheese",
+    "Swiss", "Brick", "Muenster", "Blue Cheese", "Other Misc Cheese",
+      "Total Misc Cheese", "Total All Cheeses",
+    "Cottage Cheese", "Lowfat Cottage Cheese", "Total Cottage Cheese",
+    "Ice Cream", "Lowfat Ice Cream", "Other Frozen Dairy", "Total Frozen Dairy",
+    "Canned Milk", "Bulk Canned Milk", "Skim Canned Milk", "Total Canned Milk",
+    "Whole Dry Milk", "Nonfat Dry Milk", "Dry Buttermilk", "Total Dry Milk",
+    "Half and Half", "Eggnog", "Cream Products", "Total Dairy"))
+dairy <- dplyr::select(dairy, -dplyr::contains("Total"))
+head(dairy, 5)
+```
+
+### Fruit
+
+```{r, eval=TRUE}
+fruits <- readxl::read_excel(
+  calories,
+  sheet = calories_sheets[6],
+  range = readxl::cell_rows(6:53),
+  col_names = c(
+    "Year",
+    "Oranges", "Tangerines", "Grapefruit", "Lemons", "Limes", "Total Citrus",
+    "Apples", "Apricots", "Avocados", "Bananas", "Blueberries", "Cantaloupe", "Cherries",
+      "Cranberries", "Grapes", "Honeydew Melons", "Kiwi", "Mangoes", "Peaches", "Pears",
+      "Pineapple", "Papayas", "Plums", "Raspberries", "Strawberries", "Watermelon",
+      "Total Noncitrus", "Total Fresh Fruit",
+    "Canned Apples", "Canned Apricots", "Canned Cherries", "Canned Olives",
+    "Canned Peaches", "Canned Pears", "Canned Pineapple", "Canned Plum", "Total Canned Fruit",
+    "Frozen Blackberries", "Frozen Blueberries", "Frozen Raspberries", "Frozen Strawberries",
+      "Other Frozen Berries", "Total Frozen Berries",
+    "Frozen Apples", "Frozen Apricots", "Frozen Cherries", "Frozen Peaches",
+      "Frozen Plums and Prunes", "Other Frozen Fruits", "Total Frozen Fruit",
+    "Dried Apples", "Dried Apricots", "Dried Dates", "Dried Figs", "Dried Peaches",
+      "Dried Pears", "Dried Plums", "Dried Raisins", "Total Dried Fruit",
+    "Orange Juice", "Grapefruit Juice", "Lemon Juice", "Lime Juice", "Total Citrus Juice",
+    "Apple Juice", "Cranberry Juice", "Grape Juice", "Pineapple Juice", "Prune Juice",
+      "Total Noncitrus Juice", "Total Fruit Juice",
+    "Total Fresh Fruit", "Total Canned Fruit", "Total Frozen Fruit",
+      "Total Dried Fruit", "Total Fruit Juice", "Total Fruit"))
+fruits <- dplyr::select(fruits, -dplyr::contains("Total"))
+head(fruit, 5)
+```
+
+### Vegetables
+
+```{r, eval=TRUE}
+vegetables <- readxl::read_excel(
+  calories,
+  sheet = calories_sheets[7],
+  range = readxl::cell_rows(6:53),
+  col_names = c(
+    "Year",
+    "Artichokes", "Asparagus", "Bell Peppers", "Broccoli", "Brussels Sprouts",
+      "Cabbage", "Carrots", "Cauliflower", "Celery", "Collard Greens",
+      "Sweet Corn", "Cucumbers", "Eggplant", "Escarole", "Garlic", "Head Lettuce",
+      "Kale", "Romaine Lettuce", "Lima Beans", "Mushrooms", "Mustard Greens",
+      "Okra", "Onions", "Potatoes", "Pumpkin", "Radishes", "Snap Beans", "Spinach",
+      "Squash", "Sweet Potatoes", "Tomatoes", "Turnip Greens", "Total Fresh Vegetables",
+    "Canned Asparagus", "Canned Snap Beans", "Canned Cabbage", "Canned Carrots",
+      "Canned Sweet Corn", "Canned Cucumbers", "Canned Green Peas", "Canned Mushrooms",
+      "Canned Chile Peppers", "Canned Potatoes", "Canned Tomatoes",
+      "Other Canned Vegetables", "Total Canned Vegetables",
+    "Frozen Asparagus", "Frozen Snap Beans", "Frozen Broccoli", "Frozen Carrots",
+      "Frozen Cauliflower", "Frozen Sweet Corn", "Frozen Green Peas", "Frozen Lima Beans",
+      "Frozen Potatoes", "Frozen Spinach", "Other Frozen Vegetables", "Total Frozen Vegetables",
+    "Dehydrated Onions", "Dehydrated Potatoes", "Total Dehydrated Vegetables",
+    "Chips and Shoestring Potatoes",
+    "Dry Edible Beans", "Dry Peas and Lentils", "Total Legumes",
+    "Total Vegetables"))
+vegetables <- dplyr::select(vegetables, -dplyr::contains("Total"))
+head(vegetables, 5)
+```
+
+### Grains
+
+```{r, eval=TRUE}
+grains <- readxl::read_excel(
+  calories,
+  sheet = calories_sheets[8],
+  range = readxl::cell_rows(6:53),
+  col_names = c(
+    "Year",
+    "White and Whole Flour", "Durum Flour", "Total Wheat Flour",
+    "Rye Flour", "Rice",
+    "Corn Flour, Meal", "Hominy and Grits", "Cornstarch", "Total Corn Products",
+    "Oat Products", "Barley Products",
+    "Total Flour and Cereal Products"))
+grains <- dplyr::select(grains, -dplyr::contains("Total"))
+head(grains, 5)
+```
+
+### Fats
+
+```{r, eval=TRUE}
+fats <- readxl::read_excel(
+  calories,
+  sheet = calories_sheets[9],
+  range = readxl::cell_rows(6:53),
+  col_names = c(
+    "Year",
+    "Butter", "Margarine", "Lard", "Beef Tallow", "Shortening", "Salad and Cooking Oils",
+      "Other Added Fats", "Total Added Fats",
+    "Light Cream", "Half and Half", "Heavy Cream", "Sour Cream", "Cream Cheese", "Eggnog",
+      "Total Dairy Fats",
+    "Total Fats"))
+fats <- dplyr::select(fats, -dplyr::contains("Total"))
+head(fats, 5)
+```
+
+### Sugars
+
+```{r, eval=TRUE}
+sugars <- readxl::read_excel(
+  calories,
+  sheet = calories_sheets[10],
+  range = readxl::cell_rows(6:53),
+  col_names = c(
+    "Year",
+    "Cane and Beet Sugar",
+    "High Fructose Corn Syrup", "Glucose", "Dextrose", "Total Corn Sweeteners",
+    "Edible Syrups", "Honey",
+    "Total Added Sugars"))
+sugars <- dplyr::select(sugars, -dplyr::contains("Total"))
+head(grains, 5)
+```
+
+## Write Out Data
+
+```{r, eval=TRUE}
+write.csv(incidence, file='resources/processed_data/incidence.csv')
+write.csv(mortality, file='resources/processed_data/mortality.csv')
+write.csv(meateggsnuts, file='resources/processed_data/meateggsnuts.csv')
+write.csv(dairy, file='resources/processed_data/dairy.csv')
+write.csv(fruits, file='resources/processed_data/fruits.csv')
+write.csv(vegetables, file='resources/processed_data/vegetables.csv')
+write.csv(grains, file='resources/processed_data/grains.csv')
+write.csv(fats, file='resources/processed_data/fats.csv')
+write.csv(sugars, file='resources/processed_data/sugars.csv')
 ```
