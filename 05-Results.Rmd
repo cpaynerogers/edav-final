@@ -1,0 +1,117 @@
+---
+title: "05-Results"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(plyr)
+require(scales)
+```
+
+```{r setup, include=FALSE}
+dairy <- read_csv("resources/processed_data/dairy.csv")
+fats <- read_csv("resources/processed_data/fats.csv")
+fruits <- read_csv("resources/processed_data/fruits.csv")
+grains <- read_csv("resources/processed_data/grains.csv")
+incidence <- read_csv("resources/processed_data/incidence.csv")
+meateggsnuts <- read_csv("resources/processed_data/meateggsnuts.csv")
+mortality <- read_csv("resources/processed_data/mortality.csv")
+sugars <- read_csv("resources/processed_data/sugars.csv")
+vegetables <- read_csv("resources/processed_data/vegetables.csv")
+total_cals <- read_csv("resources/processed_data/total.csv")
+
+tidy_calorie_data <- function(food_table) {
+  df <- subset(gather(food_table, food_group, calories,    colnames(food_table), -Year), Year > 2000)
+  return(df)
+}
+```
+
+## Results
+
+1. Line graph of mortality and incidence
+2. Line graph of total caloric intake and caloric intake by major food group
+3. Line graph of specific foods
+4. Scatterplot of total caloric intake and caloric intake by major food group vs cancer mortality
+5. Scatterplot of total caloric intake and caloric intake by major food group vs cancer incidence
+6. Scatterplot of specific foods vs cancer incidence/mortality
+6. Bargraph of R-squared values/correlation coefficients
+
+```{r}
+ggplot(data=incidence)+
+  geom_line(aes(x=Year, y=V3, color=Sex)) +
+  ggtitle("Digestive Cancer Incidence Rates")+
+  ylab("Rate (per 100,000 people)")
+
+ggplot(data=mortality)+
+  geom_line(aes(x=Year, y=V3, color=Sex)) +
+  ggtitle("Digestive Cancer Mortality Rates")+
+  ylab("Rate (per 100,000 people)")
+
+```
+
+```{r}
+tidy_total = tidy_calorie_data(total_cals[-c(9)])
+tidy_all = tidy_calorie_data(total_cals[c(1,9)])
+
+ggplot(data=tidy_total) +
+  geom_line(aes(x=Year, y=calories, color=food_group)) +
+  ggtitle("Per Capita Calorie Intake from 1970-2017")
+ggplot(data=tidy_all) +
+  geom_line(aes(x=Year, y=calories, color=food_group)) +
+  ggtitle("Per Capita Calorie Intake from 1970-2017")
+
+```
+
+```{r}
+tidy_sugar = tidy_calorie_data(sugars[-c(1)])
+ggplot(data=tidy_df_2) +
+  geom_line(aes(x=Year, y=calories, color=food_group)) +
+  ggtitle("Per Capita Calorie Intake from 2000-2017")
+
+```
+```{r}
+tidy_dairy = tidy_calorie_data(dairy[c(2:12)])
+tidy_dairy_2 = tidy_calorie_data(dairy[c(2,18:30)])
+tidy_dairy_3 = tidy_calorie_data(dairy[c(2,30:37)])
+ggplot(data=tidy_dairy) +
+  geom_line(aes(x=Year, y=calories, color=food_group)) +
+  ggtitle("Per Capita Calorie Intake from 2000-2017")
+ggplot(data=tidy_dairy_2) +
+  geom_line(aes(x=Year, y=calories, color=food_group)) +
+  ggtitle("Per Capita Calorie Intake from 2000-2017")
+ggplot(data=tidy_dairy_3) +
+  geom_line(aes(x=Year, y=calories, color=food_group)) +
+  ggtitle("Per Capita Calorie Intake from 2000-2017")
+```
+```{r}
+tidy_prot = tidy_calorie_data(meateggsnuts[c(2:15)])
+tidy_prot_2 = tidy_calorie_data(meateggsnuts[c(2,15:26)])
+ggplot(data=tidy_prot) +
+  geom_line(aes(x=Year, y=calories, color=food_group)) +
+  ggtitle("Per Capita Calorie Intake from 2000-2017")
+ggplot(data=tidy_prot_2) +
+  geom_line(aes(x=Year, y=calories, color=food_group)) +
+  ggtitle("Per Capita Calorie Intake from 2000-2017")
+```
+
+#Scatter plots
+```{r}
+total_cals_inc = merge(total_cals, incidence, by="Year")
+total_cals_inc$`Sugar and sweeteners (Added)`
+ggplot(total_cals_inc) +
+  geom_point(aes(`Sugar and sweeteners (Added)`, V3, color=Sex))
+
+sugar_inc = merge(sugars, incidence, by="Year")
+sugar_inc$`High Fructose Corn Syrup`
+ggplot(sugar_inc) +
+  geom_point(aes(`High Fructose Corn Syrup`, V3, color=Sex))
+
+meat_inc = merge(meateggsnuts, incidence, by="Year")
+ggplot(meat_inc) +
+  geom_point(aes(Beef, V3, color=Sex))
+```
+
+
