@@ -24,7 +24,8 @@ vegetables <- read_csv("resources/processed_data/vegetables.csv")
 
 Example of how the Missing data section will be done for fats spreadsheet, which has missing data and sugars data which does not have missing data
 
-# Fats
+## Fats
+
 ```{r}
 colSums(is.na(fats)) %>%
   sort(decreasing=TRUE)
@@ -46,7 +47,7 @@ ggplot(fats_tidy) +
         axis.text.y = element_text(size=5))
 ```
 
-# Sugars
+## Sugars
 
 ```{r}
 colSums(is.na(sugars)) %>%
