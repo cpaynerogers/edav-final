@@ -1,3 +1,8 @@
 commit-message.txt
-*.html
 *_cache
+
+# HTMl not associated with GitHub pages
+02-data.html
+03-cleaning.html
+04-missing.html
+05-results.html
