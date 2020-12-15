@@ -1,13 +1,3 @@
----
-title: "EDAV Final Missing values"
-author: Myles Ingram, Colin Payne-Rogers
-output:
-  html_document:
-    fig_height: 5
-    fig_width: 9
-urlcolor: blue
----
-
 # Missing values
 
 ```{r include=FALSE}
