@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="data-transformation.html"/>
-<link rel="next" href="fats-1.html"/>
+<link rel="next" href="results.html"/>
 <script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -94,10 +94,12 @@
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#write-out-data"><i class="fa fa-check"></i><b>3.4</b> Write Out Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
-<li class="chapter" data-level="5" data-path="fats-1.html"><a href="fats-1.html"><i class="fa fa-check"></i><b>5</b> Fats</a></li>
-<li class="chapter" data-level="6" data-path="sugars-1.html"><a href="sugars-1.html"><i class="fa fa-check"></i><b>6</b> Sugars</a></li>
-<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#fats-1"><i class="fa fa-check"></i><b>4.1</b> Fats</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#sugars-1"><i class="fa fa-check"></i><b>4.2</b> Sugars</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -120,6 +122,45 @@
 <div id="missing-values" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
 <p>Example of how the Missing data section will be done for fats spreadsheet, which has missing data and sugars data which does not have missing data</p>
+<div id="fats-1" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Fats</h2>
+<pre><code>##            Light Cream            Heavy Cream            Beef Tallow          Half and Half              Margarine                   Lard             Shortening Salad and Cooking Oils 
+##                     18                     18                     16                     16                      7                      7                      7                      7 
+##       Other Added Fats                     X1                   Year                 Butter             Sour Cream           Cream Cheese                 Eggnog 
+##                      7                      0                      0                      0                      0                      0                      0</code></pre>
+<pre><code>## NOTE: The following pairs of variables appear to have the same missingness pattern.
+##  Please verify whether they are in fact logically distinct variables.
+##       [,1]                     [,2]                    
+##  [1,] &quot;Margarine&quot;              &quot;Lard&quot;                  
+##  [2,] &quot;Margarine&quot;              &quot;Shortening&quot;            
+##  [3,] &quot;Margarine&quot;              &quot;Salad and Cooking Oils&quot;
+##  [4,] &quot;Margarine&quot;              &quot;Other Added Fats&quot;      
+##  [5,] &quot;Lard&quot;                   &quot;Shortening&quot;            
+##  [6,] &quot;Lard&quot;                   &quot;Salad and Cooking Oils&quot;
+##  [7,] &quot;Lard&quot;                   &quot;Other Added Fats&quot;      
+##  [8,] &quot;Shortening&quot;             &quot;Salad and Cooking Oils&quot;
+##  [9,] &quot;Shortening&quot;             &quot;Other Added Fats&quot;      
+## [10,] &quot;Salad and Cooking Oils&quot; &quot;Other Added Fats&quot;      
+## [11,] &quot;Light Cream&quot;            &quot;Heavy Cream&quot;</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<pre><code>##  [1] &quot;Year&quot;                   &quot;Butter&quot;                 &quot;Margarine&quot;              &quot;Lard&quot;                   &quot;Beef Tallow&quot;            &quot;Shortening&quot;             &quot;Salad and Cooking Oils&quot;
+##  [8] &quot;Other Added Fats&quot;       &quot;Light Cream&quot;            &quot;Half and Half&quot;          &quot;Heavy Cream&quot;            &quot;Sour Cream&quot;             &quot;Cream Cheese&quot;           &quot;Eggnog&quot;</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+<div id="sugars-1" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Sugars</h2>
+<pre><code>##                       X1                     Year      Cane and Beet Sugar High Fructose Corn Syrup                  Glucose                 Dextrose            Edible Syrups 
+##                        0                        0                        0                        0                        0                        0                        0 
+##                    Honey 
+##                        0</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<pre><code>##  [1] &quot;Year&quot;                   &quot;Butter&quot;                 &quot;Margarine&quot;              &quot;Lard&quot;                   &quot;Beef Tallow&quot;            &quot;Shortening&quot;             &quot;Salad and Cooking Oils&quot;
+##  [8] &quot;Other Added Fats&quot;       &quot;Light Cream&quot;            &quot;Half and Half&quot;          &quot;Heavy Cream&quot;            &quot;Sour Cream&quot;             &quot;Cream Cheese&quot;           &quot;Eggnog&quot;</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>For fats, it seems that the pattern of missing data starts in 2000 for some food types and others the missing data starts in 2010. It seems like either the fats database is updated every decade or added fats is gradually being excluded from this dataset.</p>
+<p>All values are present in the sugars spreadsheet</p>
+
+</div>
 </div>
             </section>
 
@@ -127,7 +168,7 @@
         </div>
       </div>
 <a href="data-transformation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="fats-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
