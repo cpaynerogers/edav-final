@@ -8,6 +8,8 @@ output:
 urlcolor: blue
 ---
 
+# Missing values
+
 ```{r include=FALSE}
 library(ggplot2)
 library(dplyr)
@@ -16,9 +18,6 @@ library(plyr)
 require(scales)
 library(mi)
 ```
-
-# Missing values
-
 
 ```{r include=FALSE}
 dairy <- read_csv("resources/processed_data/dairy.csv")

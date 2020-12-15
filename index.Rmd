@@ -6,11 +6,7 @@ output: html_document
 site: bookdown::bookdown_site
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## Introduction
+# Introduction
 
 Digestive system cancer, also known as gastrointestinal cancer, is one of the most prevalent forms of cancer in the US today. However, the number of gastrointestinal cancers has been decreasing over the years. Some researchers believe that population wide changes in diet, such as more fruit and vegetables being consumed, contributed to this decrease in digestive system cancer incidence. Nutritional content of diet and calorie consumption has been shown to be related to the onset of digestive system cancer, but 
 

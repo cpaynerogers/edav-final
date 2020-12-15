@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Data transformation | 05-Results</title>
+  <meta name="description" content="Chapter 3 Data transformation | 05-Results" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Data transformation | 05-Results" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Data transformation | 05-Results" />
+  
+  
+  
+
+<meta name="author" content="Myles Ingram, Colin Payne-Rogers" />
+
+
+<meta name="date" content="2020-12-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-sources.html"/>
+<link rel="next" href="missing-values.html"/>
+<script src="libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Gastroncology</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#data-collection"><i class="fa fa-check"></i><b>2.1</b> Data collection</a></li>
+<li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#data-overview"><i class="fa fa-check"></i><b>2.2</b> Data Overview</a></li>
+<li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#data-issues"><i class="fa fa-check"></i><b>2.3</b> Data Issues</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#digestive-cancer-incidence"><i class="fa fa-check"></i><b>3.1</b> Digestive Cancer Incidence</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#digestive-cancer-mortality"><i class="fa fa-check"></i><b>3.2</b> Digestive Cancer Mortality</a></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#food-consumption"><i class="fa fa-check"></i><b>3.3</b> Food Consumption</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="data-transformation.html"><a href="data-transformation.html#meat-eggs-and-nuts"><i class="fa fa-check"></i><b>3.3.1</b> Meat, Eggs and Nuts</a></li>
+<li class="chapter" data-level="3.3.2" data-path="data-transformation.html"><a href="data-transformation.html#dairy"><i class="fa fa-check"></i><b>3.3.2</b> Dairy</a></li>
+<li class="chapter" data-level="3.3.3" data-path="data-transformation.html"><a href="data-transformation.html#fruit"><i class="fa fa-check"></i><b>3.3.3</b> Fruit</a></li>
+<li class="chapter" data-level="3.3.4" data-path="data-transformation.html"><a href="data-transformation.html#vegetables"><i class="fa fa-check"></i><b>3.3.4</b> Vegetables</a></li>
+<li class="chapter" data-level="3.3.5" data-path="data-transformation.html"><a href="data-transformation.html#grains"><i class="fa fa-check"></i><b>3.3.5</b> Grains</a></li>
+<li class="chapter" data-level="3.3.6" data-path="data-transformation.html"><a href="data-transformation.html#fats"><i class="fa fa-check"></i><b>3.3.6</b> Fats</a></li>
+<li class="chapter" data-level="3.3.7" data-path="data-transformation.html"><a href="data-transformation.html#sugars"><i class="fa fa-check"></i><b>3.3.7</b> Sugars</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#write-out-data"><i class="fa fa-check"></i><b>3.4</b> Write Out Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
+<li class="chapter" data-level="5" data-path="fats-1.html"><a href="fats-1.html"><i class="fa fa-check"></i><b>5</b> Fats</a></li>
+<li class="chapter" data-level="6" data-path="sugars-1.html"><a href="sugars-1.html"><i class="fa fa-check"></i><b>6</b> Sugars</a></li>
+<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">05-Results</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-transformation" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
+<p>The goal of this markdown file, as a draft, is to load raw project data from file and save that data in a form more conducive to future analyses. This format will change when draft chapters are combined into a final book.</p>
+<p>The raw data for the project consists of two <code>.csv</code> files and one <code>.xls</code> file. Each <code>.csv</code> corresponds to digestive system cancer incidence and digestive system cancer mortality, respectively, for the years 2000 to 2017. The <code>.xls</code> file contains information on per capita consumption from the years 1970 to the present.</p>
+<div id="digestive-cancer-incidence" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Digestive Cancer Incidence</h2>
+<p>Load the <code>.csv</code> data from file, remove summary rows whose first column contains <code>2000-2017</code> or whose values are a combination of the <code>Male</code> and <code>Female</code> data, and rename the columns.</p>
+<pre><code>##   Year    Sex    V3    V4       V5
+## 1 2000   Male 113.0 35155 38920309
+## 2 2000 Female  75.2 31172 39968538
+## 3 2001   Male 113.9 36096 39367815
+## 4 2001 Female  74.4 31257 40391287
+## 5 2002   Male 111.1 36165 39740835</code></pre>
+</div>
+<div id="digestive-cancer-mortality" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Digestive Cancer Mortality</h2>
+<p>Load the <code>.csv</code> data from file, remove summary rows whose first column contains <code>2000-2017</code> or whose values are a combination of the <code>Male</code> and <code>Female</code> data, and rename the columns.</p>
+<pre><code>##   Year    Sex   V3    V4       V5
+## 1 2000   Male 72.4 22469 38920309
+## 2 2000 Female 44.1 18307 39968538
+## 3 2001   Male 72.1 22813 39367815
+## 4 2001 Female 42.9 18062 40391287
+## 5 2002   Male 70.1 22736 39740835</code></pre>
+</div>
+<div id="food-consumption" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Food Consumption</h2>
+<p>The <code>tidyverse</code> <code>readxl</code> package is used to parse the <code>.xls</code> data. First, get the name of each sheet we have available.</p>
+<pre><code>##  [1] &quot;TableofContents&quot; &quot;Totals&quot;          &quot;Percents&quot;        &quot;Meat,Eggs,Nuts&quot;  &quot;Dairy&quot;           &quot;Fruit&quot;           &quot;Vegetables&quot;      &quot;Grains&quot;          &quot;Fats&quot;            &quot;Sugars&quot;</code></pre>
+<div id="meat-eggs-and-nuts" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Meat, Eggs and Nuts</h3>
+<p>A first pass at loading these sheets will use hand-jammed column names, instead of trying to decode the merged cells programmatically. Columns with <code>Total</code> are then removed since they represent summaries of the rest of the data.</p>
+<pre><code>## # A tibble: 5 x 25
+##    Year  Beef  Veal  Pork  Lamb Chicken Turkey  Fish Shellfish...11 Salmon Sardines  Tune Shellfish...16 Other Cured  Eggs Peanuts Almonds Hazelnuts Pecans Walnuts `Macadamia nuts` Pistachios
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;            &lt;dbl&gt;      &lt;dbl&gt;
+## 1  1970  220.  3.48  96.7  5.48    64.7   9.49  3.84           1.43  0.924    0.615  2.79          0.472 0.527 0.501  48.3    35.7    1.81     0.317   2.84    2.19            0.228      0.203
+## 2  1971  218.  3.18 106.   5.31    64.6   9.84  3.67           1.43  0.931    0.622  2.70          0.480 0.398 0.511  48.5    35.2    1.96     0.374   3.11    2.56            0.246      0.268
+## 3  1972  221.  2.71  95.9  5.55    66.9  10.5   4.01           1.43  0.940    0.630  3.30          0.484 0.534 0.495  47.4    37.0    1.94     0.408   3.03    2.44            0.220      0.186
+## 4  1973  209.  2.12  86.1  4.47    63.9   9.86  4.43           1.31  0.529    0.771  3.47          0.474 0.661 0.458  45.1    39.1    1.39     0.608   3.00    2.48            0.202      0.353
+## 5  1974  222.  2.79  93.7  3.84    63.7  10.2   3.75           1.49  0.399    0.626  3.50          0.479 0.536 0.512  44.3    37.6    1.41     0.257   2.76    2.64            0.270      0.262
+## # … with 2 more variables: `Other nuts` &lt;dbl&gt;, Coconuts &lt;dbl&gt;</code></pre>
+</div>
+<div id="dairy" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Dairy</h3>
+<p>The same pattern used for <code>Meat, Eggs and Nuts</code> is used to process the remaining sheets.</p>
+<pre><code>## # A tibble: 5 x 36
+##    Year `Whole Milk` `2 Percent Milk` `1 Percent Milk` `Skim Milk` `Whole Flavored… `Low Fat Flavor… Buttermilk Yogurt `American Chees… `Other American… Provolone Romano Parmesan Mozzarella Ricotta
+##   &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;  
+## 1  1970        114.              12.2            0.665        3.44             2.81             1.33       1.99  0.418             24.5             3.90 0.799951… 0.622… 0.74985…       2.81 0.3870…
+## 2  1971        111.              13.5            1.10         3.66             3.11             1.15       2.00  0.549             25.0             4.58 0.768842… 0.594… 0.89024…       3.27 0.4469…
+## 3  1972        107.              15.1            1.70         3.68             3.55             1.13       1.94  0.651             25.4             5.40 0.843268… 0.665… 1.03743…       3.72 0.4982…
+## 4  1973        102.              17.1            1.45         4.10             3.67             1.20       1.81  0.692             25.7             5.69 0.938029… 0.643… 0.83480…       4.17 0.5434…
+## 5  1974         96.2             16.7            2.78         4.11             3.38             1.16       1.66  0.733             26.7             6.99 0.959035… 0.628… 1.13863…       4.40 0.5326…
+## # … with 20 more variables: `Other Italian Cheese` &lt;dbl&gt;, Swiss &lt;dbl&gt;, Brick &lt;dbl&gt;, Muenster &lt;dbl&gt;, `Blue Cheese` &lt;chr&gt;, `Other Misc Cheese` &lt;dbl&gt;, `Cottage Cheese` &lt;dbl&gt;, `Lowfat Cottage
+## #   Cheese` &lt;dbl&gt;, `Ice Cream` &lt;dbl&gt;, `Lowfat Ice Cream` &lt;dbl&gt;, `Other Frozen Dairy` &lt;dbl&gt;, `Canned Milk` &lt;dbl&gt;, `Bulk Canned Milk` &lt;dbl&gt;, `Skim Canned Milk` &lt;dbl&gt;, `Whole Dry Milk` &lt;dbl&gt;, `Nonfat
+## #   Dry Milk` &lt;dbl&gt;, `Dry Buttermilk` &lt;dbl&gt;, `Half and Half` &lt;chr&gt;, Eggnog &lt;dbl&gt;, `Cream Products` &lt;dbl&gt;</code></pre>
+</div>
+<div id="fruit" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Fruit</h3>
+<pre><code>## # A tibble: 5 x 62
+##    Year Oranges Tangerines Grapefruit Lemons  Limes Apples Apricots Avocados Bananas Blueberries Cantaloupe Cherries Cranberries Grapes `Honeydew Melon… Kiwi  Mangoes Peaches Pears Pineapple Papayas
+##   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1  1970    3.76      0.359       1.11  0.195 0.0265   7.07   0.0350    0.386    9.07 NA               0.694    0.134      0.0675   1.35           0.0756 NA     0.0272   1.44  0.852     0.113  0.0144
+## 2  1971    3.67      0.410       1.15  0.214 0.0255   6.81   0.0395    0.709    9.43 NA               0.658    0.180      0.0728   1.19           0.0773 NA     0.0316   1.40  1.14      0.104  0.0118
+## 3  1972    3.37      0.364       1.15  0.177 0.0319   6.43   0.0244    0.369    9.36 NA               0.671    0.102      0.0579   1.18           0.0867 NA     0.0312   0.962 1.02      0.125  0.0135
+## 4  1973    3.36      0.363       1.15  0.184 0.0323   6.67   0.0268    0.607    9.48 NA               0.582    0.197      0.0708   1.35           0.0925 NA     0.0409   1.06  1.15      0.146  0.0171
+## 5  1974    3.36      0.393       1.11  0.191 0.0303   6.79   0.0186    1.06     9.65 NA               0.509    0.155      0.0561   1.47           0.0839 NA     0.0469   1.07  1.11      0.144  0.0199
+## # … with 40 more variables: Plums &lt;dbl&gt;, Raspberries &lt;chr&gt;, Strawberries &lt;dbl&gt;, Watermelon &lt;dbl&gt;, `Canned Apples` &lt;dbl&gt;, `Canned Apricots` &lt;dbl&gt;, `Canned Cherries` &lt;dbl&gt;, `Canned Olives` &lt;dbl&gt;,
+## #   `Canned Peaches` &lt;dbl&gt;, `Canned Pears` &lt;dbl&gt;, `Canned Pineapple` &lt;dbl&gt;, `Canned Plum` &lt;dbl&gt;, `Frozen Blackberries` &lt;dbl&gt;, `Frozen Blueberries` &lt;dbl&gt;, `Frozen Raspberries` &lt;dbl&gt;, `Frozen
+## #   Strawberries` &lt;dbl&gt;, `Other Frozen Berries` &lt;dbl&gt;, `Frozen Apples` &lt;dbl&gt;, `Frozen Apricots` &lt;dbl&gt;, `Frozen Cherries` &lt;dbl&gt;, `Frozen Peaches` &lt;dbl&gt;, `Frozen Plums and Prunes` &lt;chr&gt;, `Other
+## #   Frozen Fruits` &lt;dbl&gt;, `Dried Apples` &lt;dbl&gt;, `Dried Apricots` &lt;dbl&gt;, `Dried Dates` &lt;dbl&gt;, `Dried Figs` &lt;dbl&gt;, `Dried Peaches` &lt;dbl&gt;, `Dried Pears` &lt;chr&gt;, `Dried Plums` &lt;dbl&gt;, `Dried
+## #   Raisins` &lt;dbl&gt;, `Orange Juice` &lt;dbl&gt;, `Grapefruit Juice` &lt;dbl&gt;, `Lemon Juice` &lt;dbl&gt;, `Lime Juice` &lt;dbl&gt;, `Apple Juice` &lt;dbl&gt;, `Cranberry Juice` &lt;chr&gt;, `Grape Juice` &lt;dbl&gt;, `Pineapple
+## #   Juice` &lt;dbl&gt;, `Prune Juice` &lt;dbl&gt;</code></pre>
+</div>
+<div id="vegetables" class="section level3" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Vegetables</h3>
+<pre><code>## # A tibble: 5 x 61
+##    Year Artichokes Asparagus `Bell Peppers` Broccoli `Brussels Sprou… Cabbage Carrots Cauliflower Celery `Collard Greens` `Sweet Corn` Cucumbers Eggplant Escarole Garlic `Head Lettuce` Kale 
+##   &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;          &lt;dbl&gt;    &lt;dbl&gt;            &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt; &lt;chr&gt;
+## 1  1970     0.0669    0.0396          0.230   0.0980           0.101     1.29    1.63      0.0653  0.685 NA                       1.87     0.177   0.0429   0.0681  0.305           2.02 NA   
+## 2  1971     0.0728    0.0340          0.241   0.133            0.0953    1.32    1.67      0.0611  0.686 NA                       1.79     0.175   0.0415   0.0692  0.206           2.02 NA   
+## 3  1972     0.0805    0.0362          0.255   0.129            0.0886    1.25    1.78      0.0735  0.673 NA                       1.86     0.186   0.0498   0.0699  0.266           2.02 NA   
+## 4  1973     0.0701    0.0359          0.269   0.140            0.0850    1.32    1.83      0.0667  0.714 NA                       1.90     0.172   0.0558   0.0706  0.360           2.08 NA   
+## 5  1974     0.0725    0.0349          0.289   0.145            0.106     1.32    1.89      0.0694  0.693 NA                       1.85     0.185   0.0523   0.0654  0.451           2.12 NA   
+## # … with 43 more variables: `Romaine Lettuce` &lt;chr&gt;, `Lima Beans` &lt;chr&gt;, Mushrooms &lt;dbl&gt;, `Mustard Greens` &lt;chr&gt;, Okra &lt;chr&gt;, Onions &lt;dbl&gt;, Potatoes &lt;dbl&gt;, Pumpkin &lt;chr&gt;, Radishes &lt;dbl&gt;, `Snap
+## #   Beans` &lt;dbl&gt;, Spinach &lt;dbl&gt;, Squash &lt;dbl&gt;, `Sweet Potatoes` &lt;dbl&gt;, Tomatoes &lt;dbl&gt;, `Turnip Greens` &lt;chr&gt;, `Canned Asparagus` &lt;dbl&gt;, `Canned Snap Beans` &lt;dbl&gt;, `Canned Cabbage` &lt;dbl&gt;, `Canned
+## #   Carrots` &lt;dbl&gt;, `Canned Sweet Corn` &lt;dbl&gt;, `Canned Cucumbers` &lt;dbl&gt;, `Canned Green Peas` &lt;dbl&gt;, `Canned Mushrooms` &lt;dbl&gt;, `Canned Chile Peppers` &lt;chr&gt;, `Canned Potatoes` &lt;dbl&gt;, `Canned
+## #   Tomatoes` &lt;dbl&gt;, `Other Canned Vegetables` &lt;dbl&gt;, `Frozen Asparagus` &lt;dbl&gt;, `Frozen Snap Beans` &lt;dbl&gt;, `Frozen Broccoli` &lt;dbl&gt;, `Frozen Carrots` &lt;dbl&gt;, `Frozen Cauliflower` &lt;dbl&gt;, `Frozen Sweet
+## #   Corn` &lt;dbl&gt;, `Frozen Green Peas` &lt;dbl&gt;, `Frozen Lima Beans` &lt;dbl&gt;, `Frozen Potatoes` &lt;dbl&gt;, `Frozen Spinach` &lt;dbl&gt;, `Other Frozen Vegetables` &lt;dbl&gt;, `Dehydrated Onions` &lt;dbl&gt;, `Dehydrated
+## #   Potatoes` &lt;dbl&gt;, `Chips and Shoestring Potatoes` &lt;dbl&gt;, `Dry Edible Beans` &lt;dbl&gt;, `Dry Peas and Lentils` &lt;dbl&gt;</code></pre>
+</div>
+<div id="grains" class="section level3" number="3.3.5">
+<h3><span class="header-section-number">3.3.5</span> Grains</h3>
+<pre><code>## # A tibble: 5 x 10
+##    Year `White and Whole Flour` `Durum Flour`      `Rye Flour` Rice               `Corn Flour, Meal` `Hominy and Grits` Cornstarch `Oat Products` `Barley Products`
+##   &lt;dbl&gt;                   &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt; &lt;chr&gt;                           &lt;dbl&gt;              &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;
+## 1  1970                    311. 22.452012584974764        5.29 20.588911050343008               22.3               7.12       4.99           13.5              2.76
+## 2  1971                    310. 22.126621098236001        5.03 18.898006375438232               21.4               5.83       4.99           13.4              2.22
+## 3  1972                    307. 23.102795558452289        4.60 18.650684217657137               19.8               5.18       4.99           13.5              2.15
+## 4  1973                    314. 25.380535965623647        5.57 20.160035631124849               18.8               6.15       5.25           13.4              2.21
+## 5  1974                    311. 22.126621098236001        5.43 20.320715817096662               18.5               7.45       5.51           13.5              2.26</code></pre>
+</div>
+<div id="fats" class="section level3" number="3.3.6">
+<h3><span class="header-section-number">3.3.6</span> Fats</h3>
+<pre><code>## # A tibble: 5 x 14
+##   Year  Butter Margarine      Lard          `Beef Tallow` Shortening      `Salad and Cooking O… `Other Added Fat… `Light Cream`    `Half and Half`  `Heavy Cream`   `Sour Cream` `Cream Cheese` Eggnog
+##   &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;           &lt;chr&gt;                 &lt;chr&gt;             &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;                  &lt;dbl&gt;          &lt;dbl&gt;  &lt;dbl&gt;
+## 1 1970    29.0 58.6376796589… 16.267078353… NA            99.62100415170… 115.49510261320775    18.3285342739725… 0.6228094206332… 2.8858223529684… 1.743849393605…         1.85           1.64 0.0725
+## 2 1971    27.8 58.5612630271… 14.730699681… NA            96.50256316614… 117.22210762342793    18.3285342739725… 0.5415084708168… 2.6824162940356… 1.750867617728…         2.02           1.67 0.0867
+## 3 1972    26.8 59.3347223388… 12.549491316… NA            101.1936950820… 126.33351059205789    18.3285342739725… 0.4792398324706… 2.5700167181715… 1.699687385109…         2.14           1.70 0.119 
+## 4 1973    26.0 58.6800004175… 11.706390581… NA            97.93956547985… 132.77516960119797    20.7192126575342… 0.6327192323811… 2.6107864180700… 1.819477585344…         2.18           1.76 0.0918
+## 5 1974    24.1 58.3196897528… 10.979535088… NA            97.28513715130… 135.6284752646846     13.5471775068493… 0.6660092303591… 2.4370944284339… 1.742463649315…         2.46           1.88 0.0920</code></pre>
+</div>
+<div id="sugars" class="section level3" number="3.3.7">
+<h3><span class="header-section-number">3.3.7</span> Sugars</h3>
+<pre><code>## # A tibble: 5 x 10
+##    Year `White and Whole Flour` `Durum Flour`      `Rye Flour` Rice               `Corn Flour, Meal` `Hominy and Grits` Cornstarch `Oat Products` `Barley Products`
+##   &lt;dbl&gt;                   &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt; &lt;chr&gt;                           &lt;dbl&gt;              &lt;dbl&gt;      &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;
+## 1  1970                    311. 22.452012584974764        5.29 20.588911050343008               22.3               7.12       4.99           13.5              2.76
+## 2  1971                    310. 22.126621098236001        5.03 18.898006375438232               21.4               5.83       4.99           13.4              2.22
+## 3  1972                    307. 23.102795558452289        4.60 18.650684217657137               19.8               5.18       4.99           13.5              2.15
+## 4  1973                    314. 25.380535965623647        5.57 20.160035631124849               18.8               6.15       5.25           13.4              2.21
+## 5  1974                    311. 22.126621098236001        5.43 20.320715817096662               18.5               7.45       5.51           13.5              2.26</code></pre>
+</div>
+</div>
+<div id="write-out-data" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Write Out Data</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-sources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="missing-values.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/cpaynerogers/food-digestive-cancer/edit/master/03-cleaning.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/cpaynerogers/food-digestive-cancer/blob/master/03-cleaning.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

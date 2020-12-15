@@ -3,6 +3,8 @@ title: "05-Results"
 output: html_document
 ---
 
+# Results
+
 ```{r}
 library(ggplot2)
 library(dplyr)
@@ -11,7 +13,7 @@ library(plyr)
 require(scales)
 ```
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 dairy <- read_csv("resources/processed_data/dairy.csv")
 fats <- read_csv("resources/processed_data/fats.csv")
 fruits <- read_csv("resources/processed_data/fruits.csv")
@@ -28,8 +30,6 @@ tidy_calorie_data <- function(food_table) {
   return(df)
 }
 ```
-
-## Results
 
 1. Line graph of mortality and incidence
 2. Line graph of total caloric intake and caloric intake by major food group
@@ -67,7 +67,7 @@ ggplot(data=tidy_all) +
 
 ```{r}
 tidy_sugar = tidy_calorie_data(sugars[-c(1)])
-ggplot(data=tidy_df_2) +
+ggplot(data=tidy_sugar) +
   geom_line(aes(x=Year, y=calories, color=food_group)) +
   ggtitle("Per Capita Calorie Intake from 2000-2017")
 
