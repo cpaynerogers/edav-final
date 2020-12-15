@@ -8,19 +8,12 @@ output:
 urlcolor: blue
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  cache = TRUE,
-  message = FALSE,
-  warning = FALSE)
-```
+# Data transformation
 
 ```{r, eval=TRUE, include=FALSE}
 library("dplyr")
 library("readxl")
 ```
-
-# Data transformation
 
 The goal of this markdown file, as a draft, is to load raw project data from file and save that data in a form more conducive to future analyses. This format will change when draft chapters are combined into a final book.
 
