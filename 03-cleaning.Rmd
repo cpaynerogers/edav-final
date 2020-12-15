@@ -151,7 +151,7 @@ fruits <- readxl::read_excel(
     "Total Fresh Fruit", "Total Canned Fruit", "Total Frozen Fruit",
       "Total Dried Fruit", "Total Fruit Juice", "Total Fruit"))
 fruits <- dplyr::select(fruits, -dplyr::contains("Total"))
-head(fruit, 5)
+head(fruits, 5)
 ```
 
 ### Vegetables
