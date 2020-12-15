@@ -1,7 +1,7 @@
 commit-message.txt
 *_cache
 
-# ignore html created when knitting single docs
+# HTMl not associated with GitHub pages
 01-introduction.html
 02-data.html
 03-cleaning.html
