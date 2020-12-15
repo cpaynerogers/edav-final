@@ -1,3 +1,9 @@
 commit-message.txt
-*.html
 *_cache
+
+# ignore html created when knitting single docs
+01-introduction.html
+02-data.html
+03-cleaning.html
+04-missing.html
+05-results.html
