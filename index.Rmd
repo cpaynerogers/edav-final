@@ -1,6 +1,9 @@
 ---
-title: "01-introduction"
+title: "Food and Digestive Cancer"
+author: "Myles Ingram and Colin Payne-Rogers"
+date: "`r Sys.Date()`"
 output: html_document
+site: bookdown::bookdown_site
 ---
 
 ```{r setup, include=FALSE}
@@ -16,4 +19,3 @@ a) Does a population-level increase in consumption (calories) relate to populati
 b) What about the nutritional content of food being eaten? Does a greater proportion of sugar or meat coincide with higher cancer incidence?
 
 c) Is there a relationship between cancer incidence and cancer mortality? For instance, with higher incidence does treatment get better? Or, does incidence lead to a load on oncology units, decreasing quality of care?
-
