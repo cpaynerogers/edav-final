@@ -144,8 +144,8 @@
 <!-- function for creating a missing data table -->
 <!-- function for creating missing data plots -->
 <p>The digestive cancer and food data are small enough that we can inspect the raw data and get a sense of what’s missing. In doing so, we’ve observed that no data is missing from the digestive cancer incidence and mortality tables. Some of the food spreadsheets, which go all the way back to 1970, are missing data. Each of those sheets are investigated further, depending on whether they have missing data.</p>
-<p>For fats, it seems that the pattern of missing data starts in 2000 for some food types and others the missing data starts in 2010. It seems like either the fats database is updated every decade or added fats is gradually being excluded from this dataset.</p>
-<p>All values are present in the sugars spreadsheet</p>
+<p>With all of the plots available below, there are two distinct patterns that cover most of the missing data. Some columns are missing from 1970 up to some year where they’re no longer missing. Other columns are available in 1970 but stop at some year and never start again. These data likely come from some census- or survey-based method which isn’t exactly the same every year. The survey has some lifecycle and, when updated, the available columns change.</p>
+<p>Looking at the specific examples of missing data, some don’t seem likely to be “new” or “expired” food categories (like raspberry and provolone cheese). Others could be the decomposition of a field or the addition of foods to the American diet. More research would be necessary; the data themselves aren’t enough to tell.</p>
 <div id="where-is-data-missing" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Where is Data Missing?</h2>
 <p>Each table in this section looks and counts missing data. We know that any missing datum shows up in our data as <code>NA</code>. Reviewing these results, we can see that the sugar and meat-eggs-nuts sheets have no missing data, while the rest do.</p>
@@ -384,6 +384,38 @@ x
 <tbody>
 <tr>
 <td style="text-align:left;">
+Provolone
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Romano
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Parmesan
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ricotta
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Half and Half
 </td>
 <td style="text-align:right;">
@@ -496,39 +528,7 @@ Other American Cheese
 </tr>
 <tr>
 <td style="text-align:left;">
-Provolone
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Romano
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Parmesan
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Mozzarella
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Ricotta
 </td>
 <td style="text-align:right;">
 0
