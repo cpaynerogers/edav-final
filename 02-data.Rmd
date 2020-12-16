@@ -2,22 +2,20 @@
 
 ## Data collection
 
-For this project, we are using 3 different data sources: Male and female digestive system cancer mortality across 9 SEER cancer regristries for each year from 2000-2017, Male and female digestive system cancer incidence across 9 SEER cancer registries for each year from 2000-2017, and average daily per capita calorie intake from 1970-2017 for major and minor food groups in the US. Digestive system cancer includes stomach, gallbladder, colorectal (CRC), pancreatic, liver and esophageal cancers. These data sources were collected by Myles Ingram. 
+<!-- TODO: include references -->
 
-The SEER digestive system cancer data sets were collected using SEER *Stat, a statistical software used to access SEER Research Data and produce statistics of cancer on a population. The digestive cancer incidence and mortatlity data was taken from a database that included 18 SEER registries, which represents 27.8% of the U.S. Population. This database was chosen because it represented the largest U.S. percentage of the population from different areas of the country so that our analysis could be more representative of the entire U.S. population.
+For this project, we are using three different data sources: Male and female digestive system cancer mortality across 9 SEER cancer registries for each year from 2000 to 2017, male and female digestive system cancer incidence across 9 SEER cancer registries for each year from 2000 to 2017, and average daily per capita calorie intake from 1970-2017 for major and minor food groups in the US taken from a USDA registry.
 
-The average daily calorie intake data was downloaded from the USDA's Food Availabity (Per Capita) Data System. The data set is used to approximate the actual consumption of food on a national level. The data we used was loss-adjusted meaning food spoilage, late waste, etc. was included in the creation of the data to more closely resemble actual consumption.
+The SEER digestive system cancer data sets were collected using "SEER *Stat," which provides access to various cancer data at the population level. SEER refers to the National Cancer Institute's Surveillance, Epidemiology, and End Results Program. The data were taken from a database with 18 SEER registries that represent 27.8% of the US population. This data was chosen as the largest sample taken from the US population, with the hope that it is the most representative of the entire US. For these data, digestive system cancer includes stomach, gallbladder, colorectal, pancreatic, liver and esophageal cancers.
+
+The average daily caloric intake data were downloaded from the USDA's Food Availability (Per Capita) Data System (FADS, *like the diets*). The system includes data for food availability, loss-adjusted food availability, and nutrient availability. We chose the loss-adjusted data set as it best approximates actual food consumption in the US by accounting for food spoilage, waste and other not-directly-into-American-mouths food life cycles.
 
 ## Data Overview
 
-The SEER digestive cancer incidence spreadsheet contains 5 variables and 54 rows The variables include Year, Gender, Rate per 100,000 persons (number of people who contracted digestive cancer out of every 100,000 persons), Cases (total number of cancer cases in given year), and total US population in that year.
+The SEER digestive cancer incidence spreadsheet contains 5 variables and 54 rows. The variables include year, gender, rate per 100,000 persons (number of people who contracted digestive cancer out of every 100,000 persons), cases (total number of cancer cases in given year), and total US population in that year. The SEER digestive system cancer mortality spreadsheet is equivalent.
 
-SEER digestive cancer mortality spreadsheet contains 5 variables and 54 rows The variables include Year, Gender, Rate per 100,000 persons (number of people who contracted digestive cancer out of every 100,000 persons), Cases (total number of cancer cases in given year), and total US population in that year.
-
-Average daily calorie intake data includes 8 different spreadsheets. Each spreadsheet has 48 rows, one row per year. The totals spreadsheet gives the total average calorie intake for each major food group which includes meat/protein, dairy, fruit, vegatables, flour/cereal products, added fats/oils/dairy fats, added sugar/sweeteners, and total calorie intake. Each food group has a seperate spreadsheet that breaks down the foods and calorie intakes of each food inside the category. 
+Average daily calorie intake data includes 8 different spreadsheets. Each spreadsheet has 48 data rows, one per year. The totals spreadsheet gives the total average calorie intake for each major food group which includes meat/protein, dairy, fruit, vegetables, flour/cereal products, added fats/oils/dairy fats, added sugar/sweeteners, and total calorie intake. Each food group has a separate spreadsheet that breaks down the foods and calorie intakes of each food inside the category.
 
 ## Data Issues
 
-One issue for the SEER data is that the entire U.S. is not included in the analysis only 18 SEER regristries from around the U.S.
-
-For the USDA data, calorie intakes for certain food types are missing within the data for certain years. This issues is especially prevelent for added fatss and oils and dairy fats category.
+We intend to join these data. There is a discrepancy in their source: the SEER data isn't evenly sampled from the US population; it is sourced from 18 SEER registries around the US. The USDA is more evenly sourced. Further, the SEER data is complete, while the USDA data contains gaps for certain food types and years. We're well-equipped to handle the latter issue; we'll have to carry the burden of the former with us throughout the analysis.

@@ -1,61 +1,86 @@
 # Data transformation
 
-```{r, eval=TRUE, include=FALSE}
+```{r, include=FALSE}
 library("dplyr")
+library("kableExtra")
 library("readxl")
 ```
 
-The goal of this markdown file, as a draft, is to load raw project data from file and save that data in a form more conducive to future analyses. This format will change when draft chapters are combined into a final book.
+```{r}
+N_TABLE = 100
+TABLE_PIXELS = "450px"
+```
 
-The raw data for the project consists of two `.csv` files and one `.xls` file. Each `.csv` corresponds to digestive system cancer incidence and digestive system cancer mortality, respectively, for the years 2000 to 2017. The `.xls` file contains information on per capita consumption from the years 1970 to the present.
+The data presented in the previous chapter has a few features that aren't conducive to analysis. They're described here, and then in each section an output table is shown to provide a sense of what we're working with. As a light data transformation process, this chapter converts each raw file, regardless of format, into tidy `.csv` files. The raw data is preserved so that no data is lost.
 
-## Digestive Cancer Incidence
+All three data sets, both SEER `.csv` files and the USDA `.xls` file, mix summary statistics with raw data. This is probably great for casual users, but here in EDAV we're well-equipped to choose how, when, and which statistics we produce from well-formed data. In each section below, those rows or columns in each table are removed. This process, and the messiness of the headers in the raw data files, forced us to manually name each data column.
 
-Load the `.csv` data from file, remove summary rows whose first column contains `2000-2017` or whose values are a combination of the `Male` and `Female` data, and rename the columns.
+There is a mismatch between the length of the time series data between the SEER and USDA data sets. Helpfully, each data set consists of data points by year (representing population-level statistics for that year). The USDA data set is much older; it consists of data from 1970 to 2017. The younger SEER data set consists of data from 2000 to 2017. The extra food data is kept, in case its interesting, but we'll need to watch out for that in our analysis.
 
-```{r, eval=TRUE}
+The food data is trapped in an Excel spreadsheet (*help! help!*). This data transformation process liberates it and provides it with all of the freedoms afforded to the comma-separated-value format. Doing so first meant completely bypassing the shackles of the three-to-six-rows-deep header data and carefully naming each column. Each sheet had to be addressed separately.
+
+## Digestive Cancer Data
+
+For both the digestive cancer incidence and mortality, data is loaded, summary rows (by year and by sex) are removed, and the columns are renamed.
+
+### Incidence
+
+```{r}
 incidence <- read.csv(
   file='resources/raw_data/digestive_cancer_incidence.csv',
   header=FALSE,
   stringsAsFactors=TRUE)
-names(incidence) = c("Year", "Sex", "V3", "V4", "V5")
+names(incidence) = c("Year", "Sex", "Rate", "Cases", "Population")
 incidence <- incidence[!(incidence$Year == "2000-2017"),]
 incidence <- incidence[!(incidence$Sex == "Male and female"),]
 rownames(incidence) <- NULL
-head(incidence, 5)
 ```
 
-## Digestive Cancer Mortality
+```{r}
+kableExtra::scroll_box(
+  knitr::kable(head(incidence, N_TABLE), "html"),
+  height=TABLE_PIXELS,
+  width="100%")
+```
 
-Load the `.csv` data from file, remove summary rows whose first column contains `2000-2017` or whose values are a combination of the `Male` and `Female` data, and rename the columns.
+### Mortality
 
-```{r, eval=TRUE}
+```{r}
 mortality <- read.csv(
   file='resources/raw_data/digestive_system_cancer_mortality.csv',
   header=FALSE,
   stringsAsFactors=TRUE)
-names(mortality) = c("Year", "Sex", "V3", "V4", "V5")
+names(mortality) = c("Year", "Sex", "Rate", "Cases", "Population")
 mortality <- mortality[!(mortality$Year == "2000-2017"),]
 mortality <- mortality[!(mortality$Sex == "Male and female"),]
 rownames(mortality) <- NULL
-head(mortality, 5)
+```
+
+```{r}
+kableExtra::scroll_box(
+  knitr::kable(head(mortality, N_TABLE), "html"),
+  height=TABLE_PIXELS,
+  width="100%")
 ```
 
 ## Food Consumption
 
-The `tidyverse` `readxl` package is used to parse the `.xls` data. First, get the name of each sheet we have available.
+The `tidyverse` `readxl` package is used to parse the `.xls` data. First, we have to get the names of each sheet we have available for processing.
 
-```{r, eval=TRUE}
-calories <- 'resources/raw_data/calories.xls'
+```{r}
+calories <- "resources/raw_data/calories.xls"
 calories_sheets <- readxl::excel_sheets(calories)
-head(calories_sheets, 10)
 ```
+
+```{r}
+knitr::kable(paste(calories_sheets, collapse=", "), "simple")
+```
+
+Then, in each of the following sections we had to hand-jam in unique column names, since the spreadsheets used merged cells in their headers which are difficult to parse. Then, any column name that contains `Total` is removed, since these make the data messy, and since we'd prefer to make our own summary statistics.
 
 ### Meat, Eggs and Nuts
 
-A first pass at loading these sheets will use hand-jammed column names, instead of trying to decode the merged cells programmatically. Columns with `Total` are then removed since they represent summaries of the rest of the data.
-
-```{r, eval=TRUE}
+```{r}
 meateggsnuts <- readxl::read_excel(
   calories,
   sheet = calories_sheets[4],
@@ -64,31 +89,42 @@ meateggsnuts <- readxl::read_excel(
     "Year",
     "Beef", "Veal", "Pork", "Lamb", "Total Red Meat",
     "Chicken", "Turkey", "Total Poultry",
-    "Fish", "Shellfish", "Total Fish",
-    "Salmon", "Sardines", "Tune", "Shellfish", "Other", "Total Canned Fish",
-    "Cured", "Total Fish Shellfish", "Total So Far",
+    "Fresh Fish", "Fresh Shellfish", "Total Fresh Fish",
+    "Canned Salmon", "Canned Sardines", "Canned Tuna", "Canned Shellfish", "Other Canned", "Total Canned Fish",
+    "Total Cured", "Total Fish Shellfish", "Total So Far",
     "Eggs", "Peanuts",
     "Almonds", "Hazelnuts", "Pecans", "Walnuts", "Macadamia nuts", "Pistachios",
       "Other nuts", "Total Tree Nuts",
     "Coconuts", "Total Nuts",
     "Total Meat", "Total Eggs", "Total Nuts",
-    "Total Total"))
+    "Total Total")) %>%
+  as.data.frame()
 meateggsnuts <- dplyr::select(meateggsnuts, -dplyr::contains("Total"))
-head(meateggsnuts, 5)
+meateggsnuts[] <- lapply(
+  meateggsnuts,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
+```
+
+```{r}
+kableExtra::scroll_box(
+  knitr::kable(head(meateggsnuts, N_TABLE), "html"),
+  height=TABLE_PIXELS,
+  width="100%")
 ```
 
 ### Dairy
 
-The same pattern used for `Meat, Eggs and Nuts` is used to process the remaining sheets.
-
-```{r, eval=TRUE}
+```{r}
 dairy <- readxl::read_excel(
   calories,
   sheet = calories_sheets[5],
   range = readxl::cell_rows(7:54),
   col_names = c(
     "Year",
-    "Whole Milk", "2 Percent Milk", "1 Percent Milk", "Skim Milk", "Total Plain Milk",
+    "Whole Milk", "2% Milk", "1% Milk", "Skim Milk", "Total Plain Milk",
     "Whole Flavored Milk", "Low Fat Flavored", "Total Flavored Milk",
     "Buttermilk", "Total Milk",
     "Yogurt", "Total Fluid Milk",
@@ -101,14 +137,27 @@ dairy <- readxl::read_excel(
     "Ice Cream", "Lowfat Ice Cream", "Other Frozen Dairy", "Total Frozen Dairy",
     "Canned Milk", "Bulk Canned Milk", "Skim Canned Milk", "Total Canned Milk",
     "Whole Dry Milk", "Nonfat Dry Milk", "Dry Buttermilk", "Total Dry Milk",
-    "Half and Half", "Eggnog", "Cream Products", "Total Dairy"))
+    "Half and Half", "Eggnog", "Cream Products", "Total Dairy")) %>%
+  as.data.frame()
 dairy <- dplyr::select(dairy, -dplyr::contains("Total"))
-head(dairy, 5)
+dairy[] <- lapply(
+  dairy,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
+```
+
+```{r}
+kableExtra::scroll_box(
+  knitr::kable(head(dairy, N_TABLE), "html"),
+  height=TABLE_PIXELS,
+  width="100%")
 ```
 
 ### Fruit
 
-```{r, eval=TRUE}
+```{r}
 fruits <- readxl::read_excel(
   calories,
   sheet = calories_sheets[6],
@@ -132,14 +181,27 @@ fruits <- readxl::read_excel(
     "Apple Juice", "Cranberry Juice", "Grape Juice", "Pineapple Juice", "Prune Juice",
       "Total Noncitrus Juice", "Total Fruit Juice",
     "Total Fresh Fruit", "Total Canned Fruit", "Total Frozen Fruit",
-      "Total Dried Fruit", "Total Fruit Juice", "Total Fruit"))
+      "Total Dried Fruit", "Total Fruit Juice", "Total Fruit")) %>%
+  as.data.frame()
 fruits <- dplyr::select(fruits, -dplyr::contains("Total"))
-head(fruits, 5)
+fruits[] <- lapply(
+  fruits,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
+```
+
+```{r}
+kableExtra::scroll_box(
+  knitr::kable(head(fruits, N_TABLE), "html"),
+  height=TABLE_PIXELS,
+  width="100%")
 ```
 
 ### Vegetables
 
-```{r, eval=TRUE}
+```{r}
 vegetables <- readxl::read_excel(
   calories,
   sheet = calories_sheets[7],
@@ -160,69 +222,123 @@ vegetables <- readxl::read_excel(
       "Frozen Cauliflower", "Frozen Sweet Corn", "Frozen Green Peas", "Frozen Lima Beans",
       "Frozen Potatoes", "Frozen Spinach", "Other Frozen Vegetables", "Total Frozen Vegetables",
     "Dehydrated Onions", "Dehydrated Potatoes", "Total Dehydrated Vegetables",
-    "Chips and Shoestring Potatoes",
+    "Chips, Potatoes",
     "Dry Edible Beans", "Dry Peas and Lentils", "Total Legumes",
-    "Total Vegetables"))
+    "Total Vegetables")) %>%
+  as.data.frame()
 vegetables <- dplyr::select(vegetables, -dplyr::contains("Total"))
-head(vegetables, 5)
+vegetables[] <- lapply(
+  vegetables,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
+```
+
+```{r}
+kableExtra::scroll_box(
+  knitr::kable(head(vegetables, N_TABLE), "html"),
+  height=TABLE_PIXELS,
+  width="100%")
 ```
 
 ### Grains
 
-```{r, eval=TRUE}
+```{r}
 grains <- readxl::read_excel(
   calories,
   sheet = calories_sheets[8],
   range = readxl::cell_rows(6:53),
   col_names = c(
     "Year",
-    "White and Whole Flour", "Durum Flour", "Total Wheat Flour",
+    "White, Whole Flour", "Durum Flour", "Total Wheat Flour",
     "Rye Flour", "Rice",
     "Corn Flour, Meal", "Hominy and Grits", "Cornstarch", "Total Corn Products",
     "Oat Products", "Barley Products",
-    "Total Flour and Cereal Products"))
+    "Total Flour and Cereal Products")) %>%
+  as.data.frame()
 grains <- dplyr::select(grains, -dplyr::contains("Total"))
-head(grains, 5)
+grains[] <- lapply(
+  grains,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
+```
+
+```{r}
+kableExtra::scroll_box(
+  knitr::kable(head(grains, N_TABLE), "html"),
+  height=TABLE_PIXELS,
+  width="100%")
 ```
 
 ### Fats
 
-```{r, eval=TRUE}
+```{r}
 fats <- readxl::read_excel(
   calories,
   sheet = calories_sheets[9],
   range = readxl::cell_rows(6:53),
   col_names = c(
     "Year",
-    "Butter", "Margarine", "Lard", "Beef Tallow", "Shortening", "Salad and Cooking Oils",
+    "Butter", "Margarine", "Lard", "Beef Tallow", "Shortening", "Salad, Cooking Oils",
       "Other Added Fats", "Total Added Fats",
     "Light Cream", "Half and Half", "Heavy Cream", "Sour Cream", "Cream Cheese", "Eggnog",
       "Total Dairy Fats",
-    "Total Fats"))
+    "Total Fats")) %>%
+  as.data.frame()
 fats <- dplyr::select(fats, -dplyr::contains("Total"))
-head(fats, 5)
+fats[] <- lapply(
+  fats,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
+```
+
+```{r}
+kableExtra::scroll_box(
+  knitr::kable(head(fats, N_TABLE), "html"),
+  height=TABLE_PIXELS,
+  width="100%")
 ```
 
 ### Sugars
 
-```{r, eval=TRUE}
+```{r}
 sugars <- readxl::read_excel(
   calories,
   sheet = calories_sheets[10],
   range = readxl::cell_rows(6:53),
   col_names = c(
     "Year",
-    "Cane and Beet Sugar",
-    "High Fructose Corn Syrup", "Glucose", "Dextrose", "Total Corn Sweeteners",
+    "Cane, Beet Sugar",
+    "Corn Syrup", "Glucose", "Dextrose", "Total Corn Sweeteners",
     "Edible Syrups", "Honey",
-    "Total Added Sugars"))
+    "Total Added Sugars")) %>%
+  as.data.frame()
 sugars <- dplyr::select(sugars, -dplyr::contains("Total"))
-head(grains, 5)
+sugars[] <- lapply(
+  sugars,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
+```
+
+```{r}
+kableExtra::scroll_box(
+  knitr::kable(head(sugars, N_TABLE), "html"),
+  height=TABLE_PIXELS,
+  width="100%")
 ```
 
 ## Write Out Data
 
-```{r, eval=TRUE}
+Hidden code way down here is used to update the data files in `food-digestive-cancer/processed_data/*`. When the bookdown book is rendered locally, this data transform process runs and updates the processed data if necessary. In our case, we're working with relatively small data, so transforming it each time is fine. With heavier data lifts, we'd want a flag to only run the process if its been updated.
+
+```{r}
 write.csv(incidence, file='resources/processed_data/incidence.csv')
 write.csv(mortality, file='resources/processed_data/mortality.csv')
 write.csv(meateggsnuts, file='resources/processed_data/meateggsnuts.csv')
