@@ -97,12 +97,15 @@ meateggsnuts <- readxl::read_excel(
       "Other nuts", "Total Tree Nuts",
     "Coconuts", "Total Nuts",
     "Total Meat", "Total Eggs", "Total Nuts",
-    "Total Total"))
+    "Total Total")) %>%
+  as.data.frame()
 meateggsnuts <- dplyr::select(meateggsnuts, -dplyr::contains("Total"))
-
-# rounding for display
-areNumeric <- sapply(meateggsnuts, is.numeric)
-meateggsnuts[areNumeric] <- lapply(meateggsnuts[areNumeric], round, digits=2)
+meateggsnuts[] <- lapply(
+  meateggsnuts,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
 ```
 
 ```{r}
@@ -134,12 +137,15 @@ dairy <- readxl::read_excel(
     "Ice Cream", "Lowfat Ice Cream", "Other Frozen Dairy", "Total Frozen Dairy",
     "Canned Milk", "Bulk Canned Milk", "Skim Canned Milk", "Total Canned Milk",
     "Whole Dry Milk", "Nonfat Dry Milk", "Dry Buttermilk", "Total Dry Milk",
-    "Half and Half", "Eggnog", "Cream Products", "Total Dairy"))
+    "Half and Half", "Eggnog", "Cream Products", "Total Dairy")) %>%
+  as.data.frame()
 dairy <- dplyr::select(dairy, -dplyr::contains("Total"))
-
-# rounding for display
-areNumeric <- sapply(dairy, is.numeric)
-dairy[areNumeric] <- lapply(dairy[areNumeric], round, digits=2)
+dairy[] <- lapply(
+  dairy,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
 ```
 
 ```{r}
@@ -175,12 +181,15 @@ fruits <- readxl::read_excel(
     "Apple Juice", "Cranberry Juice", "Grape Juice", "Pineapple Juice", "Prune Juice",
       "Total Noncitrus Juice", "Total Fruit Juice",
     "Total Fresh Fruit", "Total Canned Fruit", "Total Frozen Fruit",
-      "Total Dried Fruit", "Total Fruit Juice", "Total Fruit"))
+      "Total Dried Fruit", "Total Fruit Juice", "Total Fruit")) %>%
+  as.data.frame()
 fruits <- dplyr::select(fruits, -dplyr::contains("Total"))
-
-# rounding for display
-areNumeric <- sapply(fruits, is.numeric)
-fruits[areNumeric] <- lapply(fruits[areNumeric], round, digits=2)
+fruits[] <- lapply(
+  fruits,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
 ```
 
 ```{r}
@@ -215,12 +224,15 @@ vegetables <- readxl::read_excel(
     "Dehydrated Onions", "Dehydrated Potatoes", "Total Dehydrated Vegetables",
     "Chips, Potatoes",
     "Dry Edible Beans", "Dry Peas and Lentils", "Total Legumes",
-    "Total Vegetables"))
+    "Total Vegetables")) %>%
+  as.data.frame()
 vegetables <- dplyr::select(vegetables, -dplyr::contains("Total"))
-
-# rounding for display
-areNumeric <- sapply(vegetables, is.numeric)
-vegetables[areNumeric] <- lapply(vegetables[areNumeric], round, digits=2)
+vegetables[] <- lapply(
+  vegetables,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
 ```
 
 ```{r}
@@ -243,12 +255,15 @@ grains <- readxl::read_excel(
     "Rye Flour", "Rice",
     "Corn Flour, Meal", "Hominy and Grits", "Cornstarch", "Total Corn Products",
     "Oat Products", "Barley Products",
-    "Total Flour and Cereal Products"))
+    "Total Flour and Cereal Products")) %>%
+  as.data.frame()
 grains <- dplyr::select(grains, -dplyr::contains("Total"))
-
-# rounding for display
-areNumeric <- sapply(grains, is.numeric)
-grains[areNumeric] <- lapply(grains[areNumeric], round, digits=2)
+grains[] <- lapply(
+  grains,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
 ```
 
 ```{r}
@@ -271,12 +286,15 @@ fats <- readxl::read_excel(
       "Other Added Fats", "Total Added Fats",
     "Light Cream", "Half and Half", "Heavy Cream", "Sour Cream", "Cream Cheese", "Eggnog",
       "Total Dairy Fats",
-    "Total Fats"))
+    "Total Fats")) %>%
+  as.data.frame()
 fats <- dplyr::select(fats, -dplyr::contains("Total"))
-
-# rounding for display
-areNumeric <- sapply(fats, is.numeric)
-fats[areNumeric] <- lapply(fats[areNumeric], round, digits=2)
+fats[] <- lapply(
+  fats,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
 ```
 
 ```{r}
@@ -298,12 +316,15 @@ sugars <- readxl::read_excel(
     "Cane, Beet Sugar",
     "Corn Syrup", "Glucose", "Dextrose", "Total Corn Sweeteners",
     "Edible Syrups", "Honey",
-    "Total Added Sugars"))
+    "Total Added Sugars")) %>%
+  as.data.frame()
 sugars <- dplyr::select(sugars, -dplyr::contains("Total"))
-
-# rounding for display
-areNumeric <- sapply(sugars, is.numeric)
-sugars[areNumeric] <- lapply(sugars[areNumeric], round, digits=2)
+sugars[] <- lapply(
+  sugars,
+  function(x) {
+    x1 <- type.convert(as.character(x), as.is=TRUE)
+    ifelse(grepl("^[0-9.]+$", x1), round(as.numeric(x1), 2), x1)
+  })
 ```
 
 ```{r}
