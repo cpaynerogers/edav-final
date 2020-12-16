@@ -24,7 +24,7 @@
 <meta name="author" content="Myles Ingram and Colin Payne-Rogers" />
 
 
-<meta name="date" content="2020-12-15" />
+<meta name="date" content="2020-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
@@ -80,19 +82,22 @@
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#digestive-cancer-incidence"><i class="fa fa-check"></i><b>3.1</b> Digestive Cancer Incidence</a></li>
-<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#digestive-cancer-mortality"><i class="fa fa-check"></i><b>3.2</b> Digestive Cancer Mortality</a></li>
-<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#food-consumption"><i class="fa fa-check"></i><b>3.3</b> Food Consumption</a>
+<li class="chapter" data-level="3.1" data-path="data-transformation.html"><a href="data-transformation.html#digestive-cancer-data"><i class="fa fa-check"></i><b>3.1</b> Digestive Cancer Data</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="data-transformation.html"><a href="data-transformation.html#meat-eggs-and-nuts"><i class="fa fa-check"></i><b>3.3.1</b> Meat, Eggs and Nuts</a></li>
-<li class="chapter" data-level="3.3.2" data-path="data-transformation.html"><a href="data-transformation.html#dairy"><i class="fa fa-check"></i><b>3.3.2</b> Dairy</a></li>
-<li class="chapter" data-level="3.3.3" data-path="data-transformation.html"><a href="data-transformation.html#fruit"><i class="fa fa-check"></i><b>3.3.3</b> Fruit</a></li>
-<li class="chapter" data-level="3.3.4" data-path="data-transformation.html"><a href="data-transformation.html#vegetables"><i class="fa fa-check"></i><b>3.3.4</b> Vegetables</a></li>
-<li class="chapter" data-level="3.3.5" data-path="data-transformation.html"><a href="data-transformation.html#grains"><i class="fa fa-check"></i><b>3.3.5</b> Grains</a></li>
-<li class="chapter" data-level="3.3.6" data-path="data-transformation.html"><a href="data-transformation.html#fats"><i class="fa fa-check"></i><b>3.3.6</b> Fats</a></li>
-<li class="chapter" data-level="3.3.7" data-path="data-transformation.html"><a href="data-transformation.html#sugars"><i class="fa fa-check"></i><b>3.3.7</b> Sugars</a></li>
+<li class="chapter" data-level="3.1.1" data-path="data-transformation.html"><a href="data-transformation.html#incidence"><i class="fa fa-check"></i><b>3.1.1</b> Incidence</a></li>
+<li class="chapter" data-level="3.1.2" data-path="data-transformation.html"><a href="data-transformation.html#mortality"><i class="fa fa-check"></i><b>3.1.2</b> Mortality</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="data-transformation.html"><a href="data-transformation.html#write-out-data"><i class="fa fa-check"></i><b>3.4</b> Write Out Data</a></li>
+<li class="chapter" data-level="3.2" data-path="data-transformation.html"><a href="data-transformation.html#food-consumption"><i class="fa fa-check"></i><b>3.2</b> Food Consumption</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="data-transformation.html"><a href="data-transformation.html#meat-eggs-and-nuts"><i class="fa fa-check"></i><b>3.2.1</b> Meat, Eggs and Nuts</a></li>
+<li class="chapter" data-level="3.2.2" data-path="data-transformation.html"><a href="data-transformation.html#dairy"><i class="fa fa-check"></i><b>3.2.2</b> Dairy</a></li>
+<li class="chapter" data-level="3.2.3" data-path="data-transformation.html"><a href="data-transformation.html#fruit"><i class="fa fa-check"></i><b>3.2.3</b> Fruit</a></li>
+<li class="chapter" data-level="3.2.4" data-path="data-transformation.html"><a href="data-transformation.html#vegetables"><i class="fa fa-check"></i><b>3.2.4</b> Vegetables</a></li>
+<li class="chapter" data-level="3.2.5" data-path="data-transformation.html"><a href="data-transformation.html#grains"><i class="fa fa-check"></i><b>3.2.5</b> Grains</a></li>
+<li class="chapter" data-level="3.2.6" data-path="data-transformation.html"><a href="data-transformation.html#fats"><i class="fa fa-check"></i><b>3.2.6</b> Fats</a></li>
+<li class="chapter" data-level="3.2.7" data-path="data-transformation.html"><a href="data-transformation.html#sugars"><i class="fa fa-check"></i><b>3.2.7</b> Sugars</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-transformation.html"><a href="data-transformation.html#write-out-data"><i class="fa fa-check"></i><b>3.3</b> Write Out Data</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
 <ul>
@@ -124,39 +129,37 @@
 <p>Example of how the Missing data section will be done for fats spreadsheet, which has missing data and sugars data which does not have missing data</p>
 <div id="fats-1" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Fats</h2>
-<pre><code>##            Light Cream            Heavy Cream            Beef Tallow          Half and Half              Margarine                   Lard             Shortening Salad and Cooking Oils 
-##                     18                     18                     16                     16                      7                      7                      7                      7 
-##       Other Added Fats                     X1                   Year                 Butter             Sour Cream           Cream Cheese                 Eggnog 
-##                      7                      0                      0                      0                      0                      0                      0</code></pre>
+<pre><code>##         Light Cream         Heavy Cream         Beef Tallow       Half and Half           Margarine                Lard          Shortening Salad, Cooking Oils    Other Added Fats 
+##                  18                  18                  16                  16                   7                   7                   7                   7                   7 
+##                  X1                Year              Butter          Sour Cream        Cream Cheese              Eggnog 
+##                   0                   0                   0                   0                   0                   0</code></pre>
 <pre><code>## NOTE: The following pairs of variables appear to have the same missingness pattern.
 ##  Please verify whether they are in fact logically distinct variables.
-##       [,1]                     [,2]                    
-##  [1,] &quot;Margarine&quot;              &quot;Lard&quot;                  
-##  [2,] &quot;Margarine&quot;              &quot;Shortening&quot;            
-##  [3,] &quot;Margarine&quot;              &quot;Salad and Cooking Oils&quot;
-##  [4,] &quot;Margarine&quot;              &quot;Other Added Fats&quot;      
-##  [5,] &quot;Lard&quot;                   &quot;Shortening&quot;            
-##  [6,] &quot;Lard&quot;                   &quot;Salad and Cooking Oils&quot;
-##  [7,] &quot;Lard&quot;                   &quot;Other Added Fats&quot;      
-##  [8,] &quot;Shortening&quot;             &quot;Salad and Cooking Oils&quot;
-##  [9,] &quot;Shortening&quot;             &quot;Other Added Fats&quot;      
-## [10,] &quot;Salad and Cooking Oils&quot; &quot;Other Added Fats&quot;      
-## [11,] &quot;Light Cream&quot;            &quot;Heavy Cream&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
-<pre><code>##  [1] &quot;Year&quot;                   &quot;Butter&quot;                 &quot;Margarine&quot;              &quot;Lard&quot;                   &quot;Beef Tallow&quot;            &quot;Shortening&quot;             &quot;Salad and Cooking Oils&quot;
-##  [8] &quot;Other Added Fats&quot;       &quot;Light Cream&quot;            &quot;Half and Half&quot;          &quot;Heavy Cream&quot;            &quot;Sour Cream&quot;             &quot;Cream Cheese&quot;           &quot;Eggnog&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+##       [,1]                  [,2]                 
+##  [1,] &quot;Margarine&quot;           &quot;Lard&quot;               
+##  [2,] &quot;Margarine&quot;           &quot;Shortening&quot;         
+##  [3,] &quot;Margarine&quot;           &quot;Salad, Cooking Oils&quot;
+##  [4,] &quot;Margarine&quot;           &quot;Other Added Fats&quot;   
+##  [5,] &quot;Lard&quot;                &quot;Shortening&quot;         
+##  [6,] &quot;Lard&quot;                &quot;Salad, Cooking Oils&quot;
+##  [7,] &quot;Lard&quot;                &quot;Other Added Fats&quot;   
+##  [8,] &quot;Shortening&quot;          &quot;Salad, Cooking Oils&quot;
+##  [9,] &quot;Shortening&quot;          &quot;Other Added Fats&quot;   
+## [10,] &quot;Salad, Cooking Oils&quot; &quot;Other Added Fats&quot;   
+## [11,] &quot;Light Cream&quot;         &quot;Heavy Cream&quot;</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<pre><code>##  [1] &quot;Year&quot;                &quot;Butter&quot;              &quot;Margarine&quot;           &quot;Lard&quot;                &quot;Beef Tallow&quot;         &quot;Shortening&quot;          &quot;Salad, Cooking Oils&quot; &quot;Other Added Fats&quot;   
+##  [9] &quot;Light Cream&quot;         &quot;Half and Half&quot;       &quot;Heavy Cream&quot;         &quot;Sour Cream&quot;          &quot;Cream Cheese&quot;        &quot;Eggnog&quot;</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 </div>
 <div id="sugars-1" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Sugars</h2>
-<pre><code>##                       X1                     Year      Cane and Beet Sugar High Fructose Corn Syrup                  Glucose                 Dextrose            Edible Syrups 
-##                        0                        0                        0                        0                        0                        0                        0 
-##                    Honey 
-##                        0</code></pre>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
-<pre><code>##  [1] &quot;Year&quot;                   &quot;Butter&quot;                 &quot;Margarine&quot;              &quot;Lard&quot;                   &quot;Beef Tallow&quot;            &quot;Shortening&quot;             &quot;Salad and Cooking Oils&quot;
-##  [8] &quot;Other Added Fats&quot;       &quot;Light Cream&quot;            &quot;Half and Half&quot;          &quot;Heavy Cream&quot;            &quot;Sour Cream&quot;             &quot;Cream Cheese&quot;           &quot;Eggnog&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<pre><code>##               X1             Year Cane, Beet Sugar       Corn Syrup          Glucose         Dextrose    Edible Syrups            Honey 
+##                0                0                0                0                0                0                0                0</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<pre><code>##  [1] &quot;Year&quot;                &quot;Butter&quot;              &quot;Margarine&quot;           &quot;Lard&quot;                &quot;Beef Tallow&quot;         &quot;Shortening&quot;          &quot;Salad, Cooking Oils&quot; &quot;Other Added Fats&quot;   
+##  [9] &quot;Light Cream&quot;         &quot;Half and Half&quot;       &quot;Heavy Cream&quot;         &quot;Sour Cream&quot;          &quot;Cream Cheese&quot;        &quot;Eggnog&quot;</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>For fats, it seems that the pattern of missing data starts in 2000 for some food types and others the missing data starts in 2010. It seems like either the fats database is updated every decade or added fats is gradually being excluded from this dataset.</p>
 <p>All values are present in the sugars spreadsheet</p>
 

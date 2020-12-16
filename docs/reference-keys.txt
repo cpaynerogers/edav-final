@@ -4,8 +4,9 @@ data-collection
 data-overview
 data-issues
 data-transformation
-digestive-cancer-incidence
-digestive-cancer-mortality
+digestive-cancer-data
+incidence
+mortality
 food-consumption
 meat-eggs-and-nuts
 dairy
