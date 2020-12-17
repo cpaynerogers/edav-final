@@ -39,9 +39,7 @@ find_missing_data <- function(d) {
 <!-- function for creating missing data plots -->
 ```{r}
 missing_data_is_fun <- function(d) {
-  print(d)
-  d <- as.data.frame(d)
-  df <- d[, -(1:1)]
+  df <- as.data.frame(d)
 
   # missing data image
   image(mi::missing_data.frame(df))
