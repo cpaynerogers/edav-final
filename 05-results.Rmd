@@ -99,11 +99,12 @@ These graphs show the trend of both the per capita total daily calorie intake an
 
 ```{r}
 # merges all the separate food group dataframes into one dataframe joined by year
-allfoods = merge(meateggsnuts[-c(1)], 
-                 merge(sugars[-c(1)], 
-                 merge(dairy[-c(1)], 
-                 merge(fats[-c(1)], 
-                 merge(fruits[-c(1)], merge(grains[-c(1)], vegetables[-c(1)], by ="Year"), by ="Year"), by ="Year"), by ="Year"), by ="Year"), by ="Year")
+allfoods <- merge(meateggsnuts, sugars, by="Year")
+allfoods <- merge(allfoods, dairy, by="Year")
+allfoods <- merge(allfoods, fats, by="Year")
+allfoods <- merge(allfoods, fruits, by="Year")
+allfoods <- merge(allfoods, grains, by="Year")
+allfoods <- merge(allfoods, vegetables, by="Year")
 
 # converts the dataframe into a tidy format and changes the calorie values into numeric
 allfoods_tidy <- tidy_calorie_data(allfoods)
