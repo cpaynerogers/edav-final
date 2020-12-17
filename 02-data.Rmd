@@ -2,7 +2,6 @@
 
 ## Data collection
 
-<!-- TODO: include references -->
 
 For this project, we are using three different data sources: Male and female digestive system cancer mortality across 9 SEER cancer registries for each year from 2000 to 2017, male and female digestive system cancer incidence across 9 SEER cancer registries for each year from 2000 to 2017, and average daily per capita calorie intake from 1970-2017 for major and minor food groups in the US taken from a USDA registry.
 
