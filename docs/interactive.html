@@ -163,8 +163,12 @@
 <tr>
 <th>
 <select name="selectFood" id="selectFood">
-<option value="peanuts">Peanuts</option>
 <option value="beef">Beef</option>
+<option value="wholeMilk">Whole Milk</option>
+<option value="peanuts">Peanuts</option>
+<option value="apples">Apples</option>
+<option value="whiteWholeFlour">Flour</option>
+<option value="carrots">Carrots</option>
 </select>
 </th>
 <th>
@@ -514,13 +518,13 @@ Update
   // create svg inside div
   var svg = d3.select("div#plot")
     .append("svg")
-      .attr("width", width)
-      .attr("height", height)
-  svg.append("g")
-      .attr("id", "xAxis")
-      .attr("transform", "translate(0," + (height-margin.top-margin.bottom) + ")")
-  svg.append("g")
-      .attr("id", "yAxis")
+    .attr("width", width)
+    .attr("height", height);
+  var xg = svg.append("g")
+    .attr("id", "xAxis")
+    .attr("transform", "translate(0," + (height-margin.top-margin.bottom) + ")");
+  var yg = svg.append("g")
+    .attr("id", "yAxis");
 
   // update callback
   // data is redefined here and ... hopefully promises have been fulfilled?
@@ -554,7 +558,7 @@ Update
           return d[foodChoice];
         })
       ])
-      .range([margin.left, width-margin.right])
+      .range([margin.left, width-margin.right]);
     d3.select("g#xAxis")
       .attr("transform", "translate(0," + (height-margin.top-margin.bottom) + ")")
       .transition()
@@ -577,7 +581,7 @@ Update
           }
         )
       ])
-      .range([height-margin.bottom, margin.top])
+      .range([height-margin.bottom, margin.top]);
     d3.select("g#yAxis")
       .attr("transform", "translate(" + margin.left + ", 0)")
       .transition()
