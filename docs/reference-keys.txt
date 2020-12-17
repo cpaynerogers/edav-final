@@ -33,7 +33,8 @@ grains-1
 fats-1
 sugars-1
 results
-digestive-cancer-trends
+results-1
+digestive-system-cancer-trends
 dietary-trends
 food-group-and-overall-calorie-consumption-trends
 select-food-trends
