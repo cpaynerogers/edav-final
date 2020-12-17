@@ -1,0 +1,20 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Digestive system cancer, also known as gastrointestinal cancer, is one of the most prevalent forms of cancer in the US today. However, the number of/deaths from gastrointestinal cancers has been decreasing over the years. While the improvements in gastrointestinal cancer care have contributed to this decrease, researchers believe that population wide changes in diet, such as more fruit and vegetables being consumed, played a key role in leading to this decline in digestive system cancer incidence/mortality. Nutritional content of diet and calorie consumption has also been shown to be related to the onset of digestive system cancer. Higher calorie consumption and foods such as red meat and sugar in particular are thought to be highly correlated with digestive system cancer incidence. 
+
+In this project, we explore the dietary and digestive cancer trends of the US from 2000-2017 to answer the following questions:
+
+a) Does a population-level increase in consumption (calories) relate to population-level increases in digestive cancer incidence?
+
+b) What about the nutritional content of food being eaten? Which foods/food groups coincide with higher/lower digestive cancer incidence?
+
+Providing answers these questions will give more clarity to which foods and food groups increase the risk of digestive cancer and which ones mitigate that risk.
+
+
+Team Members: Myles Ingram and Colin Payne-Rogers
+

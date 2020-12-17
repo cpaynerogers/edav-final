@@ -1,0 +1,8 @@
+"0",""
+"0","# graph of the per capita calorie intake by major food groups"
+"0","ggplot(data=tidy_total, aes(x=Year, y=calories, color=food_group)) +"
+"0","  scale_fill_manual(values=cbPalette)+"
+"0","  geom_line() +"
+"0","  geom_point()+"
+"0","  ylab(""Daily Per Capita Calories"")+"
+"0","  ggtitle(""Daily Per Capita Calorie Intake by Major Food Group from 2000-2017"")"

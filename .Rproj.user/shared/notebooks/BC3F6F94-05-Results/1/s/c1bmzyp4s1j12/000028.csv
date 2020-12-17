@@ -1,0 +1,6 @@
+"0",""
+"0","# tidy_sugar = tidy_calorie_data(sugars[-c(1)])"
+"0","# ggplot(data=tidy_df_2) +"
+"0","#   geom_line(aes(x=Year, y=calories, color=food_group)) +"
+"0","#   ggtitle(""Per Capita Calorie Intake from 2000-2017"")"
+"0",""

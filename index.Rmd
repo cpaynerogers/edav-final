@@ -1,0 +1,21 @@
+---
+title: "Food and Digestive Cancer"
+author: "Myles Ingram and Colin Payne-Rogers"
+date: "`r Sys.Date()`"
+output: html_document
+site: bookdown::bookdown_site
+---
+
+# Introduction
+
+Digestive system cancer, also known as gastrointestinal cancer, can refer to any cancer of the gastrointestinal tract or accessory organs of digestion. It is one of the most prevalent forms of cancer in the United States today. It is responsible for more deaths from cancer than any other system in the body. It also [varies by region](https://www.thelancet.com/journals/langas/article/PIIS2468-1253(19)30328-0/fulltext) in an unexpected way.
+
+Recently, the incidence of gastrointestinal cancer [has been decreasing](https://pubmed.ncbi.nlm.nih.gov/32247694/). Preventative measures come in the form of limiting tobacco and alcohol consumption, lowering obesity rates, and cancer screening. It has been suggested that population-wide changes in diet, such as higher fruit and vegetables consumption, contribute to this decrease. Conversely, dietary nutritional content and calorie consumption have been related to the onset of digestive cancers.
+
+Colloquially, fiber, fruit, vegetables (we're sure you've heard of super foods) are heralded as preventative, or even curative, of many types of cancer, including the gastrointestinal variety. Fad diets ([cabbage!?](https://dieteticallyspeaking.com/a-brief-history-of-ridiculous-fad-diets/)) have been with us for a while. Their signal-to-noise ratio may even be decreasing in the information age. Can anyone tell us whether its margarine, or butter? Are eggs okay to eat again?
+
+Epidemiological phenomena can be hard to parse. Even with access to complete, perfect data, the assumptions and methodologies brought to the keyboard can muddy, confuse, or wholly alter the results. We hope to avoid pitfalls by keeping our questions general and following the data. Myles has collected a number of data sets related to gastrointestinal cancer incidence and mortality, and population-level diet.
+
+This data might tell us whether total caloric intake, vs. our food's nutritional content, relates to cancer incidence. Or if it really is in the details (*devil*ed eggs, anyone). Entire food groups will be interrogated, and we'll do our best to determine whether the usual suspects (sugar, beef, dairy) are up to no good. It'll also be interesting to explore whether both cancer incidence, *and cancer mortality*, are decreasing, or if its just one or the other.
+
+At the very least, we'll find relationships in the data that don't come with the context necessary to truly understand the phenomenon, but that could point (likely have pointed) future researchers towards more targeted data or studies.

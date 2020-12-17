@@ -1,0 +1,4 @@
+"0","sugars_df <- as.data.frame(sugars)"
+"0","sugars_df <- sugars_df[2:8]"
+"0","s <- mi::missing_data.frame(sugars_df)"
+"0","image(s)"

@@ -1,0 +1,116 @@
+"0","dairy <- read_csv(""resources/processed_data/dairy.csv"")"
+"2","Missing column names filled in: 'X1' [1]"
+"2","Parsed with column specification:
+cols(
+  .default = col_double(),
+  Provolone = [31mcol_character()[39m,
+  Romano = [31mcol_character()[39m,
+  Parmesan = [31mcol_character()[39m,
+  Ricotta = [31mcol_character()[39m
+)
+"
+"2","See spec(...) for full column specifications.
+"
+"0","fats <- read_csv(""resources/processed_data/fats.csv"")"
+"2","Missing column names filled in: 'X1' [1]"
+"2","Parsed with column specification:
+cols(
+  X1 = [32mcol_double()[39m,
+  Year = [31mcol_character()[39m,
+  Butter = [32mcol_double()[39m,
+  Margarine = [32mcol_double()[39m,
+  Lard = [32mcol_double()[39m,
+  `Beef Tallow` = [32mcol_double()[39m,
+  Shortening = [32mcol_double()[39m,
+  `Salad and Cooking Oils` = [32mcol_double()[39m,
+  `Other Added Fats` = [32mcol_double()[39m,
+  `Light Cream` = [32mcol_double()[39m,
+  `Half and Half` = [32mcol_double()[39m,
+  `Heavy Cream` = [32mcol_double()[39m,
+  `Sour Cream` = [32mcol_double()[39m,
+  `Cream Cheese` = [32mcol_double()[39m,
+  Eggnog = [32mcol_double()[39m
+)
+"
+"0","fruits <- read_csv(""resources/processed_data/fruits.csv"")"
+"2","Missing column names filled in: 'X1' [1]"
+"2","Parsed with column specification:
+cols(
+  .default = col_double()
+)
+"
+"2","See spec(...) for full column specifications.
+"
+"0","grains <- read_csv(""resources/processed_data/grains.csv"")"
+"2","Missing column names filled in: 'X1' [1]"
+"2","Parsed with column specification:
+cols(
+  X1 = [32mcol_double()[39m,
+  Year = [32mcol_double()[39m,
+  `White and Whole Flour` = [32mcol_double()[39m,
+  `Durum Flour` = [32mcol_double()[39m,
+  `Rye Flour` = [32mcol_double()[39m,
+  Rice = [32mcol_double()[39m,
+  `Corn Flour, Meal` = [32mcol_double()[39m,
+  `Hominy and Grits` = [32mcol_double()[39m,
+  Cornstarch = [32mcol_double()[39m,
+  `Oat Products` = [32mcol_double()[39m,
+  `Barley Products` = [32mcol_double()[39m
+)
+"
+"0","incidence <- read_csv(""resources/processed_data/incidence.csv"")"
+"2","Missing column names filled in: 'X1' [1]"
+"2","Parsed with column specification:
+cols(
+  X1 = [32mcol_double()[39m,
+  Year = [32mcol_double()[39m,
+  Sex = [31mcol_character()[39m,
+  V3 = [32mcol_double()[39m,
+  V4 = [32mcol_double()[39m,
+  V5 = [32mcol_double()[39m
+)
+"
+"0","meateggsnuts <- read_csv(""resources/processed_data/meateggsnuts.csv"")"
+"2","Missing column names filled in: 'X1' [1]"
+"2","Parsed with column specification:
+cols(
+  .default = col_double()
+)
+"
+"2","See spec(...) for full column specifications.
+"
+"0","mortality <- read_csv(""resources/processed_data/mortality.csv"")"
+"2","Missing column names filled in: 'X1' [1]"
+"2","Parsed with column specification:
+cols(
+  X1 = [32mcol_double()[39m,
+  Year = [32mcol_double()[39m,
+  Sex = [31mcol_character()[39m,
+  V3 = [32mcol_double()[39m,
+  V4 = [32mcol_double()[39m,
+  V5 = [32mcol_double()[39m
+)
+"
+"0","sugars <- read_csv(""resources/processed_data/sugars.csv"")"
+"2","Missing column names filled in: 'X1' [1]"
+"2","Parsed with column specification:
+cols(
+  X1 = [32mcol_double()[39m,
+  Year = [32mcol_double()[39m,
+  `Cane and Beet Sugar` = [32mcol_double()[39m,
+  `High Fructose Corn Syrup` = [32mcol_double()[39m,
+  Glucose = [32mcol_double()[39m,
+  Dextrose = [32mcol_double()[39m,
+  `Edible Syrups` = [32mcol_double()[39m,
+  Honey = [32mcol_double()[39m
+)
+"
+"0","vegetables <- read_csv(""resources/processed_data/vegetables.csv"")"
+"2","Missing column names filled in: 'X1' [1]"
+"2","Parsed with column specification:
+cols(
+  .default = col_double()
+)
+"
+"2","See spec(...) for full column specifications.
+"

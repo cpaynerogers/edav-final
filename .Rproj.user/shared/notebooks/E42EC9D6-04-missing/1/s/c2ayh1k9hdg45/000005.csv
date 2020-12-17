@@ -1,0 +1,4 @@
+"0","ggplot(fats_tidy) +"
+"0","  geom_tile(aes(x=food_type, y=Year, fill=value)) +"
+"0","  theme(axis.text.x = element_text(angle=60, hjust=1),"
+"0","        axis.text.y = element_text(size=5))"
