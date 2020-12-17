@@ -157,384 +157,449 @@
 <h1><span class="header-section-number">Chapter 6</span> Interactive</h1>
 <!-- load d3 v6 -->
 <script src="https://d3js.org/d3.v6.min.js"></script>
+<!-- select food, incidence, mortality and update plot -->
+<table>
+<tr>
+<th>
+<select name="selectFood" id="selectFood">
+<option value="peanuts">Peanuts</option>
+<option value="beef">Beef</option>
+</select>
+</th>
+<th>
+<select name="selectCancer" id="selectCancer">
+<option value="incidence">Incidence</option>
+<option value="mortality">Mortality</option>
+</select>
+</th>
+<th>
+<select name="selectSex" id="selectSex">
+<option value="male">Male</option>
+<option value="female">Female</option>
+</select>
+</th>
+<th>
+<button type="button" id="update">
+Update
+</button>
+</th>
+</tr>
+</table>
 <!-- div container for plot -->
 <div id="plot">
 
 </div>
 <!-- initialize data and plot elements -->
 <script>
-  var base_url = "https://raw.githubusercontent.com/cpaynerogers/food-digestive-cancer"
-  var data_path = "/master/resources/processed_data/"
+  var t = 1500;
+  var base_url = "https://raw.githubusercontent.com/cpaynerogers/food-digestive-cancer";
+  var data_path = "/master/resources/processed_data/";
 
   // row converters
-  var dairyConverter = function(d) {
+  var foodConverter = function(d) {
     if (parseInt(d["Year"]) > 1999) {
       return {
-        year: d["Year"],
-        wholeMilk: d["Whole Milk"],
-        twoPercentMilk: d["2% Milk"],
-        onePercentMilk: d["1% Milk"],
-        skimMilk: d["Skim Milk"],
-        wholeFlavoredMilk: d["Whole Flavored Milk"],
-        lowFatFlavored: d["Low Fat Flavored"],
-        butermilk: d["Buttermilk"],
-        yogurt: d["Yogurt"],
-        americanCheese: d["American Cheese"],
-        otherAmericanCheese: d["Other American Cheese"],
-        provolone: d["Provolone"],
-        romano: d["Romano"],
-        parmesan: d["Parmesan"],
-        mozzarella: d["Mozzarella"],
-        ricotta: d["Ricotta"],
-        otherItalianCheese: d["Other Italian Cheese"],
-        swiss: d["Swiss"],
-        brick: d["Brick"],
-        muenster: d["Muenster"],
-        blueCheese: d["Blue Cheese"],
-        otherMiscCheese: d["Other Misc Cheese"],
-        cottageCheese: d["Cottage Cheese"],
-        lowfatCottageCheese: d["Lowfat Cottage Cheese"],
-        iceCream: d["Ice Cream"],
-        losfatIceCream: d["Lowfat Ice Cream"],
-        otherFrozenDairy: d["Other Frozen Dairy"],
-        cannedMilk: d["Canned Milk"],
-        bulkCannedMilk: d["Bulk Canned Milk"],
-        skimCannedMilk: d["Skim Canned Milk"],
-        wholeDryMilk: d["Whole Dry Milk"],
-        nonfatDryMilk: d["Nonfat Dry Milk"],
-        dryButtermilk: d["Dry Buttermilk"],
-        halfAndHalf: d["Half and Half"],
-        eggnog: d["Eggnog"],
-        creamProducts: d["Cream Products"]
+        year: parseFloat(d["Year"]),
+        wholeMilk: parseFloat(d["Whole Milk"]),
+        twoPercentMilk: parseFloat(d["2% Milk"]),
+        onePercentMilk: parseFloat(d["1% Milk"]),
+        skimMilk: parseFloat(d["Skim Milk"]),
+        wholeFlavoredMilk: parseFloat(d["Whole Flavored Milk"]),
+        lowFatFlavored: parseFloat(d["Low Fat Flavored"]),
+        butermilk: parseFloat(d["Buttermilk"]),
+        yogurt: parseFloat(d["Yogurt"]),
+        americanCheese: parseFloat(d["American Cheese"]),
+        otherAmericanCheese: parseFloat(d["Other American Cheese"]),
+        provolone: parseFloat(d["Provolone"]),
+        romano: parseFloat(d["Romano"]),
+        parmesan: parseFloat(d["Parmesan"]),
+        mozzarella: parseFloat(d["Mozzarella"]),
+        ricotta: parseFloat(d["Ricotta"]),
+        otherItalianCheese: parseFloat(d["Other Italian Cheese"]),
+        swiss: parseFloat(d["Swiss"]),
+        brick: parseFloat(d["Brick"]),
+        muenster: parseFloat(d["Muenster"]),
+        blueCheese: parseFloat(d["Blue Cheese"]),
+        otherMiscCheese: parseFloat(d["Other Misc Cheese"]),
+        cottageCheese: parseFloat(d["Cottage Cheese"]),
+        lowfatCottageCheese: parseFloat(d["Lowfat Cottage Cheese"]),
+        iceCream: parseFloat(d["Ice Cream"]),
+        losfatIceCream: parseFloat(d["Lowfat Ice Cream"]),
+        otherFrozenDairy: parseFloat(d["Other Frozen Dairy"]),
+        cannedMilk: parseFloat(d["Canned Milk"]),
+        bulkCannedMilk: parseFloat(d["Bulk Canned Milk"]),
+        skimCannedMilk: parseFloat(d["Skim Canned Milk"]),
+        wholeDryMilk: parseFloat(d["Whole Dry Milk"]),
+        nonfatDryMilk: parseFloat(d["Nonfat Dry Milk"]),
+        dryButtermilk: parseFloat(d["Dry Buttermilk"]),
+        halfAndHalf: parseFloat(d["Half and Half"]),
+        eggnog: parseFloat(d["Eggnog"]),
+        creamProducts: parseFloat(d["Cream Products"]),
+        butter: parseFloat(d["Butter"]),
+        margarine: parseFloat(d["Margarine"]),
+        lard: parseFloat(d["Lard"]),
+        beefTallow: parseFloat(d["Beef Tallow"]),
+        shortening: parseFloat(d["Shortening"]),
+        saladCookingOils: parseFloat(d["Salad, Cooking Oils"]),
+        otherAddedFats: parseFloat(d["Other Added Fats"]),
+        lightCream: parseFloat(d["Light Cream"]),
+        halfAndHalf: parseFloat(d["Half and Half"]),
+        heavyCream: parseFloat(d["Heavy Cream"]),
+        sourCream: parseFloat(d["Sour Cream"]),
+        creamCheese: parseFloat(d["Cream Cheese"]),
+        eggnog: parseFloat(d["Eggnog"]),
+        oranges: parseFloat(d["Oranges"]),
+        tangerines: parseFloat(d["Tangerines"]),
+        grapefruit: parseFloat(d["Grapefruit"]),
+        lemons: parseFloat(d["Lemons"]),
+        limes: parseFloat(d["Limes"]),
+        apples: parseFloat(d["Apples"]),
+        apricots: parseFloat(d["Apricots"]),
+        avocados: parseFloat(d["Avocados"]),
+        bananas: parseFloat(d["Bananas"]),
+        blueberries: parseFloat(d["Blueberries"]),
+        cantaloupe: parseFloat(d["Cantaloupe"]),
+        cherries: parseFloat(d["Cherries"]),
+        cranberries: parseFloat(d["Cranberries"]),
+        grapes: parseFloat(d["Grapes"]),
+        honeydewMelons: parseFloat(d["Honeydew Melons"]),
+        kiwi: parseFloat(d["Kiwi"]),
+        mangoes: parseFloat(d["Mangoes"]),
+        peaches: parseFloat(d["Peaches"]),
+        pears: parseFloat(d["Pears"]),
+        pineapple: parseFloat(d["Pineapple"]),
+        papayas: parseFloat(d["Papayas"]),
+        plums: parseFloat(d["Plums"]),
+        raspberries: parseFloat(d["Raspberries"]),
+        strawberries: parseFloat(d["Strawberries"]),
+        watermelon: parseFloat(d["Watermelon"]),
+        cannedApples: parseFloat(d["Canned Apples"]),
+        cannedApricots: parseFloat(d["Canned Apricots"]),
+        cannedCherries: parseFloat(d["Canned Cherries"]),
+        cannedOlives: parseFloat(d["Canned Olives"]),
+        cannedPeaches: parseFloat(d["Canned Peaches"]),
+        cannedPears: parseFloat(d["Canned Pears"]),
+        cannedPineapple: parseFloat(d["Canned Pineapple"]),
+        cannedPlum: parseFloat(d["Canned Plum"]),
+        frozenBlackberries: parseFloat(d["Frozen Blackberries"]),
+        frozenBlueberries: parseFloat(d["Frozen Blueberries"]),
+        frozenRaspberries: parseFloat(d["Frozen Raspberries"]),
+        frozenStrawberries: parseFloat(d["Frozen Strawberries"]),
+        otherFrozenBerries: parseFloat(d["Other Frozen Berries"]),
+        frozenApples: parseFloat(d["Frozen Apples"]),
+        frozenApricots: parseFloat(d["Frozen Apricots"]),
+        frozenCherries: parseFloat(d["Frozen Cherries"]),
+        frozenPeaches: parseFloat(d["Frozen Peaches"]),
+        frozenPlumsAndPrunes: parseFloat(d["Frozen Plums and Prunes"]),
+        otherFrozenFruits: parseFloat(d["Other Frozen Fruits"]),
+        driedApples: parseFloat(d["Dried Apples"]),
+        driedApricots: parseFloat(d["Dried Apricots"]),
+        driedDates: parseFloat(d["Dried Dates"]),
+        driedFigs: parseFloat(d["Dried Figs"]),
+        driedPeaches: parseFloat(d["Dried Peaches"]),
+        driedPears: parseFloat(d["Dried Pears"]),
+        driedPlums: parseFloat(d["Dried Plums"]),
+        driedRaisins: parseFloat(d["Dried Raisins"]),
+        orangeJuice: parseFloat(d["Orange Juice"]),
+        grapefruitJuice: parseFloat(d["Grapefruit Juice"]),
+        lemonJuice: parseFloat(d["Lemon Juice"]),
+        limeJuice: parseFloat(d["Lime Juice"]),
+        appleJuice: parseFloat(d["Apple Juice"]),
+        cranberryJuice: parseFloat(d["Cranberry Juice"]),
+        grapeJuice: parseFloat(d["Grape Juice"]),
+        pineappleJuice: parseFloat(d["Pineapple Juice"]),
+        pruneJuice: parseFloat(d["Prune Juice"]),
+        whiteWholeFlour: parseFloat(d["White, Whole Flour"]),
+        durumFlour: parseFloat(d["Durum Flour"]),
+        ryeFlour: parseFloat(d["Rye Flour"]),
+        rice: parseFloat(d["Rice"]),
+        cornFlourMeal: parseFloat(d["Corn Flour, Meal"]),
+        hominyAndGrits: parseFloat(d["Hominy and Grits"]),
+        cornstarch: parseFloat(d["Cornstarch"]),
+        oatProducts: parseFloat(d["Oat Products"]),
+        barleyProducts: parseFloat(d["Barley Products"]),
+        beef: parseFloat(d["Beef"]),
+        veal: parseFloat(d["Veal"]),
+        pork: parseFloat(d["Pork"]),
+        lamb: parseFloat(d["Lamb"]),
+        chicken: parseFloat(d["Chicken"]),
+        turkey: parseFloat(d["Turkey"]),
+        freshFish: parseFloat(d["Fresh Fish"]),
+        freshShellfish: parseFloat(d["Fresh Shellfish"]),
+        cannedSalmon: parseFloat(d["Canned Salmon"]),
+        cannedSardines: parseFloat(d["Canned Sardines"]),
+        cannedTuna: parseFloat(d["Canned Tuna"]),
+        cannedShellfish: parseFloat(d["Canned Shellfish"]),
+        otherCanned: parseFloat(d["Other Canned"]),
+        eggs: parseFloat(d["Eggs"]),
+        peanuts: parseFloat(d["Peanuts"]),
+        almonds: parseFloat(d["Almonds"]),
+        hazelnuts: parseFloat(d["Hazelnuts"]),
+        pecans: parseFloat(d["Pecans"]),
+        walnuts: parseFloat(d["Walnuts"]),
+        macadamiaNuts: parseFloat(d["Macadamia nuts"]),
+        pistachios: parseFloat(d["Pistachios"]),
+        otherNuts: parseFloat(d["Other nuts"]),
+        coconuts: parseFloat(d["Coconuts"]),
+        caneBeetSugar: parseFloat(d["Cane, Beet Sugar"]),
+        cornSyrup: parseFloat(d["Corn Syrup"]),
+        glucose: parseFloat(d["Glucose"]),
+        dextrose: parseFloat(d["Dextrose"]),
+        edibleSyrups: parseFloat(d["Edible Syrups"]),
+        honey: parseFloat(d["Honey"]),
+        artichokes: parseFloat(d["Artichokes"]),
+        asparagus: parseFloat(d["Asparagus"]),
+        bellPeppers: parseFloat(d["Bell Peppers"]),
+        broccoli: parseFloat(d["Broccoli"]),
+        brusselsSprouts: parseFloat(d["Brussels Sprouts"]),
+        cabbage: parseFloat(d["Cabbage"]),
+        carrots: parseFloat(d["Carrots"]),
+        cauliflower: parseFloat(d["Cauliflower"]),
+        celery: parseFloat(d["Celery"]),
+        collardGreens: parseFloat(d["Collard Greens"]),
+        sweetCorn: parseFloat(d["Sweet Corn"]),
+        cucumbers: parseFloat(d["Cucumbers"]),
+        eggplant: parseFloat(d["Eggplant"]),
+        escarole: parseFloat(d["Escarole"]),
+        garlic: parseFloat(d["Garlic"]),
+        headLettuce: parseFloat(d["Head Lettuce"]),
+        kale: parseFloat(d["Kale"]),
+        romaineLettuce: parseFloat(d["Romaine Lettuce"]),
+        limaBeans: parseFloat(d["Lima Beans"]),
+        mushrooms: parseFloat(d["Mushrooms"]),
+        mustardGreens: parseFloat(d["Mustard Greens"]),
+        okra: parseFloat(d["Okra"]),
+        onions: parseFloat(d["Onions"]),
+        potatoes: parseFloat(d["Potatoes"]),
+        pumpkin: parseFloat(d["Pumpkin"]),
+        radishes: parseFloat(d["Radishes"]),
+        snapBeans: parseFloat(d["Snap Beans"]),
+        spinach: parseFloat(d["Spinach"]),
+        squash: parseFloat(d["Squash"]),
+        sweetPotatoes: parseFloat(d["Sweet Potatoes"]),
+        tomatoes: parseFloat(d["Tomatoes"]),
+        turnipGreens: parseFloat(d["Turnip Greens"]),
+        cannedAsparagus: parseFloat(d["Canned Asparagus"]),
+        cannedSnapBeans: parseFloat(d["Canned Snap Beans"]),
+        cannedCabbage: parseFloat(d["Canned Cabbage"]),
+        cannedCarrots: parseFloat(d["Canned Carrots"]),
+        cannedSweetCorn: parseFloat(d["Canned Sweet Corn"]),
+        cannedCucumbers: parseFloat(d["Canned Cucumbers"]),
+        cannedGreenPeas: parseFloat(d["Canned Green Peas"]),
+        cannedMushrooms: parseFloat(d["Canned Mushrooms"]),
+        cannedChilePeppers: parseFloat(d["Canned Chile Peppers"]),
+        cannedPotatoes: parseFloat(d["Canned Potatoes"]),
+        cannedTomatoes: parseFloat(d["Canned Tomatoes"]),
+        otherCannedVegetables: parseFloat(d["Other Canned Vegetables"]),
+        frozenAsparagus: parseFloat(d["Frozen Asparagus"]),
+        frozenSnapBeans: parseFloat(d["Frozen Snap Beans"]),
+        frozenBroccoli: parseFloat(d["Frozen Broccoli"]),
+        frozenCarrots: parseFloat(d["Frozen Carrots"]),
+        frozenCauliflower: parseFloat(d["Frozen Cauliflower"]),
+        frozenSweetCorn: parseFloat(d["Frozen Sweet Corn"]),
+        frozenGreenPeas: parseFloat(d["Frozen Green Peas"]),
+        frozenLimaBeans: parseFloat(d["Frozen Lima Beans"]),
+        frozenPotatoes: parseFloat(d["Frozen Potatoes"]),
+        frozenSpinach: parseFloat(d["Frozen Spinach"]),
+        otherFrozenVegetables: parseFloat(d["Other Frozen Vegetables"]),
+        dehydratedOnions: parseFloat(d["Dehydrated Onions"]),
+        dehydratedPotatoes: parseFloat(d["Dehydrated Potatoes"]),
+        chipsPotatoes: parseFloat(d["Chips, Potatoes"]),
+        dryEdibleBeans: parseFloat(d["Dry Edible Beans"]),
+        dryPeasAndLentils: parseFloat(d["Dry Peas and Lentils"])
       }
     }
-  }
-  var fatsConverter = function(d) {
+  };
+  var incidenceMaleConverter = function(d) {
     if (parseInt(d["Year"]) > 1999) {
-      return {
-        year: d["Year"],
-        butter: d["Butter"],
-        margarine: d["Margarine"],
-        lard: d["Lard"],
-        beefTallow: d["Beef Tallow"],
-        shortening: d["Shortening"],
-        saladCookingOils: d["Salad, Cooking Oils"],
-        otherAddedFats: d["Other Added Fats"],
-        lightCream: d["Light Cream"],
-        halfAndHalf: d["Half and Half"],
-        heavyCream: d["Heavy Cream"],
-        sourCream: d["Sour Cream"],
-        creamCheese: d["Cream Cheese"],
-        eggnog: d["Eggnog"]
+      if (d["Sex"] === "Male") {
+        return {
+          year: parseFloat(d["Year"]),
+          sex: d["Sex"],
+          rate: parseFloat(d["Rate"]),
+          cases: parseFloat(d["Cases"]),
+          population: parseFloat(d["Population"])
+        }
       }
     }
-  }
-  var fruitsConverter = function(d) {
+  };
+  var incidenceFemaleConverter = function(d) {
     if (parseInt(d["Year"]) > 1999) {
-      return {
-        year: d["Year"],
-        oranges: d["Oranges"],
-        tangerines: d["Tangerines"],
-        grapefruit: d["Grapefruit"],
-        lemons: d["Lemons"],
-        limes: d["Limes"],
-        apples: d["Apples"],
-        apricots: d["Apricots"],
-        avocados: d["Avocados"],
-        bananas: d["Bananas"],
-        blueberries: d["Blueberries"],
-        cantaloupe: d["Cantaloupe"],
-        cherries: d["Cherries"],
-        cranberries: d["Cranberries"],
-        grapes: d["Grapes"],
-        honeydewMelons: d["Honeydew Melons"],
-        kiwi: d["Kiwi"],
-        mangoes: d["Mangoes"],
-        peaches: d["Peaches"],
-        pears: d["Pears"],
-        pineapple: d["Pineapple"],
-        papayas: d["Papayas"],
-        plums: d["Plums"],
-        raspberries: d["Raspberries"],
-        strawberries: d["Strawberries"],
-        watermelon: d["Watermelon"],
-        cannedApples: d["Canned Apples"],
-        cannedApricots: d["Canned Apricots"],
-        cannedCherries: d["Canned Cherries"],
-        cannedOlives: d["Canned Olives"],
-        cannedPeaches: d["Canned Peaches"],
-        cannedPears: d["Canned Pears"],
-        cannedPineapple: d["Canned Pineapple"],
-        cannedPlum: d["Canned Plum"],
-        frozenBlackberries: d["Frozen Blackberries"],
-        frozenBlueberries: d["Frozen Blueberries"],
-        frozenRaspberries: d["Frozen Raspberries"],
-        frozenStrawberries: d["Frozen Strawberries"],
-        otherFrozenBerries: d["Other Frozen Berries"],
-        frozenApples: d["Frozen Apples"],
-        frozenApricots: d["Frozen Apricots"],
-        frozenCherries: d["Frozen Cherries"],
-        frozenPeaches: d["Frozen Peaches"],
-        frozenPlumsAndPrunes: d["Frozen Plums and Prunes"],
-        otherFrozenFruits: d["Other Frozen Fruits"],
-        driedApples: d["Dried Apples"],
-        driedApricots: d["Dried Apricots"],
-        driedDates: d["Dried Dates"],
-        driedFigs: d["Dried Figs"],
-        driedPeaches: d["Dried Peaches"],
-        driedPears: d["Dried Pears"],
-        driedPlums: d["Dried Plums"],
-        driedRaisins: d["Dried Raisins"],
-        orangeJuice: d["Orange Juice"],
-        grapefruitJuice: d["Grapefruit Juice"],
-        lemonJuice: d["Lemon Juice"],
-        limeJuice: d["Lime Juice"],
-        appleJuice: d["Apple Juice"],
-        cranberryJuice: d["Cranberry Juice"],
-        grapeJuice: d["Grape Juice"],
-        pineappleJuice: d["Pineapple Juice"],
-        pruneJuice: d["Prune Juice"]
+      if (d["Sex"] === "Female") {
+        return {
+          year: parseFloat(d["Year"]),
+          sex: d["Sex"],
+          rate: parseFloat(d["Rate"]),
+          cases: parseFloat(d["Cases"]),
+          population: parseFloat(d["Population"])
+        }
       }
     }
-  }
-  var incidenceConverter = function(d) {
+  };
+  var mortalityMaleConverter = function(d) {
     if (parseInt(d["Year"]) > 1999) {
-      return {
-        year: d["Year"],
-        sex: d["Sex"],
-        rate: d["Rate"],
-        cases: d["Cases"],
-        population: d["Population"]
+      if (d["Sex"] === "Male") {
+        return {
+          year: parseFloat(d["Year"]),
+          sex: d["Sex"],
+          rate: parseFloat(d["Rate"]),
+          cases: parseFloat(d["Cases"]),
+          population: parseFloat(d["Population"])
+        }
       }
     }
-  }
-  var grainsConverter = function(d) {
+  };
+  var mortalityFemaleConverter = function(d) {
     if (parseInt(d["Year"]) > 1999) {
-      return {
-        year: d["Year"],
-        whiteWholeFlour: d["White, Whole Flour"],
-        durumFlour: d["Durum Flour"],
-        ryeFlour: d["Rye Flour"],
-        rice: d["Rice"],
-        cornFlourMeal: d["Corn Flour, Meal"],
-        hominyAndGrits: d["Hominy and Grits"],
-        cornstarch: d["Cornstarch"],
-        oatProducts: d["Oat Products"],
-        barleyProducts: d["Barley Products"]
+      if (d["Sex"] === "Female") {
+        return {
+          year: parseFloat(d["Year"]),
+          sex: d["Sex"],
+          rate: parseFloat(d["Rate"]),
+          cases: parseFloat(d["Cases"]),
+          population: parseFloat(d["Population"])
+        }
       }
     }
-  }
-  var meatEggsNutsConverter = function(d) {
-    if (parseInt(d["Year"]) > 1999) {
-      return {
-        year: d["Year"],
-        beef: d["Beef"],
-        veal: d["Veal"],
-        pork: d["Pork"],
-        lamb: d["Lamb"],
-        chicken: d["Chicken"],
-        turkey: d["Turkey"],
-        freshFish: d["Fresh Fish"],
-        freshShellfish: d["Fresh Shellfish"],
-        cannedSalmon: d["Canned Salmon"],
-        cannedSardines: d["Canned Sardines"],
-        cannedTuna: d["Canned Tuna"],
-        cannedShellfish: d["Canned Shellfish"],
-        otherCanned: d["Other Canned"],
-        eggs: d["Eggs"],
-        peanuts: d["Peanuts"],
-        almonds: d["Almonds"],
-        hazelnuts: d["Hazelnuts"],
-        pecans: d["Pecans"],
-        walnuts: d["Walnuts"],
-        macadamiaNuts: d["Macadamia nuts"],
-        pistachios: d["Pistachios"],
-        otherNuts: d["Other nuts"],
-        coconuts: d["Coconuts"]
-      }
-    }
-  }
-  var mortalityConverter = function(d) {
-    if (parseInt(d["Year"]) > 1999) {
-      return {
-        year: d["Year"],
-        sex: d["Sex"],
-        rate: d["Rate"],
-        cases: d["Cases"],
-        population: d["Population"]
-      }
-    }
-  }
-  var sugarsConverter = function(d) {
-    if (parseInt(d["Year"]) > 1999) {
-      return {
-        year: d["Year"],
-        caneBeetSugar: d["Cane, Beet Sugar"],
-        cornSyrup: d["Corn Syrup"],
-        glucose: d["Glucose"],
-        dextrose: d["Dextrose"],
-        edibleSyrups: d["Edible Syrups"],
-        honey: d["Honey"]
-      }
-    }
-  }
-  var vegetablesConverter = function(d) {
-    if (parseInt(d["Year"]) > 1999) {
-      return {
-        year: d["Year"],
-        artichokes: d["Artichokes"],
-        asparagus: d["Asparagus"],
-        bellPeppers: d["Bell Peppers"],
-        broccoli: d["Broccoli"],
-        brusselsSprouts: d["Brussels Sprouts"],
-        cabbage: d["Cabbage"],
-        carrots: d["Carrots"],
-        cauliflower: d["Cauliflower"],
-        celery: d["Celery"],
-        collardGreens: d["Collard Greens"],
-        sweetCorn: d["Sweet Corn"],
-        cucumbers: d["Cucumbers"],
-        eggplant: d["Eggplant"],
-        escarole: d["Escarole"],
-        garlic: d["Garlic"],
-        headLettuce: d["Head Lettuce"],
-        kale: d["Kale"],
-        romaineLettuce: d["Romaine Lettuce"],
-        limaBeans: d["Lima Beans"],
-        mushrooms: d["Mushrooms"],
-        mustardGreens: d["Mustard Greens"],
-        okra: d["Okra"],
-        onions: d["Onions"],
-        potatoes: d["Potatoes"],
-        pumpkin: d["Pumpkin"],
-        radishes: d["Radishes"],
-        snapBeans: d["Snap Beans"],
-        spinach: d["Spinach"],
-        squash: d["Squash"],
-        sweetPotatoes: d["Sweet Potatoes"],
-        tomatoes: d["Tomatoes"],
-        turnipGreens: d["Turnip Greens"],
-        cannedAsparagus: d["Canned Asparagus"],
-        cannedSnapBeans: d["Canned Snap Beans"],
-        cannedCabbage: d["Canned Cabbage"],
-        cannedCarrots: d["Canned Carrots"],
-        cannedSweetCorn: d["Canned Sweet Corn"],
-        cannedCucumbers: d["Canned Cucumbers"],
-        cannedGreenPeas: d["Canned Green Peas"],
-        cannedMushrooms: d["Canned Mushrooms"],
-        cannedChilePeppers: d["Canned Chile Peppers"],
-        cannedPotatoes: d["Canned Potatoes"],
-        cannedTomatoes: d["Canned Tomatoes"],
-        otherCannedVegetables: d["Other Canned Vegetables"],
-        frozenAsparagus: d["Frozen Asparagus"],
-        frozenSnapBeans: d["Frozen Snap Beans"],
-        frozenBroccoli: d["Frozen Broccoli"],
-        frozenCarrots: d["Frozen Carrots"],
-        frozenCauliflower: d["Frozen Cauliflower"],
-        frozenSweetCorn: d["Frozen Sweet Corn"],
-        frozenGreenPeas: d["Frozen Green Peas"],
-        frozenLimaBeans: d["Frozen Lima Beans"],
-        frozenPotatoes: d["Frozen Potatoes"],
-        frozenSpinach: d["Frozen Spinach"],
-        otherFrozenVegetables: d["Other Frozen Vegetables"],
-        dehydratedOnions: d["Dehydrated Onions"],
-        dehydratedPotatoes: d["Dehydrated Potatoes"],
-        chipsPotatoes: d["Chips, Potatoes"],
-        dryEdibleBeans: d["Dry Edible Beans"],
-        dryPeasAndLentils: d["Dry Peas and Lentils"]
-      }
-    }
-  }
+  };
 
   // read in csv data
-  var csvReadFunction = function(e, d) {
-    if (e) {
-      console.log(e)
-    } else {
-      console.log(d)
-    }
-  }
-  var csvErrorFunction = function(e) {
-    console.log(e)
-  }
-  var dairy = d3.csv(
-      base_url + data_path + "dairy.csv",
-      dairyConverter)
-    .then(csvReadFunction)
-    .catch(csvErrorFunction)
-  var fats = d3.csv(
-      base_url + data_path + "fats.csv",
-      fatsConverter)
-    .then(csvReadFunction)
-    .catch(csvErrorFunction)
-  var fruits = d3.csv(
-      base_url + data_path + "fruits.csv",
-      fruitsConverter)
-    .then(csvReadFunction)
-    .catch(csvErrorFunction)
-  var grains = d3.csv(
-      base_url + data_path + "grains.csv",
-      grainsConverter)
-    .then(csvReadFunction)
-    .catch(csvErrorFunction)
-  var incidence = d3.csv(
+  var csvErrorFunction = function(e) {console.log(e)};
+  var dataset = {
+    mortality: {},
+    incidence: {}
+  };
+  d3.csv(
+      base_url + data_path + "food.csv",
+      foodConverter)
+    .then(function(data) {
+      dataset.food = data
+    })
+    .catch(csvErrorFunction);
+  d3.csv(
       base_url + data_path + "incidence.csv",
-      incidenceConverter)
-    .then(csvReadFunction)
-    .catch(csvErrorFunction)
-  var meatEggsNuts = d3.csv(
-      base_url + data_path + "meateggsnuts.csv",
-      meatEggsNutsConverter)
-    .then(csvReadFunction)
-    .catch(csvErrorFunction)
-  var mortality = d3.csv(
+      incidenceMaleConverter)
+    .then(function(data) {
+      dataset.incidence.male = data
+    })
+    .catch(csvErrorFunction);
+  d3.csv(
+      base_url + data_path + "incidence.csv",
+      incidenceFemaleConverter)
+    .then(function(data) {
+      dataset.incidence.female = data
+    })
+    .catch(csvErrorFunction);
+  var mortalityMale = d3.csv(
       base_url + data_path + "mortality.csv",
-      mortalityConverter)
-    .then(csvReadFunction)
-    .catch(csvErrorFunction)
-  var sugars = d3.csv(
-      base_url + data_path + "sugars.csv",
-      sugarsConverter)
-    .then(csvReadFunction)
-    .catch(csvErrorFunction)
-  var vegetables = d3.csv(
-      base_url + data_path + "vegetables.csv",
-      vegetablesConverter)
-    .then(csvReadFunction)
-    .catch(csvErrorFunction)
-
-  // select element for interaction
-  <select name="food" id="selectFood">
-    <option value="peanuts">Peanuts</option>
-    <option value="beef">Beef</option>
-    
-  </select>
+      mortalityMaleConverter)
+    .then(function(data) {
+      dataset.mortality.male = data
+    })
+    .catch(csvErrorFunction);
+  var mortalityFemale = d3.csv(
+      base_url + data_path + "mortality.csv",
+      mortalityFemaleConverter)
+    .then(function(data) {
+      dataset.mortality.female = data
+    })
+    .catch(csvErrorFunction);
 
   // margins and overall width/height
-  var width = 770
-  var height = 640
-  var margin = {top: 30, right: 30, bottom: 30, left: 60}
+  var width = 770;
+  var height = 640;
+  var margin = {top: 25, right: 25, bottom: 25, left: 25};
 
   // create svg inside div
   var svg = d3.select("div#plot")
     .append("svg")
       .attr("width", width)
       .attr("height", height)
-    .append("g")
-
-  // x-axis is linear
-  var xAxis = d3.scaleLinear()
-    .domain([1969, 2018])
-    .range([0, width])
   svg.append("g")
-    .call(d3.axisBottom(xAxis))
-
-  // y-axis is also linear
-  var yAxis = d3.scaleLinear()
-    .domain([0, 1000])
-    .range([height, 0])
+      .attr("id", "xAxis")
+      .attr("transform", "translate(0," + (height-margin.top-margin.bottom) + ")")
   svg.append("g")
-    .call(d3.axisLeft(yAxis))
+      .attr("id", "yAxis")
+
+  // update callback
+  // data is redefined here and ... hopefully promises have been fulfilled?
+  d3.select("#update").on("click", function () {
+    // get food choice
+    var foodSelection = document.getElementById('selectFood');
+    var foodChoice = foodSelection.options[foodSelection.selectedIndex].value;
+
+    // get cancer choice
+    var cancerSelection = document.getElementById('selectCancer');
+    var cancerChoice = cancerSelection.options[cancerSelection.selectedIndex].value;
+
+    // get sex choice
+    var sexSelection = document.getElementById('selectSex');
+    var sexChoice = sexSelection.options[sexSelection.selectedIndex].value;
+
+    // combine x- and y-data
+    var x = dataset["food"];
+    var y = dataset[cancerChoice][sexChoice];
+    var xy = x.map(function(e, i) {
+      return [e, y[i]]
+    });
+
+    // x-axis is linear food
+    var xScale = d3.scaleLinear()
+      .domain([
+        d3.min(dataset["food"], function(d, i) {
+          return d[foodChoice];
+        }),
+        d3.max(dataset["food"], function(d, i) {
+          return d[foodChoice];
+        })
+      ])
+      .range([margin.left, width-margin.right])
+    d3.select("g#xAxis")
+      .attr("transform", "translate(0," + (height-margin.top-margin.bottom) + ")")
+      .transition()
+      .duration(t)
+      .call(d3.axisBottom(xScale));
+
+    // y-axis is also linear
+    var yScale = d3.scaleLinear()
+      .domain([
+        d3.min(
+          dataset[cancerChoice][sexChoice],
+          function(d, i) {
+            return d["rate"];
+          }
+        ),
+        d3.max(
+          dataset[cancerChoice][sexChoice],
+          function(d, i) {
+            return d["rate"];
+          }
+        )
+      ])
+      .range([height-margin.bottom, margin.top])
+    d3.select("g#yAxis")
+      .attr("transform", "translate(" + margin.left + ", 0)")
+      .transition()
+      .duration(t)
+      .call(d3.axisLeft(yScale));
+
+    // add dots at pixel locations
+    circles = svg.selectAll("circle")
+    circles
+      .data(xy)
+      .enter()
+      .append("circle")
+      .merge(circles)
+      .transition()
+      .duration(t)
+      .attr("cx", function(d, i) {
+        return xScale(d[0][foodChoice]);
+      })
+      .attr("cy", function(d) {
+        return yScale(d[1]["rate"]);
+      })
+      .attr("r", "3");
+  })
 </script>
 
 </div>
