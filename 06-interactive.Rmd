@@ -362,8 +362,15 @@
 
   // x-axis is linear
   var xAxis = d3.scaleLinear()
-    .domain([0, 1000])
+    .domain([1969, 2018])
     .range([0, width])
   svg.append("g")
     .call(d3.axisBottom(xAxis))
+
+  // y-axis is also linear
+  var yAxis = d3.scaleLinear()
+    .domain([0, 1000])
+    .range([height, 0])
+  svg.append("g")
+    .call(d3.axisLeft(yAxis))
 </script>
