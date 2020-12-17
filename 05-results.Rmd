@@ -1,6 +1,11 @@
 # Results
 
+
 ```{r}
+#install.packages("grid")
+#install.packages("gridExtra")
+#install.packages("scales")
+#install.packages("patchwork")
 library(ggplot2)
 library(tidyverse)
 library(grid)
@@ -8,9 +13,10 @@ require(gridExtra)
 require(scales)
 library(dplyr)
 library(patchwork)
+
 ```
 
-```{r, include=FALSE}
+```{r include=FALSE}
 dairy <- read_csv("resources/processed_data/dairy.csv")
 fats <- read_csv("resources/processed_data/fats.csv")
 fruits <- read_csv("resources/processed_data/fruits.csv")
@@ -27,6 +33,8 @@ tidy_calorie_data <- function(food_table) {
   return(df)
 }
 ```
+
+## Results
 
 1. Line graph of mortality and incidence
 2. Line graph of total caloric intake and caloric intake by major food group
@@ -48,6 +56,7 @@ inc <-ggplot(data=incidence)+
   scale_color_manual(values=c("black", "red", "blue"))+
   theme(legend.position = "none")+
   ggtitle("Digestive System Cancer Incidence Rates")+
+  ylim(10, 150)+
   ylab("Rate (per 100,000 people)")
   
 # generates the cancer mortality plots
@@ -55,6 +64,7 @@ mort <- ggplot(data=mortality)+
   geom_line(aes(x=Year, y=Rate, color=Sex)) +
   geom_point(aes(x=Year, y=Rate, color=Sex))+
   ggtitle("Digestive System Cancer Mortality Rates")+
+  ylim(10,150)+
   ylab("Rate (per 100,000 people)")+
   scale_color_manual(values=c("black", "red", "blue"))
 
@@ -83,15 +93,18 @@ cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
 ggplot(data=tidy_all, aes(x=Year, y=calories, color=food_group)) +
   geom_line() +
   geom_point()+
+  labs(color = "Calorie Totals", shape = "Calorie Totals")+
   ggtitle("Total Daily Per Capita Calorie Intake from 2000-2017")
 
 # graph of the per capita calorie intake by major food groups
-ggplot(data=tidy_total, aes(x=Year, y=calories, color=food_group)) +
+ggplot(data=tidy_total) +
   scale_fill_manual(values=cbPalette)+
-  geom_line() +
-  geom_point()+
+  geom_line(aes(x=Year, y=calories, color=food_group)) +
+  geom_point(aes(x=Year, y=calories, color=food_group, shape=food_group))+
   ylab("Daily Per Capita Calories")+
+  labs(color = "Food Groups", shape = "Food Groups")+
   ggtitle("Daily Per Capita Calorie Intake by Major Food Group from 2000-2017")
+
 ```
 These graphs show the trend of both the per capita total daily calorie intake and the calorie intake divided by major food groups. The most notable changes for the food groups were sugar and sweeteners, flour and cereal products, and meat, eggs, and nuts. Both sugar and sweeteners and flour and ceral products decreased from 2000 to 2017 while meat, eggs, and nuts increased from 2014-2017 after gradually decreasing before. Intake of fruits and vegetables has also slightly decreased over the years. In terms of calories, both total calories and total calories, excluding fats and oils have been decreasing from 2000-2017 as a whole. However, from 2011 to 2017 total calories excluding fats and oils has risen slightly. Calorie intake data for fats and oils from 2010 onward could not be found leading to the creation of the total calorie intake excluding fats and oils variable. Now that we know that calorie intake has been decreasing as a whole and within many major food groups, let's look at certain foods within each food group to discover more trends.
 
@@ -134,17 +147,37 @@ topnafoods %>%
   
 # splits the 25 foods into low medium and high to increase clarity of the line plot
 topnafoods_tidy <- subset(allfoods_tidy, food_group %in% topnafoods$food_group)
-topnafoods_tidy$calories_consumed <- cut(topnafoods_tidy$calories, breaks = c(0,50,100,500), label=c("low", "medium", "high"))
+topnafoods_tidy$calories_consumed <- cut(topnafoods_tidy$calories, breaks = c(0,50,100,500), label=c("20+", "50+", "100+"))
+
+medhighfoods <- subset(topnafoods_tidy, calories_consumed %in% c("100+", "50+"))
+lowfoods <- subset(topnafoods_tidy, calories_consumed %in% c("20+"))
 
 # line plot of the top 25 foods
-ggplot(data=topnafoods_tidy) +
+ggplot(data=medhighfoods) +
   geom_line(aes(x=Year, y=calories, color=food_group)) +
-  ggtitle("Daily Per Capita Calorie Intake for Top 25 Food Sources from 2000-2017")+
+  geom_point(aes(x=Year, y=calories, color=food_group, shape=food_group))+
+  ggtitle("50+ Calorie Intake Top 25 Food Sources from 2000-2017")+
   ylab("Mean Daily Per Capita Calories")+
   xlab("Years")+
-  facet_wrap(~calories_consumed, scales = "free") +
+  labs(color = "Food Groups", shape = "Food Groups")+
+  facet_wrap(~calories_consumed) +
   theme(axis.text.x = element_text(angle=60, hjust=1))+
-  theme(legend.position = "right")
+  theme(legend.position = "right", legend.text=element_text(size=5))+
+  scale_shape_manual(values = 0:25)
+
+ggplot(data=lowfoods) +
+  geom_line(aes(x=Year, y=calories, color=food_group)) +
+  geom_point(aes(x=Year, y=calories, color=food_group, shape=food_group))+
+  ggtitle("10+ Calorie Intake Top 25 Food Sources from 2000-2017")+
+  ylab("Mean Daily Per Capita Calories")+
+  xlab("Years")+
+  guides(fill=guide_legend(ncol=2))+
+  labs(color = "Food Groups", shape = "Food Groups")+
+  facet_wrap(~calories_consumed) +
+  theme(axis.text.x = element_text(angle=60, hjust=1))+
+  theme(legend.position = "bottom", legend.text=element_text(size=5))+
+  scale_shape_manual(values = 0:25)
+  
 
 ```
 In order to determine how diet is associated with digestive cancer incidence and mortality, we took the top 25 foods that contributed the most to daily caloric intake and analyzed their changes from 2000 to 2017. These food sources included several food sources that are related to digestive cancer such as beef and high fructose corn syrup. Other foods that surprising cracked the top 25 were bananas, cane/beet sugar, and  frozen potatoes. The highest caloric contributer was white and whole flour by a large margin. As shown in the line graph, these food groups changed dynamically from 2000 to 2017 as a whole with foods such as peanuts, chicken, and butter increasing and other foods such as beef, high fructose corn syrup, and ice cream decreasing. Now that we've set the stage, let's jump into the comparisons between cancer incidence/mortality and foods/total calorie intake.
@@ -155,7 +188,7 @@ In order to determine how diet is associated with digestive cancer incidence and
 ### Cancer Incidence
 ```{r}
 # uses the combined sex since male and female cancer have the same trend
-sub_inc <- subset(incidence, Sex == "Combined")
+sub_inc <- subset(incidence, Sex == "Male")
 
 # used to combine the incidence and major food group/total calories dataframes then tidy
 total_cals_inc = merge(total_cals, sub_inc, by="Year")
@@ -224,6 +257,7 @@ ggplot(total_foods_inc, aes(perc_dif, Rate))+
     ylab("Rate (per 100,000 people)")+
     xlab("Percent Difference from 2000 Per Capita Calorie Intake")+
     ggtitle("Cancer Incidence vs Calorie Intake per Top 25 Foods")+
+    theme(axis.text.x = element_text(size=5.5, angle = 45))+
     facet_wrap(~food_group)
 
 
@@ -264,7 +298,7 @@ We found that the decrease in total calorie intake correlated with the decrease 
 ### Cancer Mortality
 ```{r}
 # uses the combined sex since male and female cancer have the same trend
-sub_mort <- subset(mortality, Sex == "Combined")
+sub_mort <- subset(mortality, Sex == "Male")
 # merges the major food groups and total calorie data set with the mortality data set
 total_cals_mort = merge(total_cals, sub_mort, by="Year")
 # Same process of cleaning and manipulation as the incidence
@@ -338,6 +372,7 @@ foods_inc <- food_inc_cor %>%
   ggplot(aes(x=food_group, y=Correlation))+
     geom_bar(stat="identity") +
     ggtitle("Incidence")+
+    ylim(-1, 1)
     theme(axis.text.x = element_text(angle=60, hjust=1))
 
 foods_mort <- food_mort_cor %>% 
@@ -346,6 +381,7 @@ foods_mort <- food_mort_cor %>%
   ggplot(aes(x=food_group, y=Correlation))+
     geom_bar(stat="identity") +
     ggtitle("Mortality")+
+    ylim(-1, 1)
     theme(axis.text.x = element_text(angle=60, hjust=1))
 
 combined_foods <- foods_inc + foods_mort
