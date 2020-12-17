@@ -1,7 +1,9 @@
 commit-message.txt
 *_cache
+.DS_Store
 
 # R
+*.Rproj
 .Rproj.user
 .Rhistory
 .RData
@@ -13,4 +15,3 @@ commit-message.txt
 03-cleaning.html
 04-missing.html
 05-results.html
-.Rproj.user
