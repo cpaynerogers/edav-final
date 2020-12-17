@@ -1,0 +1,369 @@
+# Interactive
+
+<!-- load d3 v6 -->
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<!-- div container for plot -->
+<div id="plot"></div>
+
+<!-- initialize data and plot elements -->
+<script>
+  var base_url = "https://raw.githubusercontent.com/cpaynerogers/food-digestive-cancer"
+  var data_path = "/master/resources/processed_data/"
+
+  // row converters
+  var dairyConverter = function(d) {
+    if (parseInt(d["Year"]) > 1999) {
+      return {
+        year: d["Year"],
+        wholeMilk: d["Whole Milk"],
+        twoPercentMilk: d["2% Milk"],
+        onePercentMilk: d["1% Milk"],
+        skimMilk: d["Skim Milk"],
+        wholeFlavoredMilk: d["Whole Flavored Milk"],
+        lowFatFlavored: d["Low Fat Flavored"],
+        butermilk: d["Buttermilk"],
+        yogurt: d["Yogurt"],
+        americanCheese: d["American Cheese"],
+        otherAmericanCheese: d["Other American Cheese"],
+        provolone: d["Provolone"],
+        romano: d["Romano"],
+        parmesan: d["Parmesan"],
+        mozzarella: d["Mozzarella"],
+        ricotta: d["Ricotta"],
+        otherItalianCheese: d["Other Italian Cheese"],
+        swiss: d["Swiss"],
+        brick: d["Brick"],
+        muenster: d["Muenster"],
+        blueCheese: d["Blue Cheese"],
+        otherMiscCheese: d["Other Misc Cheese"],
+        cottageCheese: d["Cottage Cheese"],
+        lowfatCottageCheese: d["Lowfat Cottage Cheese"],
+        iceCream: d["Ice Cream"],
+        losfatIceCream: d["Lowfat Ice Cream"],
+        otherFrozenDairy: d["Other Frozen Dairy"],
+        cannedMilk: d["Canned Milk"],
+        bulkCannedMilk: d["Bulk Canned Milk"],
+        skimCannedMilk: d["Skim Canned Milk"],
+        wholeDryMilk: d["Whole Dry Milk"],
+        nonfatDryMilk: d["Nonfat Dry Milk"],
+        dryButtermilk: d["Dry Buttermilk"],
+        halfAndHalf: d["Half and Half"],
+        eggnog: d["Eggnog"],
+        creamProducts: d["Cream Products"]
+      }
+    }
+  }
+  var fatsConverter = function(d) {
+    if (parseInt(d["Year"]) > 1999) {
+      return {
+        year: d["Year"],
+        butter: d["Butter"],
+        margarine: d["Margarine"],
+        lard: d["Lard"],
+        beefTallow: d["Beef Tallow"],
+        shortening: d["Shortening"],
+        saladCookingOils: d["Salad, Cooking Oils"],
+        otherAddedFats: d["Other Added Fats"],
+        lightCream: d["Light Cream"],
+        halfAndHalf: d["Half and Half"],
+        heavyCream: d["Heavy Cream"],
+        sourCream: d["Sour Cream"],
+        creamCheese: d["Cream Cheese"],
+        eggnog: d["Eggnog"]
+      }
+    }
+  }
+  var fruitsConverter = function(d) {
+    if (parseInt(d["Year"]) > 1999) {
+      return {
+        year: d["Year"],
+        oranges: d["Oranges"],
+        tangerines: d["Tangerines"],
+        grapefruit: d["Grapefruit"],
+        lemons: d["Lemons"],
+        limes: d["Limes"],
+        apples: d["Apples"],
+        apricots: d["Apricots"],
+        avocados: d["Avocados"],
+        bananas: d["Bananas"],
+        blueberries: d["Blueberries"],
+        cantaloupe: d["Cantaloupe"],
+        cherries: d["Cherries"],
+        cranberries: d["Cranberries"],
+        grapes: d["Grapes"],
+        honeydewMelons: d["Honeydew Melons"],
+        kiwi: d["Kiwi"],
+        mangoes: d["Mangoes"],
+        peaches: d["Peaches"],
+        pears: d["Pears"],
+        pineapple: d["Pineapple"],
+        papayas: d["Papayas"],
+        plums: d["Plums"],
+        raspberries: d["Raspberries"],
+        strawberries: d["Strawberries"],
+        watermelon: d["Watermelon"],
+        cannedApples: d["Canned Apples"],
+        cannedApricots: d["Canned Apricots"],
+        cannedCherries: d["Canned Cherries"],
+        cannedOlives: d["Canned Olives"],
+        cannedPeaches: d["Canned Peaches"],
+        cannedPears: d["Canned Pears"],
+        cannedPineapple: d["Canned Pineapple"],
+        cannedPlum: d["Canned Plum"],
+        frozenBlackberries: d["Frozen Blackberries"],
+        frozenBlueberries: d["Frozen Blueberries"],
+        frozenRaspberries: d["Frozen Raspberries"],
+        frozenStrawberries: d["Frozen Strawberries"],
+        otherFrozenBerries: d["Other Frozen Berries"],
+        frozenApples: d["Frozen Apples"],
+        frozenApricots: d["Frozen Apricots"],
+        frozenCherries: d["Frozen Cherries"],
+        frozenPeaches: d["Frozen Peaches"],
+        frozenPlumsAndPrunes: d["Frozen Plums and Prunes"],
+        otherFrozenFruits: d["Other Frozen Fruits"],
+        driedApples: d["Dried Apples"],
+        driedApricots: d["Dried Apricots"],
+        driedDates: d["Dried Dates"],
+        driedFigs: d["Dried Figs"],
+        driedPeaches: d["Dried Peaches"],
+        driedPears: d["Dried Pears"],
+        driedPlums: d["Dried Plums"],
+        driedRaisins: d["Dried Raisins"],
+        orangeJuice: d["Orange Juice"],
+        grapefruitJuice: d["Grapefruit Juice"],
+        lemonJuice: d["Lemon Juice"],
+        limeJuice: d["Lime Juice"],
+        appleJuice: d["Apple Juice"],
+        cranberryJuice: d["Cranberry Juice"],
+        grapeJuice: d["Grape Juice"],
+        pineappleJuice: d["Pineapple Juice"],
+        pruneJuice: d["Prune Juice"]
+      }
+    }
+  }
+  var incidenceConverter = function(d) {
+    if (parseInt(d["Year"]) > 1999) {
+      return {
+        year: d["Year"],
+        sex: d["Sex"],
+        rate: d["Rate"],
+        cases: d["Cases"],
+        population: d["Population"]
+      }
+    }
+  }
+  var grainsConverter = function(d) {
+    if (parseInt(d["Year"]) > 1999) {
+      return {
+        year: d["Year"],
+        whiteWholeFlour: d["White, Whole Flour"],
+        durumFlour: d["Durum Flour"],
+        ryeFlour: d["Rye Flour"],
+        rice: d["Rice"],
+        cornFlourMeal: d["Corn Flour, Meal"],
+        hominyAndGrits: d["Hominy and Grits"],
+        cornstarch: d["Cornstarch"],
+        oatProducts: d["Oat Products"],
+        barleyProducts: d["Barley Products"]
+      }
+    }
+  }
+  var meatEggsNutsConverter = function(d) {
+    if (parseInt(d["Year"]) > 1999) {
+      return {
+        year: d["Year"],
+        beef: d["Beef"],
+        veal: d["Veal"],
+        pork: d["Pork"],
+        lamb: d["Lamb"],
+        chicken: d["Chicken"],
+        turkey: d["Turkey"],
+        freshFish: d["Fresh Fish"],
+        freshShellfish: d["Fresh Shellfish"],
+        cannedSalmon: d["Canned Salmon"],
+        cannedSardines: d["Canned Sardines"],
+        cannedTuna: d["Canned Tuna"],
+        cannedShellfish: d["Canned Shellfish"],
+        otherCanned: d["Other Canned"],
+        eggs: d["Eggs"],
+        peanuts: d["Peanuts"],
+        almonds: d["Almonds"],
+        hazelnuts: d["Hazelnuts"],
+        pecans: d["Pecans"],
+        walnuts: d["Walnuts"],
+        macadamiaNuts: d["Macadamia nuts"],
+        pistachios: d["Pistachios"],
+        otherNuts: d["Other nuts"],
+        coconuts: d["Coconuts"]
+      }
+    }
+  }
+  var mortalityConverter = function(d) {
+    if (parseInt(d["Year"]) > 1999) {
+      return {
+        year: d["Year"],
+        sex: d["Sex"],
+        rate: d["Rate"],
+        cases: d["Cases"],
+        population: d["Population"]
+      }
+    }
+  }
+  var sugarsConverter = function(d) {
+    if (parseInt(d["Year"]) > 1999) {
+      return {
+        year: d["Year"],
+        caneBeetSugar: d["Cane, Beet Sugar"],
+        cornSyrup: d["Corn Syrup"],
+        glucose: d["Glucose"],
+        dextrose: d["Dextrose"],
+        edibleSyrups: d["Edible Syrups"],
+        honey: d["Honey"]
+      }
+    }
+  }
+  var vegetablesConverter = function(d) {
+    if (parseInt(d["Year"]) > 1999) {
+      return {
+        year: d["Year"],
+        artichokes: d["Artichokes"],
+        asparagus: d["Asparagus"],
+        bellPeppers: d["Bell Peppers"],
+        broccoli: d["Broccoli"],
+        brusselsSprouts: d["Brussels Sprouts"],
+        cabbage: d["Cabbage"],
+        carrots: d["Carrots"],
+        cauliflower: d["Cauliflower"],
+        celery: d["Celery"],
+        collardGreens: d["Collard Greens"],
+        sweetCorn: d["Sweet Corn"],
+        cucumbers: d["Cucumbers"],
+        eggplant: d["Eggplant"],
+        escarole: d["Escarole"],
+        garlic: d["Garlic"],
+        headLettuce: d["Head Lettuce"],
+        kale: d["Kale"],
+        romaineLettuce: d["Romaine Lettuce"],
+        limaBeans: d["Lima Beans"],
+        mushrooms: d["Mushrooms"],
+        mustardGreens: d["Mustard Greens"],
+        okra: d["Okra"],
+        onions: d["Onions"],
+        potatoes: d["Potatoes"],
+        pumpkin: d["Pumpkin"],
+        radishes: d["Radishes"],
+        snapBeans: d["Snap Beans"],
+        spinach: d["Spinach"],
+        squash: d["Squash"],
+        sweetPotatoes: d["Sweet Potatoes"],
+        tomatoes: d["Tomatoes"],
+        turnipGreens: d["Turnip Greens"],
+        cannedAsparagus: d["Canned Asparagus"],
+        cannedSnapBeans: d["Canned Snap Beans"],
+        cannedCabbage: d["Canned Cabbage"],
+        cannedCarrots: d["Canned Carrots"],
+        cannedSweetCorn: d["Canned Sweet Corn"],
+        cannedCucumbers: d["Canned Cucumbers"],
+        cannedGreenPeas: d["Canned Green Peas"],
+        cannedMushrooms: d["Canned Mushrooms"],
+        cannedChilePeppers: d["Canned Chile Peppers"],
+        cannedPotatoes: d["Canned Potatoes"],
+        cannedTomatoes: d["Canned Tomatoes"],
+        otherCannedVegetables: d["Other Canned Vegetables"],
+        frozenAsparagus: d["Frozen Asparagus"],
+        frozenSnapBeans: d["Frozen Snap Beans"],
+        frozenBroccoli: d["Frozen Broccoli"],
+        frozenCarrots: d["Frozen Carrots"],
+        frozenCauliflower: d["Frozen Cauliflower"],
+        frozenSweetCorn: d["Frozen Sweet Corn"],
+        frozenGreenPeas: d["Frozen Green Peas"],
+        frozenLimaBeans: d["Frozen Lima Beans"],
+        frozenPotatoes: d["Frozen Potatoes"],
+        frozenSpinach: d["Frozen Spinach"],
+        otherFrozenVegetables: d["Other Frozen Vegetables"],
+        dehydratedOnions: d["Dehydrated Onions"],
+        dehydratedPotatoes: d["Dehydrated Potatoes"],
+        chipsPotatoes: d["Chips, Potatoes"],
+        dryEdibleBeans: d["Dry Edible Beans"],
+        dryPeasAndLentils: d["Dry Peas and Lentils"]
+      }
+    }
+  }
+
+  // read in csv data
+  var csvReadFunction = function(e, d) {
+    if (e) {
+      console.log(e)
+    } else {
+      console.log(d)
+    }
+  }
+  var csvErrorFunction = function(e) {
+    console.log(e)
+  }
+  var dairy = d3.csv(
+      base_url + data_path + "dairy.csv",
+      dairyConverter)
+    .then(csvReadFunction)
+    .catch(csvErrorFunction)
+  var fats = d3.csv(
+      base_url + data_path + "fats.csv",
+      fatsConverter)
+    .then(csvReadFunction)
+    .catch(csvErrorFunction)
+  var fruits = d3.csv(
+      base_url + data_path + "fruits.csv",
+      fruitsConverter)
+    .then(csvReadFunction)
+    .catch(csvErrorFunction)
+  var grains = d3.csv(
+      base_url + data_path + "grains.csv",
+      grainsConverter)
+    .then(csvReadFunction)
+    .catch(csvErrorFunction)
+  var incidence = d3.csv(
+      base_url + data_path + "incidence.csv",
+      incidenceConverter)
+    .then(csvReadFunction)
+    .catch(csvErrorFunction)
+  var meatEggsNuts = d3.csv(
+      base_url + data_path + "meateggsnuts.csv",
+      meatEggsNutsConverter)
+    .then(csvReadFunction)
+    .catch(csvErrorFunction)
+  var mortality = d3.csv(
+      base_url + data_path + "mortality.csv",
+      mortalityConverter)
+    .then(csvReadFunction)
+    .catch(csvErrorFunction)
+  var sugars = d3.csv(
+      base_url + data_path + "sugars.csv",
+      sugarsConverter)
+    .then(csvReadFunction)
+    .catch(csvErrorFunction)
+  var vegetables = d3.csv(
+      base_url + data_path + "vegetables.csv",
+      vegetablesConverter)
+    .then(csvReadFunction)
+    .catch(csvErrorFunction)
+
+  // margins and overall width/height
+  var width = 770
+  var height = 640
+  var margin = {top: 30, right: 30, bottom: 30, left: 60}
+
+  // create svg inside div
+  var svg = d3.select("div#plot")
+    .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+    .append("g")
+
+  // x-axis is linear
+  var xAxis = d3.scaleLinear()
+    .domain([0, 1000])
+    .range([0, width])
+  svg.append("g")
+    .call(d3.axisBottom(xAxis))
+</script>
