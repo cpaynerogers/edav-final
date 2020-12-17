@@ -32,8 +32,10 @@ incidence <- read.csv(
   stringsAsFactors=TRUE)
 names(incidence) = c("Year", "Sex", "Rate", "Cases", "Population")
 incidence <- incidence[!(incidence$Year == "2000-2017"),]
+combined_incidence <- incidence[(incidence$Sex == "Male and female"),]
 incidence <- incidence[!(incidence$Sex == "Male and female"),]
 rownames(incidence) <- NULL
+rownames(combined_incidence) <- NULL
 ```
 
 ```{r}
@@ -52,8 +54,10 @@ mortality <- read.csv(
   stringsAsFactors=TRUE)
 names(mortality) = c("Year", "Sex", "Rate", "Cases", "Population")
 mortality <- mortality[!(mortality$Year == "2000-2017"),]
+combined_mortality <- mortality[(mortality$Sex == "Male and female"),]
 mortality <- mortality[!(mortality$Sex == "Male and female"),]
 rownames(mortality) <- NULL
+rownames(combined_mortality) <- NULL
 ```
 
 ```{r}
@@ -96,7 +100,7 @@ meateggsnuts <- readxl::read_excel(
     "Almonds", "Hazelnuts", "Pecans", "Walnuts", "Macadamia nuts", "Pistachios",
       "Other nuts", "Total Tree Nuts",
     "Coconuts", "Total Nuts",
-    "Total Meat", "Total Eggs", "Total Nuts",
+    "Total Meat", "Total Eggs", "Total Nuts Again",
     "Total Total")) %>%
   as.data.frame()
 meateggsnuts <- dplyr::select(meateggsnuts, -dplyr::contains("Total"))
@@ -339,13 +343,15 @@ kableExtra::scroll_box(
 Hidden code way down here is used to update the data files in `food-digestive-cancer/processed_data/*`. When the bookdown book is rendered locally, this data transform process runs and updates the processed data if necessary. In our case, we're working with relatively small data, so transforming it each time is fine. With heavier data lifts, we'd want a flag to only run the process if its been updated.
 
 ```{r}
-write.csv(incidence, file='resources/processed_data/incidence.csv')
-write.csv(mortality, file='resources/processed_data/mortality.csv')
-write.csv(meateggsnuts, file='resources/processed_data/meateggsnuts.csv')
-write.csv(dairy, file='resources/processed_data/dairy.csv')
-write.csv(fruits, file='resources/processed_data/fruits.csv')
-write.csv(vegetables, file='resources/processed_data/vegetables.csv')
-write.csv(grains, file='resources/processed_data/grains.csv')
-write.csv(fats, file='resources/processed_data/fats.csv')
-write.csv(sugars, file='resources/processed_data/sugars.csv')
+write.csv(incidence, file='resources/processed_data/incidence.csv', row.names=FALSE)
+write.csv(combined_incidence, file='resources/processed_data/combined_incidence.csv', row.names=FALSE)
+write.csv(mortality, file='resources/processed_data/mortality.csv', row.names=FALSE)
+write.csv(combined_mortality, file='resources/processed_data/combined_mortality.csv', row.names=FALSE)
+write.csv(meateggsnuts, file='resources/processed_data/meateggsnuts.csv', row.names=FALSE)
+write.csv(dairy, file='resources/processed_data/dairy.csv', row.names=FALSE)
+write.csv(fruits, file='resources/processed_data/fruits.csv', row.names=FALSE)
+write.csv(vegetables, file='resources/processed_data/vegetables.csv', row.names=FALSE)
+write.csv(grains, file='resources/processed_data/grains.csv', row.names=FALSE)
+write.csv(fats, file='resources/processed_data/fats.csv', row.names=FALSE)
+write.csv(sugars, file='resources/processed_data/sugars.csv', row.names=FALSE)
 ```

@@ -29,7 +29,7 @@ vegetables <- read_csv("resources/processed_data/vegetables.csv")
 total_cals <- read_csv("resources/processed_data/total.csv")
 
 tidy_calorie_data <- function(food_table) {
-  df <- subset(gather(food_table, food_group, calories,    colnames(food_table), -Year), Year > 1999)
+  df <- subset(gather(food_table, food_group, calories, colnames(food_table), -Year), Year > 1999)
   return(df)
 }
 ```
@@ -58,7 +58,7 @@ inc <-ggplot(data=incidence)+
   ggtitle("Incidence")+
   ylim(10, 150)+
   ylab("Rate (per 100,000 people)")
-  
+
 # generates the cancer mortality plots
 mort <- ggplot(data=mortality)+
   geom_line(aes(x=Year, y=Rate, color=Sex)) +
@@ -78,7 +78,7 @@ These figures show the trends of digestive system cancer incidence and mortality
 
 ## Dietary Trends
 
-### Food Group and Overall Calorie Consumption Trends 
+### Food Group and Overall Calorie Consumption Trends
 
 ```{r}
 # sums all the columns except for the fats and oils column to get the total amount of calories consumed besides the fats and oils
@@ -112,11 +112,12 @@ These graphs show the trend of both the per capita total daily calorie intake an
 
 ```{r}
 # merges all the separate food group dataframes into one dataframe joined by year
-allfoods = merge(meateggsnuts[-c(1)], 
-                 merge(sugars[-c(1)], 
-                 merge(dairy[-c(1)], 
-                 merge(fats[-c(1)], 
-                 merge(fruits[-c(1)], merge(grains[-c(1)], vegetables[-c(1)], by ="Year"), by ="Year"), by ="Year"), by ="Year"), by ="Year"), by ="Year")
+allfoods <- merge(meateggsnuts, sugars, by="Year")
+allfoods <- merge(allfoods, dairy, by="Year")
+allfoods <- merge(allfoods, fats, by="Year")
+allfoods <- merge(allfoods, fruits, by="Year")
+allfoods <- merge(allfoods, grains, by="Year")
+allfoods <- merge(allfoods, vegetables, by="Year")
 
 # converts the dataframe into a tidy format and changes the calorie values into numeric
 allfoods_tidy <- tidy_calorie_data(allfoods)
@@ -125,7 +126,7 @@ allfoods_na <- allfoods_tidy %>% dplyr::group_by(food_group) %>% dplyr::filter(!
 
 # gets the percent difference from 2000 for each year for each food
 allfoods_tidy <- allfoods_tidy %>% dplyr::group_by(food_group) %>%
-  dplyr::mutate(perc_dif = round((calories-first(calories))/first(calories)*100, 4)) 
+  dplyr::mutate(perc_dif = round((calories-first(calories))/first(calories)*100, 4))
 
 # makes a dataframe for the mean calorie intake for each food
 meanfoods <- allfoods_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(Mean = round(mean(calories, na.rm = TRUE), 2))
@@ -144,7 +145,7 @@ topnafoods %>%
     xlab("Foods")+
     ggtitle("Top 25 Calorie Intake Food Sources")+
     theme(axis.text.x = element_text(angle=60, hjust=1))
-  
+
 # splits the 25 foods into low medium and high to increase clarity of the line plot
 topnafoods_tidy <- subset(allfoods_tidy, food_group %in% topnafoods$food_group)
 topnafoods_tidy$calories_consumed <- cut(topnafoods_tidy$calories, breaks = c(0,50,100,500), label=c("20+", "50+", "100+"))
@@ -177,7 +178,7 @@ ggplot(data=lowfoods) +
   theme(axis.text.x = element_text(angle=60, hjust=1))+
   theme(legend.position = "bottom", legend.text=element_text(size=5))+
   scale_shape_manual(values = 0:25)
-  
+
 
 ```
 In order to determine how diet is associated with digestive cancer incidence and mortality, we took the top 25 foods that contributed the most to daily caloric intake and analyzed their changes from 2000 to 2017. These food sources included several food sources that are related to digestive cancer such as beef and high fructose corn syrup. Other foods that surprising cracked the top 25 were bananas, cane/beet sugar, and  frozen potatoes. The highest caloric contributer was white and whole flour by a large margin. As shown in the line graph, these food groups changed dynamically from 2000 to 2017 as a whole with foods such as peanuts, chicken, and butter increasing and other foods such as beef, high fructose corn syrup, and ice cream decreasing. Now that we've set the stage, let's jump into the comparisons between cancer incidence/mortality and foods/total calorie intake.
@@ -188,7 +189,7 @@ In order to determine how diet is associated with digestive cancer incidence and
 ### Cancer Incidence
 ```{r}
 # uses the combined sex since male and female cancer have the same trend
-sub_inc <- subset(incidence, Sex == "Male")
+sub_inc <- read_csv("resources/processed_data/combined_incidence.csv")
 
 # used to combine the incidence and major food group/total calories dataframes then tidy
 total_cals_inc = merge(total_cals, sub_inc, by="Year")
@@ -213,7 +214,7 @@ Even with using a smoother to draw a line through thte data, the correlations ar
 ```{r}
 # Gets the percent difference from 2000
 canc_cals_tidy <- canc_cals_tidy %>% dplyr::group_by(food_group) %>%
-  dplyr::mutate(perc_dif = round((calories-first(calories))/first(calories)*100, 4)) 
+  dplyr::mutate(perc_dif = round((calories-first(calories))/first(calories)*100, 4))
 
 # Creates a dataframe that has the correlation coefficient between the food group/total and cancer incidence and p_value for correlation
 canc_cal_cor <- canc_cals_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(Correlation = round(cor(perc_dif, Rate), 2))
@@ -230,7 +231,7 @@ ggplot(canc_cals_tidy, aes(perc_dif, Rate))+
     facet_wrap(~food_group)
 
 # Correlation coefficients for above graph
-canc_cal_cor %>% 
+canc_cal_cor %>%
   arrange(desc(Correlation)) %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
   ggplot(aes(x=food_group, y=Correlation))+
@@ -262,7 +263,7 @@ ggplot(total_foods_inc, aes(perc_dif, Rate))+
 
 
 # Correlation coefficients for above graph
-food_inc_cor %>% 
+food_inc_cor %>%
   arrange(desc(Correlation)) %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
   ggplot(aes(x=food_group, y=Correlation))+
@@ -278,16 +279,16 @@ food_inc_cor %>%
 # total_cals_inc$`Sugar and sweeteners (Added)`
 # ggplot(total_cals_inc) +
 #   geom_point(aes(`Sugar and sweeteners (Added)`, Rate, color=Sex))
-# 
+#
 # sugar_inc = merge(sugars, sub_inc, by="Year")
 # sugar_inc$`Cane and Beet Sugar`
 # ggplot(sugar_inc) +
 #   geom_point(aes(`Cane and Beet Sugar`, Rate, color=Sex))
-# 
+#
 # meat_inc = merge(meateggsnuts, sub_inc, by="Year")
 # ggplot(meat_inc) +
 #   geom_point(aes(Peanuts, Rate, color=Sex))
-# 
+#
 # cor(meat_inc$Beef, test$Rate)
 # cor.test(meat_inc$Beef, test$Rate)
 
@@ -298,15 +299,18 @@ We found that the decrease in total calorie intake correlated with the decrease 
 ### Cancer Mortality
 ```{r}
 # uses the combined sex since male and female cancer have the same trend
-sub_mort <- subset(mortality, Sex == "Male")
+sub_mort <- read_csv('resources/processed_data/combined_mortality.csv')
+
 # merges the major food groups and total calorie data set with the mortality data set
 total_cals_mort = merge(total_cals, sub_mort, by="Year")
+
 # Same process of cleaning and manipulation as the incidence
 mort_cals_tidy <- gather(total_cals_mort, food_group, calories, colnames(total_cals_mort)[!colnames(total_cals_mort) %in% c("Year", "Sex", "Population", "Cases")], -c(Year, Rate))
 mort_cals_tidy <- mort_cals_tidy[complete.cases(mort_cals_tidy),]
+
 # gets percent difference
 mort_cals_tidy <- mort_cals_tidy %>% dplyr::group_by(food_group) %>%
-  dplyr::mutate(perc_dif = round((calories-first(calories))/first(calories)*100, 4)) 
+  dplyr::mutate(perc_dif = round((calories-first(calories))/first(calories)*100, 4))
 
 #splits into food groups and total calories
 mort_food_tidy <- subset(mort_cals_tidy, !food_group %in% c("Total", "Total (excluding Fats and Oils)"))
@@ -324,15 +328,15 @@ mort_total_tidy <- subset(mort_cals_tidy, food_group %in% c("Total", "Total (exc
 #     geom_point()+
 #     geom_smooth(method=lm, color="blue", fill="blue")+
 #     facet_wrap(~food_group)
-# 
+#
 # # Keep this graph (6)
 # ggplot(mort_total_tidy, aes(perc_dif, Rate))+
 #     geom_point()+
 #     geom_smooth(method=lm, color="blue", fill="blue")+
 #     facet_wrap(~food_group)
-# 
+#
 # # Keep this graph (7)
-# mort_cal_cor %>% 
+# mort_cal_cor %>%
 #   arrange(desc(Correlation)) %>%
 #   mutate(food_group=factor(food_group, levels=food_group)) %>%
 #   ggplot(aes(x=food_group, y=Correlation))+
@@ -352,10 +356,10 @@ food_mort_cor$p_value <- temp$p_value
 #     geom_point()+
 #     geom_smooth(method=lm, color="blue", fill="blue")+
 #     facet_wrap(~food_group)
-# 
-# 
+#
+#
 # # Keep this graph (7)
-# food_mort_cor %>% 
+# food_mort_cor %>%
 #   arrange(desc(Correlation)) %>%
 #   mutate(food_group=factor(food_group, levels=food_group)) %>%
 #   ggplot(aes(x=food_group, y=Correlation))+
@@ -366,7 +370,7 @@ food_mort_cor$p_value <- temp$p_value
 
 
 # Comparison between top 25 foods for cancer incidence and mortality
-foods_inc <- food_inc_cor %>% 
+foods_inc <- food_inc_cor %>%
   arrange(desc(Correlation)) %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
   ggplot(aes(x=food_group, y=Correlation))+
@@ -376,7 +380,7 @@ foods_inc <- food_inc_cor %>%
     xlab("Foods")+
     theme(axis.text.x = element_text(angle=60, hjust=1, size=8))
 
-foods_mort <- food_mort_cor %>% 
+foods_mort <- food_mort_cor %>%
   arrange(desc(Correlation)) %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
   ggplot(aes(x=food_group, y=Correlation))+
