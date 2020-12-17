@@ -513,18 +513,54 @@ Update
   // margins and overall width/height
   var width = 770;
   var height = 640;
-  var margin = {top: 25, right: 25, bottom: 25, left: 25};
+  var margin = {top: 25, right: 25, bottom: 50, left: 50};
 
   // create svg inside div
   var svg = d3.select("div#plot")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
+
+  // axes
   var xg = svg.append("g")
     .attr("id", "xAxis")
-    .attr("transform", "translate(0," + (height-margin.top-margin.bottom) + ")");
+    .attr("transform", "translate(0," + (height-margin.top-margin.bottom) + ")")
+    .transition()
+    .duration(t)
+    .call(
+      d3.axisBottom(
+        d3.scaleLinear()
+          .domain([0, 1])
+          .range([margin.left, width-margin.right])
+      )
+    );
   var yg = svg.append("g")
-    .attr("id", "yAxis");
+    .attr("id", "yAxis")
+    .attr("transform", "translate(" + margin.left + ", 0)")
+    .transition()
+    .duration(t)
+    .call(
+      d3.axisLeft(
+        d3.scaleLinear()
+          .domain([0, 1])
+          .range([height-margin.bottom, margin.top])
+      )
+    );
+
+  // axis labels
+  svg.append("text")
+    .text("calories")
+    .transition()
+    .duration(t)
+    .attr("x", width/2)
+    .attr("y", height-margin.bottom/2)
+  svg.append("text")
+    .text("rate per 100,000 pop")
+    .attr('transform', 'rotate(-90)')
+    .transition()
+    .duration(t)
+    .attr("x", -height/2)
+    .attr("y", margin.left/4+3)
 
   // update callback
   // data is redefined here and ... hopefully promises have been fulfilled?
