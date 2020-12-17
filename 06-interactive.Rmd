@@ -348,6 +348,13 @@
     .then(csvReadFunction)
     .catch(csvErrorFunction)
 
+  // select element for interaction
+  <select name="food" id="selectFood">
+    <option value="peanuts">Peanuts</option>
+    <option value="beef">Beef</option>
+    
+  </select>
+
   // margins and overall width/height
   var width = 770
   var height = 640

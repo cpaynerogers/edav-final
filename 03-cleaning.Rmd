@@ -343,6 +343,14 @@ kableExtra::scroll_box(
 Hidden code way down here is used to update the data files in `food-digestive-cancer/processed_data/*`. When the bookdown book is rendered locally, this data transform process runs and updates the processed data if necessary. In our case, we're working with relatively small data, so transforming it each time is fine. With heavier data lifts, we'd want a flag to only run the process if its been updated.
 
 ```{r}
+allfoods <- merge(meateggsnuts, sugars, by="Year")
+allfoods <- merge(allfoods, dairy, by="Year")
+allfoods <- merge(allfoods, fats, by="Year")
+allfoods <- merge(allfoods, fruits, by="Year")
+allfoods <- merge(allfoods, grains, by="Year")
+allfoods <- merge(allfoods, vegetables, by="Year")
+write.csv(allfoods, file='resources/processed_data/food.csv', row.names=FALSE)
+
 write.csv(incidence, file='resources/processed_data/incidence.csv', row.names=FALSE)
 write.csv(combined_incidence, file='resources/processed_data/combined_incidence.csv', row.names=FALSE)
 write.csv(mortality, file='resources/processed_data/mortality.csv', row.names=FALSE)
