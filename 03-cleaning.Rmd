@@ -32,8 +32,10 @@ incidence <- read.csv(
   stringsAsFactors=TRUE)
 names(incidence) = c("Year", "Sex", "Rate", "Cases", "Population")
 incidence <- incidence[!(incidence$Year == "2000-2017"),]
+combined_incidence <- incidence[(incidence$Sex == "Male and female"),]
 incidence <- incidence[!(incidence$Sex == "Male and female"),]
 rownames(incidence) <- NULL
+rownames(combined_incidence) <- NULL
 ```
 
 ```{r}
@@ -52,8 +54,10 @@ mortality <- read.csv(
   stringsAsFactors=TRUE)
 names(mortality) = c("Year", "Sex", "Rate", "Cases", "Population")
 mortality <- mortality[!(mortality$Year == "2000-2017"),]
+combined_mortality <- mortality[(mortality$Sex == "Male and female"),]
 mortality <- mortality[!(mortality$Sex == "Male and female"),]
 rownames(mortality) <- NULL
+rownames(combined_mortality) <- NULL
 ```
 
 ```{r}
@@ -340,7 +344,9 @@ Hidden code way down here is used to update the data files in `food-digestive-ca
 
 ```{r}
 write.csv(incidence, file='resources/processed_data/incidence.csv')
+write.csv(combined_incidence, file='resources/processed_data/combined_incidence.csv')
 write.csv(mortality, file='resources/processed_data/mortality.csv')
+write.csv(combined_mortality, file='resources/processed_data/combined_mortality.csv')
 write.csv(meateggsnuts, file='resources/processed_data/meateggsnuts.csv')
 write.csv(dairy, file='resources/processed_data/dairy.csv')
 write.csv(fruits, file='resources/processed_data/fruits.csv')

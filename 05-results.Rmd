@@ -23,7 +23,7 @@ vegetables <- read_csv("resources/processed_data/vegetables.csv")
 total_cals <- read_csv("resources/processed_data/total.csv")
 
 tidy_calorie_data <- function(food_table) {
-  df <- subset(gather(food_table, food_group, calories,    colnames(food_table), -Year), Year > 1999)
+  df <- subset(gather(food_table, food_group, calories, colnames(food_table), -Year), Year > 1999)
   return(df)
 }
 ```
@@ -155,7 +155,7 @@ In order to determine how diet is associated with digestive cancer incidence and
 ### Cancer Incidence
 ```{r}
 # uses the combined sex since male and female cancer have the same trend
-sub_inc <- subset(incidence, Sex == "Combined")
+sub_inc <- read_csv("resources/processed_data/combined_incidence.csv")
 
 # used to combine the incidence and major food group/total calories dataframes then tidy
 total_cals_inc = merge(total_cals, sub_inc, by="Year")
@@ -264,12 +264,15 @@ We found that the decrease in total calorie intake correlated with the decrease 
 ### Cancer Mortality
 ```{r}
 # uses the combined sex since male and female cancer have the same trend
-sub_mort <- subset(mortality, Sex == "Combined")
+sub_mort <- read_csv('resources/processed_data/combined_mortality.csv')
+
 # merges the major food groups and total calorie data set with the mortality data set
 total_cals_mort = merge(total_cals, sub_mort, by="Year")
+
 # Same process of cleaning and manipulation as the incidence
 mort_cals_tidy <- gather(total_cals_mort, food_group, calories, colnames(total_cals_mort)[!colnames(total_cals_mort) %in% c("Year", "Sex", "Population", "Cases")], -c(Year, Rate))
 mort_cals_tidy <- mort_cals_tidy[complete.cases(mort_cals_tidy),]
+
 # gets percent difference
 mort_cals_tidy <- mort_cals_tidy %>% dplyr::group_by(food_group) %>%
   dplyr::mutate(perc_dif = round((calories-first(calories))/first(calories)*100, 4)) 
