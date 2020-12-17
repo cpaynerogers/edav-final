@@ -1,5 +1,4 @@
 
-# Remove 3 dashes remove setup keyword single hashtags
 ```{r}
 library(ggplot2)
 library(tidyverse)
@@ -42,7 +41,7 @@ tidy_calorie_data <- function(food_table) {
 
 ## Digestive Cancer Trends
 
-```{r}
+```{r include=FALSE}
 
 # generates the cancer incidence plots
 inc <-ggplot(data=incidence)+
@@ -125,13 +124,6 @@ topfoods <- head(meanfoods %>% arrange(desc(Mean)), 25)
 meannafoods <- allfoods_na %>% dplyr::group_by(food_group) %>% dplyr::summarise(Mean = round(mean(calories, na.rm = TRUE), 2))
 topnafoods <- head(meannafoods %>% arrange(desc(Mean)), 25)
 
-# # 
-# topfoods %>%
-#   mutate(food_group=factor(food_group, levels=food_group)) %>%
-#   ggplot()+
-#     geom_bar(aes(x=food_group, y=Mean), stat="identity") +
-#     theme(axis.text.x = element_text(angle=60, hjust=1))
-
 # bar graph of the top 25 foods that contribute the most to total caloric intake
 topnafoods %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
@@ -156,38 +148,9 @@ ggplot(data=topnafoods_tidy) +
   theme(axis.text.x = element_text(angle=60, hjust=1))+
   theme(legend.position = "right")
 
-# tidy_sugar = tidy_calorie_data(sugars[-c(1)])
-# ggplot(data=tidy_df_2) +
-#   geom_line(aes(x=Year, y=calories, color=food_group)) +
-#   ggtitle("Per Capita Calorie Intake from 2000-2017")
-
 ```
 In order to determine how diet is associated with digestive cancer incidence and mortality, we took the top 25 foods that contributed the most to daily caloric intake and analyzed their changes from 2000 to 2017. These food sources included several food sources that are related to digestive cancer such as beef and high fructose corn syrup. Other foods that surprising cracked the top 25 were bananas, cane/beet sugar, and  frozen potatoes. The highest caloric contributer was white and whole flour by a large margin. As shown in the line graph, these food groups changed dynamically from 2000 to 2017 as a whole with foods such as peanuts, chicken, and butter increasing and other foods such as beef, high fructose corn syrup, and ice cream decreasing. Now that we've set the stage, let's jump into the comparisons between cancer incidence/mortality and foods/total calorie intake.
 
-```{r}
-# tidy_dairy = tidy_calorie_data(dairy[c(2:12)])
-# tidy_dairy_2 = tidy_calorie_data(dairy[c(2,18:30)])
-# tidy_dairy_3 = tidy_calorie_data(dairy[c(2,30:37)])
-# ggplot(data=tidy_dairy) +
-#   geom_line(aes(x=Year, y=calories, color=food_group)) +
-#   ggtitle("Per Capita Calorie Intake from 2000-2017")
-# ggplot(data=tidy_dairy_2) +
-#   geom_line(aes(x=Year, y=calories, color=food_group)) +
-#   ggtitle("Per Capita Calorie Intake from 2000-2017")
-# ggplot(data=tidy_dairy_3) +
-#   geom_line(aes(x=Year, y=calories, color=food_group)) +
-#   ggtitle("Per Capita Calorie Intake from 2000-2017")
-```
-```{r}
-# tidy_prot = tidy_calorie_data(meateggsnuts[c(2:15)])
-# tidy_prot_2 = tidy_calorie_data(meateggsnuts[c(2,15:26)])
-# ggplot(data=tidy_prot) +
-#   geom_line(aes(x=Year, y=calories, color=food_group)) +
-#   ggtitle("Per Capita Calorie Intake from 2000-2017")
-# ggplot(data=tidy_prot_2) +
-#   geom_line(aes(x=Year, y=calories, color=food_group)) +
-#   ggtitle("Per Capita Calorie Intake from 2000-2017")
-```
 
 ## Comparison of Food/Caloric Intake and Digestive Cancer Trends
 
@@ -226,7 +189,7 @@ canc_cal_cor <- canc_cals_tidy %>% dplyr::group_by(food_group) %>% dplyr::summar
 temp1 <- canc_cals_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(p_value = round(cor.test(perc_dif, Rate)$p.value, 4))
 canc_cal_cor$p_value <- temp1$p_value
 
-# Keep this graph (5)
+# Cancer Incidence vs total caloric intake and major food groups
 ggplot(canc_cals_tidy, aes(perc_dif, Rate))+
     geom_point()+
     geom_smooth(method=lm, color="blue", fill="blue")+
@@ -235,17 +198,7 @@ ggplot(canc_cals_tidy, aes(perc_dif, Rate))+
     ggtitle("Cancer Incidence vs Calorie Intake per Major Food Group/Total Calorie Intake")+
     facet_wrap(~food_group)
 
-
-# # Keep this graph (6)
-# ggplot(canc_total_tidy, aes(perc_dif, Rate))+
-#     geom_point()+
-#     geom_smooth(method=lm, color="blue", fill="blue")+
-#     ylab("Rate (per 100,000 people)")+
-#     xlab("Percent Difference from 2000 Per Capita Calorie Intake")+
-#     ggtitle("Cancer Incidence vs Total Calorie Intake")+
-#     facet_wrap(~food_group)
-
-# Keep this graph (7)
+# Correlation coefficients for above graph
 canc_cal_cor %>% 
   arrange(desc(Correlation)) %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
@@ -266,7 +219,7 @@ food_inc_cor <- total_foods_inc %>% dplyr::group_by(food_group) %>% dplyr::summa
 temp <- total_foods_inc %>% dplyr::group_by(food_group) %>% dplyr::summarise(p_value = round(cor.test(perc_dif, Rate)$p.value, 4))
 food_inc_cor$p_value <- temp$p_value
 
-# Keep this graph (5)
+# Cancer incidence and top 25 food calories
 ggplot(total_foods_inc, aes(perc_dif, Rate))+
     geom_point()+
     geom_smooth(method=lm, color="blue", fill="blue")+
@@ -276,7 +229,7 @@ ggplot(total_foods_inc, aes(perc_dif, Rate))+
     facet_wrap(~food_group)
 
 
-# Keep this graph (7)
+# Correlation coefficients for above graph
 food_inc_cor %>% 
   arrange(desc(Correlation)) %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
@@ -379,6 +332,8 @@ food_mort_cor$p_value <- temp$p_value
 #     annotate("text", label = "Red text within bar graph is the p value associated with correlation", x = 5, y = -1, size = 2, colour = "red")+
 #     theme(axis.text.x = element_text(angle=60, hjust=1))
 
+
+# Comparison between top 25 foods for cancer incidence and mortality
 foods_inc <- food_inc_cor %>% 
   arrange(desc(Correlation)) %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
@@ -399,24 +354,3 @@ combined_foods <- foods_inc + foods_mort
 combined_foods + plot_layout(guides = "collect") + plot_annotation("Incidence Correlations vs Mortality Correlations")
 ```
 Through this graph we can see that the same foods that were correlated with the increase/decrease in cancer incidence were also associated with the increase/decrease of cancer mortality, albiet to slightly different degrees.
-
-```{r}
-# foods_inc <- food_inc_cor %>% 
-#   arrange(desc(Correlation)) %>%
-#   mutate(food_group=factor(food_group, levels=food_group)) %>%
-#   ggplot(aes(x=food_group, y=Correlation))+
-#     geom_bar(stat="identity") +
-#     geom_text(aes(label=p_value))+
-#     theme(axis.text.x = element_text(angle=60, hjust=1))
-# 
-# foods_mort <- food_mort_cor %>% 
-#   arrange(desc(Correlation)) %>%
-#   mutate(food_group=factor(food_group, levels=food_group)) %>%
-#   ggplot(aes(x=food_group, y=Correlation))+
-#     geom_bar(stat="identity") +
-#     geom_text(aes(label=p_value))+
-#     theme(axis.text.x = element_text(angle=60, hjust=1))
-# 
-# combined_foods <- foods_inc + foods_mort
-# combined_foods + plot_layout(guides = "collect")
-```
