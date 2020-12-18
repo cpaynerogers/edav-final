@@ -403,7 +403,7 @@ ggplot(topfruit_inc, aes(perc_dif, Rate))+
     ylab("Rate (per 100,000 people)")+
     xlab("Percent Difference Per Capita Calorie Intake from 2000")+
     xlim(-100, 100)+
-    ggtitle("Cancer Incidence vs Calorie Intake per Top 20 Vegetables")+
+    ggtitle("Cancer Incidence vs Calorie Intake per Top 20 Fruit")+
     theme(axis.text.x = element_text(size=5.5, angle = 45))+
     facet_wrap(~food_group)
 
