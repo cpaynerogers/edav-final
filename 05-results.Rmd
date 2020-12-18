@@ -445,6 +445,9 @@ cal_inc <- canc_cal_cor %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
   ggplot(aes(x=food_group, y=Correlation))+
     geom_bar(stat="identity") +
+    ggtitle("Incidence")+
+    ylim(-1, 1)+
+    xlab("Foods")
     theme(axis.text.x = element_text(angle=60, hjust=1))
 
 cal_mort <- mort_cal_cor %>%
@@ -452,6 +455,9 @@ cal_mort <- mort_cal_cor %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
   ggplot(aes(x=food_group, y=Correlation))+
     geom_bar(stat="identity") +
+    ggtitle("Mortality")+
+    ylim(-1, 1)+
+    xlab("Foods")+
     theme(axis.text.x = element_text(angle=60, hjust=1))
 
 #combines all foods with mortality dataframe then gets correlation between top foods and mortality for graphs
