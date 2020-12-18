@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Data sources | Food and Digestive Cancer</title>
-  <meta name="description" content="Chapter 2 Data sources | Food and Digestive Cancer" />
+  <title>Chapter 7 Conclusion | Food and Digestive Cancer</title>
+  <meta name="description" content="Chapter 7 Conclusion | Food and Digestive Cancer" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Data sources | Food and Digestive Cancer" />
+  <meta property="og:title" content="Chapter 7 Conclusion | Food and Digestive Cancer" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Data sources | Food and Digestive Cancer" />
+  <meta name="twitter:title" content="Chapter 7 Conclusion | Food and Digestive Cancer" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="data-transformation.html"/>
+<link rel="prev" href="interactive.html"/>
+
 <script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -155,34 +155,22 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="data-sources" class="section level1" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Data sources</h1>
-<div id="data-collection" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Data collection</h2>
-<p>For this project, we are using three different data sources: Male and female digestive system cancer mortality across 9 SEER cancer registries for each year from 2000 to 2017, male and female digestive system cancer incidence across 9 SEER cancer registries for each year from 2000 to 2017, and average daily per capita calorie intake from 1970-2017 for major and minor food groups in the US taken from a USDA registry.</p>
-<p>The SEER digestive system cancer data sets were collected using "SEER *Stat," which provides access to various cancer data at the population level. SEER refers to the National Cancer Institute’s Surveillance, Epidemiology, and End Results Program. The data were taken from a database with 18 SEER registries that represent 27.8% of the US population. This data was chosen as the largest sample taken from the US population, with the hope that it is the most representative of the entire US. For these data, digestive system cancer includes stomach, gallbladder, colorectal, pancreatic, liver and esophageal cancers.</p>
-<p>The average daily caloric intake data were downloaded from the USDA’s Food Availability (Per Capita) Data System (FADS, <em>like the diets</em>). The system includes data for food availability, loss-adjusted food availability, and nutrient availability. We chose the loss-adjusted data set as it best approximates actual food consumption in the US by accounting for food spoilage, waste and other not-directly-into-American-mouths food life cycles.</p>
-<p><a href="https://seer.cancer.gov/seerstat/">SEER digestive cancer rates</a></p>
-<p><a href="https://www.ers.usda.gov/data-products/food-availability-per-capita-data-system/">USDA Food Availability Data System</a> calories spreadsheet</p>
-</div>
-<div id="data-overview" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Data Overview</h2>
-<p>The SEER digestive cancer incidence spreadsheet contains 5 variables and 54 rows. The variables include year, gender, rate per 100,000 persons (number of people who contracted digestive cancer out of every 100,000 persons), cases (total number of cancer cases in given year), and total US population in that year. The SEER digestive system cancer mortality spreadsheet is equivalent.</p>
-<p>Average daily calorie intake data includes 7 different spreadsheets. Each spreadsheet has 48 data rows, one per year. The major food groups included in the analysis are meat/protein, dairy, fruit, vegetables, flour/cereal products, added fats/oils/dairy fats, and added sugar/sweeteners. Each food group has a separate spreadsheet that breaks down the foods and calorie intakes of each food inside the category.</p>
-</div>
-<div id="data-issues" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Data Issues</h2>
-<p>We intend to join these data. There is a discrepancy in their source: the SEER data isn’t evenly sampled from the US population; it is sourced from 18 SEER registries around the US. The USDA is more evenly sourced. Further, the SEER data is complete, while the USDA data contains gaps for certain food types and years. We’re well-equipped to handle the latter issue; we’ll have to carry the burden of the former with us throughout the analysis.</p>
+<div id="conclusion" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Conclusion</h1>
+<p>In conclusion, we found very interesting and satisfactory answers to our initial questions. We observed that digestive cancer incidence and mortality are both decreasing with mortality increasing rapidly in the past couple of years. This may be due to the advances in <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4974579/">digestive system cancer treatment</a> such as more frequent colonoscopies, monitoring of gut bacteria levels, and novel chemotherapy treatments. All of these advancements have happened in the last couple of decades and have done well to reduce the number of deaths and cases for digestive system cancer.</p>
+<p>We also saw that overall caloric intake is associated with digestive cancer, both of which have been decreasing as a whole from 2000. In terms of major food groups, we found that all of them except for proteins and fats correlated with increased digestive cancer rates. However, we can most likely chalk this finding up to all the food groups also correlated with total caloric intake as well.</p>
+<p>In terms of specific foods, there were several expected and unexpected correlations that we uncovered when looking at specific foods. Beef, milk, ice cream, and high fructose corn syrup were all well-documented culprits for digestive cancer but foods like head lettuce, potatoes, and orange juice were unlikely correlates of cancer incidence/mortality. <a href="https://pubmed.ncbi.nlm.nih.gov/1851150/#:~:text=Abstract,%2C%20endometrial%2C%20and%20gastrointestinal%20cancer.">High fiber foods</a> like avocados, hominy, peanuts, and sweet potatoes trended upwards as digestive cancer trended downards. These types of foods are known to promote gut health and are thought to be protective against several forms of cancer. However, we also found that butter and mozzerella were also negatively associated, despite our pre-existing thoughts about dairy products.</p>
+<p>However, these findings are merely correlations. Other factors could contribute to why these specifc foods and food groups rose/decreased over the years. Possibly people who are health conscious have a passion for peanuts. Or interest in canned peaches coincidently waned over the years while digestive cancer rates decreased. Future studies will need to be done in order to vouch for the validity of the claims made here.</p>
+<p>In a future study, we could also explore other known correlates of digestive cancer such as alcohol use and smoking habits over the same time period to give more incite into what caused this decrease in digestive cancer incidence and mortality. Another study that could be done is looking at a more granular version of the calorie intake data and cancer incidence/mortality data, such as on a state or county level.</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-transformation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="interactive.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -213,7 +201,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/cpaynerogers/food-digestive-cancer/edit/master/02-data.Rmd",
+"link": "https://github.com/cpaynerogers/food-digestive-cancer/edit/master/07-conclusion.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -221,7 +209,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/cpaynerogers/food-digestive-cancer/blob/master/02-data.Rmd",
+"link": "https://github.com/cpaynerogers/food-digestive-cancer/blob/master/07-conclusion.Rmd",
 "text": null
 },
 "download": null,

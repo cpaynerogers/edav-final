@@ -42,3 +42,4 @@ comparison-of-foodcaloric-intake-and-digestive-cancer-trends
 cancer-incidence
 cancer-mortality
 interactive
+conclusion
