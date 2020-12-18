@@ -26,7 +26,24 @@ meateggsnuts <- read_csv("resources/processed_data/meateggsnuts.csv")
 mortality <- read_csv("resources/processed_data/mortality.csv")
 sugars <- read_csv("resources/processed_data/sugars.csv")
 vegetables <- read_csv("resources/processed_data/vegetables.csv")
-total_cals <- read_csv("resources/processed_data/total.csv")
+# total_cals <- read_csv("resources/processed_data/total.csv")
+
+Year = dairy$Year
+`Meat, eggs, and nuts` <- rowSums(meateggsnuts[,c(2:length(meateggsnuts))], na.rm=TRUE)
+Dairy <- rowSums(dairy[,c(2:length(dairy))], na.rm=TRUE)
+Fruit <- rowSums(fruits[,c(2:length(fruits))], na.rm=TRUE)
+Vegetables = rowSums(vegetables[,c(2:length(vegetables))], na.rm=TRUE)
+`Flour and cereal products` <- rowSums(grains[,c(2:length(grains))], na.rm=TRUE)
+`Added fats and oils and dairy fats` <- rowSums(fats[,c(2:length(fats))], na.rm = TRUE)
+`Sugar and sweeteners (Added)` <- rowSums(sugars[,c(2:length(sugars))], na.rm=TRUE)
+
+
+total_cals <- data.frame(Year, `Meat, eggs, and nuts`, Dairy, Fruit, Vegetables, `Flour and cereal products`, `Added fats and oils and dairy fats`, `Sugar and sweeteners (Added)`, check.names = FALSE)
+
+# Large portions of the data are NA so removing the data from these years in totals
+total_cals$`Added fats and oils and dairy fats`[42:48] = NA
+
+total_cals$Total <- rowSums(total_cals[c(2:length(total_cals))])
 
 tidy_calorie_data <- function(food_table) {
   df <- subset(gather(food_table, food_group, calories, colnames(food_table), -Year), Year > 1999)
@@ -249,6 +266,26 @@ canc_cal_cor %>%
 We found that the decrease in total calorie intake correlated with the decrease in digestive cancer incidence. We also found that food groups such as sweeteners and sugars and cereal/flour products positively correlated with digestive cancer incidence. Surprisingly, we found that fruits caloric intake and vegetable caloric intake correlated positively with digestive cancer incidence. We think that since total caloric intake is associated with cancer incidence, the other food groups appeared to be correlated as well.
 
 ```{r}
+#scat mat with incidence mortality caloric intake and food groups
+total_cals_inc_2 <- total_cals_inc %>% dplyr::rename(
+                                        Sugar = `Sugar and sweeteners (Added)`,
+                                        Fats = `Added fats and oils and dairy fats`,
+                                        `Total (no fats)` = `Total (excluding Fats and Oils)`,
+                                        Protein = `Meat, eggs, and nuts`,
+                                        Grain = `Flour and cereal products`
+                                        )
+
+cal_scatmat <- total_cals_inc_2 %>% dplyr::select(Fruit, Vegetables, Sugar, Fats, Protein, Grain, 
+                                                  `Total (no fats)`, Total, Rate)
+plot(cal_scatmat, main="Scatterplot Matrix of Major Food Groups and Cancer Incidence" )
+```
+
+According to this scatter plot matrix, our hunch about other major food groups being correlated with total caloric intake was indeed correct. All major food groups are trend upwards when compared to both total caloric intake and total caloric intake excluding fats.
+
+
+We then moved to look at the foods that contributed the most to caloric intake to discover their association with digestive cancer.
+
+```{r}
 
 total_foods_inc = merge(topnafoods_tidy, distinct(canc_cals_tidy[c("Year", "Rate")]), by="Year")
 
@@ -303,6 +340,116 @@ food_inc_cor %>%
 
 For the top 25 foods however, we had some more interesting results. As expected, we found that high fructose corn syrup and beef were positively associated with digestive cancer incidence. We also saw ice cream, potatoes, and orange juice trending positively with incidence. On the other hand, we found that butter, peanuts, cane/beet sugar, and mozzarella trended negatively with cancer incidence, meaning the higher the calorie intake of these foods, the lower the incidence.
 
+Afterwards, since the relationship of fruits and vegetables with digestive cancer differed from our expectations, we revisited the fruit and vegetables category to look deeper into the relationships specific fruit/vegetable types had with cancer incidence.
+
+```{r}
+# top vegetables
+veg_inc = merge(vegetables, sub_inc, by="Year")
+
+veg_inc_tidy <- gather(veg_inc, foods, calories, colnames(veg_inc)[!colnames(veg_inc) %in% c("Year", "Sex", "Population", "Cases")], -c(Year, Rate))
+veg_inc_tidy <- veg_inc_tidy[complete.cases(veg_inc_tidy),]
+
+# converts the dataframe into a tidy format and changes the calorie values into numeric
+veg_tidy <- tidy_calorie_data(vegetables)
+veg_tidy$calories <- as.numeric(veg_tidy$calories)
+veg_tidy <- veg_tidy %>% dplyr::group_by(food_group) %>% dplyr::filter(!any(is.na(calories)))
+
+# gets the percent difference from 2000 for each year for each food
+veg_tidy <- veg_tidy %>% dplyr::group_by(food_group) %>%
+  dplyr::mutate(perc_dif = round((calories-first(calories))/first(calories)*100, 4))
+
+# makes a dataframe for the mean calorie intake for each food
+meanveg <- veg_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(Mean = round(mean(calories, na.rm = TRUE), 2))
+
+# takes the top 25 foods that have the highest mean calorie intake for analysis and gets rid of foods that have na values for certain years
+topveg <- head(meanveg %>% arrange(desc(Mean)), 20)
+meannaveg <- veg_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(Mean = round(mean(calories, na.rm = TRUE), 2))
+topveg <- head(meannaveg %>% arrange(desc(Mean)), 20)
+
+topveg_tidy <- subset(veg_tidy, food_group %in% topveg$food_group)
+# bar graph of the top 25 foods that contribute the most to total caloric intake
+topveg %>%
+  mutate(food_group=factor(food_group, levels=food_group)) %>%
+  ggplot()+
+    geom_bar(aes(x=food_group, y=Mean), stat="identity") +
+    ylab("Mean Daily Per Capita Calories")+
+    xlab("Foods")+
+    ggtitle("Top 20 Calorie Intake Vegetable Sources")+
+    theme(axis.text.x = element_text(angle=60, hjust=1))
+
+topveg_inc = merge(topveg_tidy, distinct(canc_cals_tidy[c("Year", "Rate")]), by="Year")
+
+
+# Cancer incidence and top 25 food calories
+ggplot(topveg_inc, aes(perc_dif, Rate))+
+    geom_point()+
+    geom_smooth(method=lm, color="blue", fill="blue")+
+    ylab("Rate (per 100,000 people)")+
+    xlab("Percent Difference Per Capita Calorie Intake from 2000")+
+    xlim(-100, 100)+
+    ggtitle("Cancer Incidence vs Calorie Intake per Top 20 Vegetables")+
+    theme(axis.text.x = element_text(size=5.5, angle = 45))+
+    facet_wrap(~food_group)
+
+
+```
+
+For vegetables we found that potatoes, head lettuce, and sweet corn all had a strong association with digestive cancer incidence. Sweet potatoes, broccoli, and chile peppers trended negatively when compared to incidence.
+
+
+```{r}
+# top fruits and vegetables
+fruit_inc = merge(fruits, sub_inc, by="Year")
+
+fruit_inc_tidy <- gather(fruit_inc, foods, calories, colnames(fruit_inc)[!colnames(fruit_inc) %in% c("Year", "Sex", "Population", "Cases")], -c(Year, Rate))
+fruit_inc_tidy <- veg_inc_tidy[complete.cases(fruit_inc_tidy),]
+
+# converts the dataframe into a tidy format and changes the calorie values into numeric
+fruit_tidy <- tidy_calorie_data(fruits)
+fruit_tidy$calories <- as.numeric(fruit_tidy$calories)
+fruit_tidy <- fruit_tidy %>% dplyr::group_by(food_group) %>% dplyr::filter(!any(is.na(calories)))
+
+# gets the percent difference from 2000 for each year for each food
+fruit_tidy <- fruit_tidy %>% dplyr::group_by(food_group) %>%
+  dplyr::mutate(perc_dif = round((calories-first(calories))/first(calories)*100, 4))
+
+# makes a dataframe for the mean calorie intake for each food
+meanfruit <- fruit_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(Mean = round(mean(calories, na.rm = TRUE), 2))
+
+# takes the top 25 foods that have the highest mean calorie intake for analysis and gets rid of foods that have na values for certain years
+topfruit <- head(meanfruit %>% arrange(desc(Mean)), 20)
+meannafruit <- fruit_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(Mean = round(mean(calories, na.rm = TRUE), 2))
+topfruit <- head(meannafruit %>% arrange(desc(Mean)), 20)
+
+topfruit_tidy <- subset(fruit_tidy, food_group %in% topfruit$food_group)
+# bar graph of the top 25 foods that contribute the most to total caloric intake
+topfruit %>%
+  mutate(food_group=factor(food_group, levels=food_group)) %>%
+  ggplot()+
+    geom_bar(aes(x=food_group, y=Mean), stat="identity") +
+    ylab("Mean Daily Per Capita Calories")+
+    xlab("Foods")+
+    ggtitle("Top 20 Calorie Intake Vegetable Sources")+
+    theme(axis.text.x = element_text(angle=60, hjust=1))
+
+topfruit_inc = merge(topfruit_tidy, distinct(canc_cals_tidy[c("Year", "Rate")]), by="Year")
+
+
+# Cancer incidence and top 25 food calories
+ggplot(topfruit_inc, aes(perc_dif, Rate))+
+    geom_point()+
+    geom_smooth(method=lm, color="blue", fill="blue")+
+    ylab("Rate (per 100,000 people)")+
+    xlab("Percent Difference Per Capita Calorie Intake from 2000")+
+    xlim(-100, 100)+
+    ggtitle("Cancer Incidence vs Calorie Intake per Top 20 Vegetables")+
+    theme(axis.text.x = element_text(size=5.5, angle = 45))+
+    facet_wrap(~food_group)
+
+
+```
+
+For fruits we found that several juices, like orange juice and pineapple juice, were strongly association with digestive cancer incidence. Since juices contain additional sugar, this result coincides with our initial thoughts. Other fruits that correlated with incidence included peaches and pears. The fruits that were negatively assoiated with incidence were strawberries, avocados, and cranberry juice.
 
 ### Cancer Mortality
 ```{r}
@@ -349,8 +496,6 @@ cal_inc <- canc_cal_cor %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
   ggplot(aes(x=food_group, y=Correlation))+
     geom_bar(stat="identity") +
-    geom_text(aes(label=p_value), size=2, color="red", position = position_stack(vjust = .5))+
-    annotate("text", label = "Red text within bar graph is the p value associated with correlation", x = 5, y = -1, size = 2, colour = "red")+
     theme(axis.text.x = element_text(angle=60, hjust=1))
 
 cal_mort <- mort_cal_cor %>%
@@ -358,8 +503,6 @@ cal_mort <- mort_cal_cor %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
   ggplot(aes(x=food_group, y=Correlation))+
     geom_bar(stat="identity") +
-    geom_text(aes(label=p_value), size=2, color="red", position = position_stack(vjust = .5))+
-    annotate("text", label = "Red text within bar graph is the p value associated with correlation", x = 5, y = -1, size = 2, colour = "red")+
     theme(axis.text.x = element_text(angle=60, hjust=1))
 
 #combines all foods with mortality dataframe then gets correlation between top foods and mortality for graphs
@@ -415,5 +558,6 @@ combined_cals + plot_layout(guides = "collect") + plot_annotation("Total Calorie
 
 
 Through these graphs we can see that the same foods and food groups that were correlated with the increase/decrease in cancer incidence were also associated with the increase/decrease of cancer mortality, albiet to slightly different degrees. 
+
 
 

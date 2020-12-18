@@ -16,7 +16,7 @@ USDA Food Availability Data System: https://www.ers.usda.gov/data-products/food-
 
 The SEER digestive cancer incidence spreadsheet contains 5 variables and 54 rows. The variables include year, gender, rate per 100,000 persons (number of people who contracted digestive cancer out of every 100,000 persons), cases (total number of cancer cases in given year), and total US population in that year. The SEER digestive system cancer mortality spreadsheet is equivalent.
 
-Average daily calorie intake data includes 8 different spreadsheets. Each spreadsheet has 48 data rows, one per year. The totals spreadsheet gives the total average calorie intake for each major food group which includes meat/protein, dairy, fruit, vegetables, flour/cereal products, added fats/oils/dairy fats, added sugar/sweeteners, and total calorie intake. Each food group has a separate spreadsheet that breaks down the foods and calorie intakes of each food inside the category.
+Average daily calorie intake data includes 7 different spreadsheets. Each spreadsheet has 48 data rows, one per year. The major food groups included in the analysis are meat/protein, dairy, fruit, vegetables, flour/cereal products, added fats/oils/dairy fats, and added sugar/sweeteners. Each food group has a separate spreadsheet that breaks down the foods and calorie intakes of each food inside the category.
 
 ## Data Issues
 
