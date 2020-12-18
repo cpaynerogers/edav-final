@@ -17,7 +17,10 @@ Selections with a downward trend suggest that more consumption of that food corr
     <option value="whiteWholeFlour">Flour</option>
     <option value="carrots">Carrots</option>
     <option value="cabbage">Cabbage</option>
-    <option value="chicken">Chicken </option>
+    <option value="chicken">Chicken</option>
+    <option value="potatoes">Potatoes</option>
+    <option value="orangeJuice">Orange Juice</option>
+    <option value="cornSyrup">Corn Syrup</option>
   </select></th>
   <th><select name="selectCancer" id="selectCancer">
     <option value="incidence">Incidence</option>
