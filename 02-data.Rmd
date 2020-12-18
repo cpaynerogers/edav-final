@@ -9,8 +9,9 @@ The SEER digestive system cancer data sets were collected using "SEER *Stat," wh
 
 The average daily caloric intake data were downloaded from the USDA's Food Availability (Per Capita) Data System (FADS, *like the diets*). The system includes data for food availability, loss-adjusted food availability, and nutrient availability. We chose the loss-adjusted data set as it best approximates actual food consumption in the US by accounting for food spoilage, waste and other not-directly-into-American-mouths food life cycles.
 
-SEER digestive cancer rates: https://seer.cancer.gov/seerstat/
-USDA Food Availability Data System: https://www.ers.usda.gov/data-products/food-availability-per-capita-data-system/ calories dataset
+[SEER digestive cancer rates](https://seer.cancer.gov/seerstat/)
+
+[USDA Food Availability Data System](https://www.ers.usda.gov/data-products/food-availability-per-capita-data-system/) calories spreadsheet
 
 ## Data Overview
 
