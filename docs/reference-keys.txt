@@ -3,6 +3,7 @@ data-sources
 data-collection
 data-overview
 data-issues
+references
 data-transformation
 digestive-cancer-data
 incidence
@@ -33,12 +34,11 @@ grains-1
 fats-1
 sugars-1
 results
-results-1
 digestive-system-cancer-trends
 dietary-trends
-food-group-and-overall-calorie-consumption-trends
-select-food-trends
-comparison-of-foodcaloric-intake-and-digestive-cancer-trends
+overall-consumption
+select-food
+diet-and-digestive-cancer
 cancer-incidence
 cancer-mortality
 interactive

@@ -79,6 +79,7 @@
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#data-collection"><i class="fa fa-check"></i><b>2.1</b> Data collection</a></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#data-overview"><i class="fa fa-check"></i><b>2.2</b> Data Overview</a></li>
 <li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#data-issues"><i class="fa fa-check"></i><b>2.3</b> Data Issues</a></li>
+<li class="chapter" data-level="2.4" data-path="data-sources.html"><a href="data-sources.html#references"><i class="fa fa-check"></i><b>2.4</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
@@ -121,17 +122,16 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#results-1"><i class="fa fa-check"></i><b>5.1</b> Results</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#digestive-system-cancer-trends"><i class="fa fa-check"></i><b>5.2</b> Digestive System Cancer Trends</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#dietary-trends"><i class="fa fa-check"></i><b>5.3</b> Dietary Trends</a>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#digestive-system-cancer-trends"><i class="fa fa-check"></i><b>5.1</b> Digestive System Cancer Trends</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#dietary-trends"><i class="fa fa-check"></i><b>5.2</b> Dietary Trends</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#food-group-and-overall-calorie-consumption-trends"><i class="fa fa-check"></i><b>5.3.1</b> Food Group and Overall Calorie Consumption Trends</a></li>
-<li class="chapter" data-level="5.3.2" data-path="results.html"><a href="results.html#select-food-trends"><i class="fa fa-check"></i><b>5.3.2</b> Select Food Trends</a></li>
+<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#overall-consumption"><i class="fa fa-check"></i><b>5.2.1</b> Overall Consumption</a></li>
+<li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#select-food"><i class="fa fa-check"></i><b>5.2.2</b> Select Food</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#comparison-of-foodcaloric-intake-and-digestive-cancer-trends"><i class="fa fa-check"></i><b>5.4</b> Comparison of Food/Caloric Intake and Digestive Cancer Trends</a>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#diet-and-digestive-cancer"><i class="fa fa-check"></i><b>5.3</b> Diet and Digestive Cancer</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="results.html"><a href="results.html#cancer-incidence"><i class="fa fa-check"></i><b>5.4.1</b> Cancer Incidence</a></li>
-<li class="chapter" data-level="5.4.2" data-path="results.html"><a href="results.html#cancer-mortality"><i class="fa fa-check"></i><b>5.4.2</b> Cancer Mortality</a></li>
+<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#cancer-incidence"><i class="fa fa-check"></i><b>5.3.1</b> Cancer Incidence</a></li>
+<li class="chapter" data-level="5.3.2" data-path="results.html"><a href="results.html#cancer-mortality"><i class="fa fa-check"></i><b>5.3.2</b> Cancer Mortality</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive.html"><a href="interactive.html"><i class="fa fa-check"></i><b>6</b> Interactive</a></li>
@@ -157,52 +157,49 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Results</h1>
-<div id="results-1" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Results</h2>
-<p>We will start our jounrey through the exciting world of digestive system cancer by looking at the trends in cancer incidence and mortality in recent years.</p>
-</div>
-<div id="digestive-system-cancer-trends" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Digestive System Cancer Trends</h2>
+<p>We’ll start our journey through the exciting world of digestive system cancer by looking at the trends in cancer incidence and mortality in recent years. Then, we’ll break down (<em>digest</em>) trends in diet at the level of food group and top food sources. That’ll give us a sense of each data set separately before we dive more deeply into possible relationships between diet and digestive cancer.</p>
+<div id="digestive-system-cancer-trends" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Digestive System Cancer Trends</h2>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
-<p>These figures show the trends of digestive system cancer incidence and mortality over the years. As we see here, both the digestive system incidence and mortality rates have been decreasing since 2000, with mortality sharply decreasing after 2014/2015. These graphs also show that men are at a greater risk of developing digestive cancer compared to women and the trends of incidence and mortality for both genders have similar shapes. Now that we have established the trends of digestive system cancer, let’s explore dietary trends from 2000 to 2017</p>
+<p>Both the digestive system incidence and mortality rates have been decreasing since 2000. Digestive cancer mortality contains a distinct, nonlinear decrease since 2014 or 2015. Men are at a greater risk of developing digestive cancer compared to women, but the trends of incidence and mortality for both genders mirror one another. Now that we have established the trends of digestive system cancer, let’s explore dietary trends from 2000 to 2017.</p>
 </div>
-<div id="dietary-trends" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Dietary Trends</h2>
-<div id="food-group-and-overall-calorie-consumption-trends" class="section level3" number="5.3.1">
-<h3><span class="header-section-number">5.3.1</span> Food Group and Overall Calorie Consumption Trends</h3>
+<div id="dietary-trends" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Dietary Trends</h2>
+<div id="overall-consumption" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Overall Consumption</h3>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-51-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-51-2.png" width="672" /></p>
-<p>These graphs show the trend of both the per capita total daily calorie intake and the calorie intake divided by major food groups. The most notable changes for the food groups were sugar and sweeteners, flour and cereal products, and meat, eggs, and nuts. Both sugar and sweeteners and flour and ceral products decreased from 2000 to 2017 while meat, eggs, and nuts increased from 2014-2017 after gradually decreasing before. Intake of fruits and vegetables has also slightly decreased over the years. In terms of calories, both total calories and total calories, excluding fats and oils have been decreasing from 2000-2017 as a whole. However, from 2011 to 2017 total calories excluding fats and oils has risen slightly. Calorie intake data for fats and oils from 2010 onward could not be found leading to the creation of the total calorie intake excluding fats and oils variable. Now that we know that calorie intake has been decreasing as a whole and within many major food groups, let’s look at certain foods within each food group to discover more trends.</p>
+<p>These graphs show the trend of both the per capita total daily calorie intake and the calorie intake divided by major food groups. The most notable changes for the food groups were sugar and sweeteners, flour and cereal products, and meat, eggs, and nuts. Both sugar and sweeteners and flour and cereal products decreased from 2000 to 2017 while meat, eggs, and nuts increased from 2014-2017 after gradually decreasing before. Intake of fruits and vegetables has also slightly decreased over the years. In terms of calories, both total calories and total calories, excluding fats and oils have been decreasing from 2000-2017 as a whole. However, from 2011 to 2017 total calories excluding fats and oils has risen slightly. Calorie intake data for fats and oils from 2010 onward could not be found leading to the creation of the total calorie intake excluding fats and oils variable. Now that we know that calorie intake has been decreasing as a whole and within many major food groups, let’s look at certain foods within each food group to discover more trends.</p>
 </div>
-<div id="select-food-trends" class="section level3" number="5.3.2">
-<h3><span class="header-section-number">5.3.2</span> Select Food Trends</h3>
+<div id="select-food" class="section level3" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Select Food</h3>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-52-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-52-2.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-52-3.png" width="672" /></p>
-<p>In order to determine how diet is associated with digestive cancer incidence and mortality, we took the top 25 foods that contributed the most to daily caloric intake and analyzed their changes from 2000 to 2017. These food sources included several food sources that are related to digestive cancer such as beef and high fructose corn syrup. Other foods that surprising cracked the top 25 were bananas, cane/beet sugar, and frozen potatoes. The highest caloric contributer was white and whole flour by a large margin. As shown in the line graph, these food groups changed dynamically from 2000 to 2017 as a whole with foods such as peanuts, chicken, and butter increasing and other foods such as beef, high fructose corn syrup, and ice cream decreasing. Now that we’ve set the stage, let’s jump into the comparisons between cancer incidence/mortality and foods/total calorie intake.</p>
+<p>To determine how diet relates to digestive cancer incidence and mortality, we took the top 25 foods that contributed most to daily caloric intake and analyzed their changes from 2000 to 2017. These included several sources that have been related to digestive cancer, such as beef and high fructose corn syrup. Other foods that surprisingly (to us) cracked the top 25 were bananas, cane/beet sugar, and frozen potatoes. The highest calorie contributor (by volume) was white and whole flour by a large margin. All of these top food sources changed dynamically from 2000 to 2017, with foods such as peanuts, chicken, and butter increasing and other foods such as beef, high fructose corn syrup, and ice cream decreasing. Now that we’ve set the stage, let’s jump into the comparisons between cancer incidence/mortality and foods/total calorie intake.</p>
 </div>
 </div>
-<div id="comparison-of-foodcaloric-intake-and-digestive-cancer-trends" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> Comparison of Food/Caloric Intake and Digestive Cancer Trends</h2>
+<div id="diet-and-digestive-cancer" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Diet and Digestive Cancer</h2>
 <p>The destination of our journey. Let’s see how foods, food groups, and caloric intake relate to digestive cancer.</p>
-<div id="cancer-incidence" class="section level3" number="5.4.1">
-<h3><span class="header-section-number">5.4.1</span> Cancer Incidence</h3>
+<div id="cancer-incidence" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Cancer Incidence</h3>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
-<p>Even with using a smoother to draw a line through thte data, the correlations are somewhat unclear using the raw caloric intake values. We can clearly see that both sugar and sweeteners and flour and cereal products correlate with digestive cancer incidence but the trends of the other groups is unclear. We will use percent difference from 2000 per capita caloric intake from now on to show the trends more clearly.</p>
+<p>Even using a smoother to draw a line through the data, the correlations are unclear using the raw caloric intake values. We can see that both “sugar and sweeteners” and “flour and cereal products” correlate with digestive cancer incidence but the trends of the other groups are unclear. We’ll use percent difference from 2000 per capita caloric intake from now on to show the trends more clearly.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-54-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-54-2.png" width="672" /></p>
-<p>We found that the decrease in total calorie intake correlated with the decrease in digestive cancer incidence. We also found that food groups such as sweeteners and sugars and cereal/flour products positively correlated with digestive cancer incidence. Surprisingly, we found that fruits caloric intake and vegetable caloric intake correlated positively with digestive cancer incidence. We think that since total caloric intake is associated with cancer incidence, the other food groups appeared to be correlated as well.</p>
+<p>We found that the decrease in total calorie intake correlated with the decrease in digestive cancer incidence. We also found that food groups such as “sweeteners and sugars” and “cereal/flour products” positively correlated with digestive cancer incidence. Surprisingly, we found that fruits caloric intake and vegetable caloric intake correlated positively with digestive cancer incidence. We think that since total caloric intake is associated with cancer incidence, the other food groups appear to be correlated as well.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
-<p>According to this scatter plot matrix, our hunch about other major food groups being correlated with total caloric intake was indeed correct. All major food groups are trend upwards when compared to both total caloric intake and total caloric intake excluding fats.</p>
-<p>We then moved to look at the foods that contributed the most to caloric intake to discover their association with digestive cancer.</p>
+<p>Looking closely at this scatter plot matrix, our hunch about other major food groups being correlated with total caloric intake was correct. All major food groups trend upwards when compared to both total caloric intake and total caloric intake excluding fats. That doesn’t mean we shouldn’t look at specific foods more closely. To a food-poor nation, high-calorie food sources are gold. To a food-rich nation, the culture or status associated with these foods (or, the markets, supply chains, and industries that make them so available) might drive the overall trends we’re seeing.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-56-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-56-2.png" width="672" /></p>
-<p>For the top 25 foods however, we had some more interesting results. As expected, we found that high fructose corn syrup and beef were positively associated with digestive cancer incidence. We also saw ice cream, potatoes, and orange juice trending positively with incidence. On the other hand, we found that butter, peanuts, cane/beet sugar, and mozzarella trended negatively with cancer incidence, meaning the higher the calorie intake of these foods, the lower the incidence.</p>
-<p>Afterwards, since the relationship of fruits and vegetables with digestive cancer differed from our expectations, we revisited the fruit and vegetables category to look deeper into the relationships specific fruit/vegetable types had with cancer incidence.</p>
+<p>Decomposing the food groups into the top 25 foods by caloric intake yields more interesting results. As expected, high fructose corn syrup and beef are positively associated with digestive cancer incidence. Ice cream, potatoes, and orange juice trend positively with incidence, too. On the other hand, we found that butter, peanuts, cane/beet sugar, and mozzarella trended negatively with cancer incidence, meaning the higher the calorie intake of these foods, the lower the cancer incidence.</p>
+<p>Each of these trends are worth investigating in their own right. Given the complexity of the problem, it isn’t likely that these data are saying that butter, or peanuts, or mozzarella cheese are protective against digestive cancer. But they might represent clusters of diets or cultures with sets of behavior and/or genetics that are protective against digestive cancer. For the most part, we’ll leave those extrapolations to the reader. For a couple of the most surprising results (namely, fruits and vegetables … super foods!) we’ll look more deeply into the data.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-57-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-57-2.png" width="672" /></p>
-<p>For vegetables we found that potatoes, head lettuce, and sweet corn all had a strong association with digestive cancer incidence. Sweet potatoes, broccoli, and chile peppers trended negatively when compared to incidence.</p>
+<p>The clearest take-away here is that when the summary data say “vegetables” they really mean “potatoes.” Everything else, by volume of caloric intake, has a much smaller effect, but is still interesting to see. And of course, potatoes are strongly associated with digestive cancer. Head lettuce and sweet corn are also strongly associated with digestive cancer incidence while sweet potatoes, broccoli and chili peppers are not.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-58-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-58-2.png" width="672" /></p>
-<p>For fruits we found that several juices, like orange juice and pineapple juice, were strongly association with digestive cancer incidence. Since juices contain additional sugar, this result coincides with our initial thoughts. Other fruits that correlated with incidence included peaches and pears. The fruits that were negatively assoiated with incidence were strawberries, avocados, and cranberry juice.</p>
+<p>The same story can be told about fruits, but maybe not as well. Orange juice is strongly associated with digestive cancer while also making up a large portion of <em>calories by fruit</em>. Apple and pineapple juice, as well as a number of canned fruits, show similar results. In a sense, these food sources are smuggling added sugar into the fruits category in the summary data above. That doesn’t let the rest of the fruits off the hook. Some are “good” (strawberries, avocados, cranberry juice) while others are not (peaches, pears).</p>
 </div>
-<div id="cancer-mortality" class="section level3" number="5.4.2">
-<h3><span class="header-section-number">5.4.2</span> Cancer Mortality</h3>
+<div id="cancer-mortality" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Cancer Mortality</h3>
+<p>These graphs are a bit of a sanity check. Our cancer incidence and cancer mortality data are very similar, and we would expect to see the same results if we had compared our calories data to mortality instead of incidence.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-59-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-59-2.png" width="672" /></p>
-<p>Through these graphs we can see that the same foods and food groups that were correlated with the increase/decrease in cancer incidence were also associated with the increase/decrease of cancer mortality, albiet to slightly different degrees.</p>
+<p>Albeit to different degrees, that is indeed the case.</p>
 
 </div>
 </div>
