@@ -2,16 +2,11 @@
 
 ## Data collection
 
-
 For this project, we are using three different data sources: Male and female digestive system cancer mortality across 9 SEER cancer registries for each year from 2000 to 2017, male and female digestive system cancer incidence across 9 SEER cancer registries for each year from 2000 to 2017, and average daily per capita calorie intake from 1970-2017 for major and minor food groups in the US taken from a USDA registry.
 
 The SEER digestive system cancer data sets were collected using "SEER *Stat," which provides access to various cancer data at the population level. SEER refers to the National Cancer Institute's Surveillance, Epidemiology, and End Results Program. The data were taken from a database with 18 SEER registries that represent 27.8% of the US population. This data was chosen as the largest sample taken from the US population, with the hope that it is the most representative of the entire US. For these data, digestive system cancer includes stomach, gallbladder, colorectal, pancreatic, liver and esophageal cancers.
 
 The average daily caloric intake data were downloaded from the USDA's Food Availability (Per Capita) Data System (FADS, *like the diets*). The system includes data for food availability, loss-adjusted food availability, and nutrient availability. We chose the loss-adjusted data set as it best approximates actual food consumption in the US by accounting for food spoilage, waste and other not-directly-into-American-mouths food life cycles.
-
-[SEER digestive cancer rates](https://seer.cancer.gov/seerstat/)
-
-[USDA Food Availability Data System](https://www.ers.usda.gov/data-products/food-availability-per-capita-data-system/) calories spreadsheet
 
 ## Data Overview
 
@@ -22,3 +17,9 @@ Average daily calorie intake data includes 7 different spreadsheets. Each spread
 ## Data Issues
 
 We intend to join these data. There is a discrepancy in their source: the SEER data isn't evenly sampled from the US population; it is sourced from 18 SEER registries around the US. The USDA is more evenly sourced. Further, the SEER data is complete, while the USDA data contains gaps for certain food types and years. We're well-equipped to handle the latter issue; we'll have to carry the burden of the former with us throughout the analysis.
+
+## References
+
+[SEER digestive cancer rates](https://seer.cancer.gov/seerstat/)
+
+[USDA Food Availability Data System](https://www.ers.usda.gov/data-products/food-availability-per-capita-data-system/)

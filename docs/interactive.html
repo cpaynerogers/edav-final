@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="results.html"/>
-
+<link rel="next" href="conclusion.html"/>
 <script src="libs/header-attrs-2.4/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -79,6 +79,7 @@
 <li class="chapter" data-level="2.1" data-path="data-sources.html"><a href="data-sources.html#data-collection"><i class="fa fa-check"></i><b>2.1</b> Data collection</a></li>
 <li class="chapter" data-level="2.2" data-path="data-sources.html"><a href="data-sources.html#data-overview"><i class="fa fa-check"></i><b>2.2</b> Data Overview</a></li>
 <li class="chapter" data-level="2.3" data-path="data-sources.html"><a href="data-sources.html#data-issues"><i class="fa fa-check"></i><b>2.3</b> Data Issues</a></li>
+<li class="chapter" data-level="2.4" data-path="data-sources.html"><a href="data-sources.html#references"><i class="fa fa-check"></i><b>2.4</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a>
 <ul>
@@ -121,20 +122,20 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#results-1"><i class="fa fa-check"></i><b>5.1</b> Results</a></li>
-<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#digestive-system-cancer-trends"><i class="fa fa-check"></i><b>5.2</b> Digestive System Cancer Trends</a></li>
-<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#dietary-trends"><i class="fa fa-check"></i><b>5.3</b> Dietary Trends</a>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#digestive-system-cancer-trends"><i class="fa fa-check"></i><b>5.1</b> Digestive System Cancer Trends</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#dietary-trends"><i class="fa fa-check"></i><b>5.2</b> Dietary Trends</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#food-group-and-overall-calorie-consumption-trends"><i class="fa fa-check"></i><b>5.3.1</b> Food Group and Overall Calorie Consumption Trends</a></li>
-<li class="chapter" data-level="5.3.2" data-path="results.html"><a href="results.html#select-food-trends"><i class="fa fa-check"></i><b>5.3.2</b> Select Food Trends</a></li>
+<li class="chapter" data-level="5.2.1" data-path="results.html"><a href="results.html#overall-consumption"><i class="fa fa-check"></i><b>5.2.1</b> Overall Consumption</a></li>
+<li class="chapter" data-level="5.2.2" data-path="results.html"><a href="results.html#select-food"><i class="fa fa-check"></i><b>5.2.2</b> Select Food</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#comparison-of-foodcaloric-intake-and-digestive-cancer-trends"><i class="fa fa-check"></i><b>5.4</b> Comparison of Food/Caloric Intake and Digestive Cancer Trends</a>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#diet-and-digestive-cancer"><i class="fa fa-check"></i><b>5.3</b> Diet and Digestive Cancer</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="results.html"><a href="results.html#cancer-incidence"><i class="fa fa-check"></i><b>5.4.1</b> Cancer Incidence</a></li>
-<li class="chapter" data-level="5.4.2" data-path="results.html"><a href="results.html#cancer-mortality"><i class="fa fa-check"></i><b>5.4.2</b> Cancer Mortality</a></li>
+<li class="chapter" data-level="5.3.1" data-path="results.html"><a href="results.html#cancer-incidence"><i class="fa fa-check"></i><b>5.3.1</b> Cancer Incidence</a></li>
+<li class="chapter" data-level="5.3.2" data-path="results.html"><a href="results.html#cancer-mortality"><i class="fa fa-check"></i><b>5.3.2</b> Cancer Mortality</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interactive.html"><a href="interactive.html"><i class="fa fa-check"></i><b>6</b> Interactive</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -156,6 +157,8 @@
             <section class="normal" id="section-">
 <div id="interactive" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Interactive</h1>
+<p>For our interactive component, we wanted to give everyone a chance to explore the same date we’ve presented so far. We also wanted to simplify it as much as possible. The following plot gets updated with each press of the “Update” button, and with the data described in the drop down menu. The x-axis in the plot shows the average caloric intake over an entire year. The y-axis shows either the male or female cancer incidence or mortality.</p>
+<p>Selections with a downward trend suggest that more consumption of that food correlates with lower rates of digestive cancer. An upward trend suggests that more consumption of the food correlates with higher rates of digestive cancer. We’ve chosen a few suspicious or common foods, to limit the hundreds of data we have available.</p>
 <!-- load d3 v6 -->
 <script src="https://d3js.org/d3.v6.min.js"></script>
 <!-- select food, incidence, mortality and update plot -->
@@ -169,6 +172,8 @@
 <option value="apples">Apples</option>
 <option value="whiteWholeFlour">Flour</option>
 <option value="carrots">Carrots</option>
+<option value="cabbage">Cabbage</option>
+<option value="chicken">Chicken </option>
 </select>
 </th>
 <th>
@@ -649,8 +654,8 @@ Update
           </div>
         </div>
       </div>
-<a href="results.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="results.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

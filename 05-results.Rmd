@@ -1,11 +1,6 @@
 # Results
 
-
 ```{r}
-#install.packages("grid")
-#install.packages("gridExtra")
-#install.packages("scales")
-#install.packages("patchwork")
 library(ggplot2)
 library(tidyverse)
 library(grid)
@@ -13,7 +8,6 @@ require(gridExtra)
 require(scales)
 library(dplyr)
 library(patchwork)
-
 ```
 
 ```{r include=FALSE}
@@ -50,14 +44,11 @@ tidy_calorie_data <- function(food_table) {
 }
 ```
 
-## Results
-
-We will start our jounrey through the exciting world of digestive system cancer by looking at the trends in cancer incidence and mortality in recent years.
+We'll start our journey through the exciting world of digestive system cancer by looking at the trends in cancer incidence and mortality in recent years. Then, we'll break down (*digest*) trends in diet at the level of food group and top food sources. That'll give us a sense of each data set separately before we dive more deeply into possible relationships between diet and digestive cancer.
 
 ## Digestive System Cancer Trends
 
 ```{r}
-
 # generates the cancer incidence plots
 inc <-ggplot(data=incidence)+
   geom_line(aes(x=Year, y=Rate, color=Sex)) +
@@ -82,12 +73,11 @@ combined <- inc + mort & theme(legend.position = "bottom")
 combined + plot_layout(guides = "collect") + plot_annotation("Digestive System Cancer Incidence and Mortality Rates From 2000 to 2017")
 ```
 
-
-These figures show the trends of digestive system cancer incidence and mortality over the years. As we see here, both the digestive system incidence and mortality rates have been decreasing since 2000, with mortality sharply decreasing after 2014/2015. These graphs also show that men are at a greater risk of developing digestive cancer compared to women and the trends of incidence and mortality for both genders have similar shapes. Now that we have established the trends of digestive system cancer, let's explore dietary trends from 2000 to 2017
+Both the digestive system incidence and mortality rates have been decreasing since 2000. Digestive cancer mortality contains a distinct, nonlinear decrease since 2014 or 2015. Men are at a greater risk of developing digestive cancer compared to women, but the trends of incidence and mortality for both genders mirror one another. Now that we have established the trends of digestive system cancer, let's explore dietary trends from 2000 to 2017.
 
 ## Dietary Trends
 
-### Food Group and Overall Calorie Consumption Trends
+### Overall Consumption
 
 ```{r}
 # sums all the columns except for the fats and oils column to get the total amount of calories consumed besides the fats and oils
@@ -114,13 +104,11 @@ ggplot(data=tidy_total) +
   ylab("Daily Per Capita Calories")+
   labs(color = "Food Groups", shape = "Food Groups")+
   ggtitle("Daily Per Capita Calorie Intake by Major Food Group from 2000-2017")
-
 ```
 
+These graphs show the trend of both the per capita total daily calorie intake and the calorie intake divided by major food groups. The most notable changes for the food groups were sugar and sweeteners, flour and cereal products, and meat, eggs, and nuts. Both sugar and sweeteners and flour and cereal products decreased from 2000 to 2017 while meat, eggs, and nuts increased from 2014-2017 after gradually decreasing before. Intake of fruits and vegetables has also slightly decreased over the years. In terms of calories, both total calories and total calories, excluding fats and oils have been decreasing from 2000-2017 as a whole. However, from 2011 to 2017 total calories excluding fats and oils has risen slightly. Calorie intake data for fats and oils from 2010 onward could not be found leading to the creation of the total calorie intake excluding fats and oils variable. Now that we know that calorie intake has been decreasing as a whole and within many major food groups, let's look at certain foods within each food group to discover more trends.
 
-These graphs show the trend of both the per capita total daily calorie intake and the calorie intake divided by major food groups. The most notable changes for the food groups were sugar and sweeteners, flour and cereal products, and meat, eggs, and nuts. Both sugar and sweeteners and flour and ceral products decreased from 2000 to 2017 while meat, eggs, and nuts increased from 2014-2017 after gradually decreasing before. Intake of fruits and vegetables has also slightly decreased over the years. In terms of calories, both total calories and total calories, excluding fats and oils have been decreasing from 2000-2017 as a whole. However, from 2011 to 2017 total calories excluding fats and oils has risen slightly. Calorie intake data for fats and oils from 2010 onward could not be found leading to the creation of the total calorie intake excluding fats and oils variable. Now that we know that calorie intake has been decreasing as a whole and within many major food groups, let's look at certain foods within each food group to discover more trends.
-
-### Select Food Trends
+### Select Food
 
 ```{r}
 # merges all the separate food group dataframes into one dataframe joined by year
@@ -194,11 +182,9 @@ ggplot(data=lowfoods) +
 
 ```
 
+To determine how diet relates to digestive cancer incidence and mortality, we took the top 25 foods that contributed most to daily caloric intake and analyzed their changes from 2000 to 2017. These included several sources that have been related to digestive cancer, such as beef and high fructose corn syrup. Other foods that surprisingly (to us) cracked the top 25 were bananas, cane/beet sugar, and  frozen potatoes. The highest calorie contributor (by volume) was white and whole flour by a large margin. All of these top food sources changed dynamically from 2000 to 2017, with foods such as peanuts, chicken, and butter increasing and other foods such as beef, high fructose corn syrup, and ice cream decreasing. Now that we've set the stage, let's jump into the comparisons between cancer incidence/mortality and foods/total calorie intake.
 
-In order to determine how diet is associated with digestive cancer incidence and mortality, we took the top 25 foods that contributed the most to daily caloric intake and analyzed their changes from 2000 to 2017. These food sources included several food sources that are related to digestive cancer such as beef and high fructose corn syrup. Other foods that surprising cracked the top 25 were bananas, cane/beet sugar, and  frozen potatoes. The highest caloric contributer was white and whole flour by a large margin. As shown in the line graph, these food groups changed dynamically from 2000 to 2017 as a whole with foods such as peanuts, chicken, and butter increasing and other foods such as beef, high fructose corn syrup, and ice cream decreasing. Now that we've set the stage, let's jump into the comparisons between cancer incidence/mortality and foods/total calorie intake.
-
-
-## Comparison of Food/Caloric Intake and Digestive Cancer Trends
+## Diet and Digestive Cancer
 
 The destination of our journey. Let's see how foods, food groups, and caloric intake relate to digestive cancer.
 
@@ -226,7 +212,7 @@ ggplot(canc_food_tidy, aes(calories, Rate))+
     facet_wrap(~food_group)
 ```
 
-Even with using a smoother to draw a line through thte data, the correlations are somewhat unclear using the raw caloric intake values. We can clearly see that both sugar and sweeteners and flour and cereal products correlate with digestive cancer incidence but the trends of the other groups is unclear. We will use percent difference from 2000 per capita caloric intake from now on to show the trends more clearly.
+Even using a smoother to draw a line through the data, the correlations are unclear using the raw caloric intake values. We can see that both "sugar and sweeteners" and "flour and cereal products" correlate with digestive cancer incidence but the trends of the other groups are unclear. We'll use percent difference from 2000 per capita caloric intake from now on to show the trends more clearly.
 
 ```{r}
 # Gets the percent difference from 2000
@@ -261,7 +247,7 @@ canc_cal_cor %>%
     theme(axis.text.x = element_text(angle=60, hjust=1))
 ```
 
-We found that the decrease in total calorie intake correlated with the decrease in digestive cancer incidence. We also found that food groups such as sweeteners and sugars and cereal/flour products positively correlated with digestive cancer incidence. Surprisingly, we found that fruits caloric intake and vegetable caloric intake correlated positively with digestive cancer incidence. We think that since total caloric intake is associated with cancer incidence, the other food groups appeared to be correlated as well.
+We found that the decrease in total calorie intake correlated with the decrease in digestive cancer incidence. We also found that food groups such as "sweeteners and sugars" and "cereal/flour products" positively correlated with digestive cancer incidence. Surprisingly, we found that fruits caloric intake and vegetable caloric intake correlated positively with digestive cancer incidence. We think that since total caloric intake is associated with cancer incidence, the other food groups appear to be correlated as well.
 
 ```{r}
 #scat mat with incidence mortality caloric intake and food groups
@@ -278,16 +264,11 @@ cal_scatmat <- total_cals_inc_2 %>% dplyr::select(Fruit, Vegetables, Sugar, Fats
 plot(cal_scatmat, main="Scatterplot Matrix of Major Food Groups and Cancer Incidence" )
 ```
 
-According to this scatter plot matrix, our hunch about other major food groups being correlated with total caloric intake was indeed correct. All major food groups are trend upwards when compared to both total caloric intake and total caloric intake excluding fats.
-
-
-We then moved to look at the foods that contributed the most to caloric intake to discover their association with digestive cancer.
+Looking closely at this scatter plot matrix, our hunch about other major food groups being correlated with total caloric intake was correct. All major food groups trend upwards when compared to both total caloric intake and total caloric intake excluding fats. That doesn't mean we shouldn't look at specific foods more closely. To a food-poor nation, high-calorie food sources are gold. To a food-rich nation, the culture or status associated with these foods (or, the markets, supply chains, and industries that make them so available) might drive the overall trends we're seeing.
 
 ```{r}
 # Creating dataframe that has the correlation coefficient for each variable
 total_foods_inc = merge(topnafoods_tidy, distinct(canc_cals_tidy[c("Year", "Rate")]), by="Year")
-
-
 food_inc_cor <- total_foods_inc %>% dplyr::group_by(food_group) %>% dplyr::summarise(Correlation = round(cor(perc_dif, Rate), 2))
 temp <- total_foods_inc %>% dplyr::group_by(food_group) %>% dplyr::summarise(p_value = round(cor.test(perc_dif, Rate)$p.value, 4))
 food_inc_cor$p_value <- temp$p_value
@@ -318,9 +299,9 @@ food_inc_cor %>%
 ```
 
 
-For the top 25 foods however, we had some more interesting results. As expected, we found that high fructose corn syrup and beef were positively associated with digestive cancer incidence. We also saw ice cream, potatoes, and orange juice trending positively with incidence. On the other hand, we found that butter, peanuts, cane/beet sugar, and mozzarella trended negatively with cancer incidence, meaning the higher the calorie intake of these foods, the lower the incidence.
+Decomposing the food groups into the top 25 foods by caloric intake yields more interesting results. As expected, high fructose corn syrup and beef are positively associated with digestive cancer incidence. Ice cream, potatoes, and orange juice trend positively with incidence, too. On the other hand, we found that butter, peanuts, cane/beet sugar, and mozzarella trended negatively with cancer incidence, meaning the higher the calorie intake of these foods, the lower the cancer incidence.
 
-Afterwards, since the relationship of fruits and vegetables with digestive cancer differed from our expectations, we revisited the fruit and vegetables category to look deeper into the relationships specific fruit/vegetable types had with cancer incidence.
+Each of these trends are worth investigating in their own right. Given the complexity of the problem, it isn't likely that these data are saying that butter, or peanuts, or mozzarella cheese are protective against digestive cancer. But they might represent clusters of diets or cultures with sets of behavior and/or genetics that are protective against digestive cancer. For the most part, we'll leave those extrapolations to the reader. For a couple of the most surprising results (namely, fruits and vegetables ... super foods!) we'll look more deeply into the data.
 
 ```{r}
 # top vegetables
@@ -350,7 +331,6 @@ topveg_tidy <- subset(veg_tidy, food_group %in% topveg$food_group)
 
 topveg_inc = merge(topveg_tidy, distinct(canc_cals_tidy[c("Year", "Rate")]), by="Year")
 
-
 # Cancer incidence and top 20 vegetables calories
 ggplot(topveg_inc, aes(perc_dif, Rate))+
     geom_point()+
@@ -362,11 +342,9 @@ ggplot(topveg_inc, aes(perc_dif, Rate))+
     theme(axis.text.x = element_text(size=5.5, angle = 45))+
     facet_wrap(~food_group)
 
-
 ```
 
-For vegetables we found that potatoes, head lettuce, and sweet corn all had a strong association with digestive cancer incidence. Sweet potatoes, broccoli, and chile peppers trended negatively when compared to incidence.
-
+The clearest take-away here is that when the summary data say "vegetables" they really mean "potatoes." Everything else, by volume of caloric intake, has a much smaller effect, but is still interesting to see. And of course, potatoes are strongly associated with digestive cancer. Head lettuce and sweet corn are also strongly associated with digestive cancer incidence while sweet potatoes, broccoli and chili peppers are not.
 
 ```{r}
 # top fruits
@@ -406,13 +384,14 @@ ggplot(topfruit_inc, aes(perc_dif, Rate))+
     ggtitle("Cancer Incidence vs Calorie Intake per Top 20 Vegetables")+
     theme(axis.text.x = element_text(size=5.5, angle = 45))+
     facet_wrap(~food_group)
-
-
 ```
 
-For fruits we found that several juices, like orange juice and pineapple juice, were strongly association with digestive cancer incidence. Since juices contain additional sugar, this result coincides with our initial thoughts. Other fruits that correlated with incidence included peaches and pears. The fruits that were negatively assoiated with incidence were strawberries, avocados, and cranberry juice.
+The same story can be told about fruits, but maybe not as well. Orange juice is strongly associated with digestive cancer while also making up a large portion of *calories by fruit*. Apple and pineapple juice, as well as a number of canned fruits, show similar results. In a sense, these food sources are smuggling added sugar into the fruits category in the summary data above. That doesn't let the rest of the fruits off the hook. Some are "good" (strawberries, avocados, cranberry juice) while others are not (peaches, pears).
 
 ### Cancer Mortality
+
+These graphs are a bit of a sanity check. Our cancer incidence and cancer mortality data are very similar, and we would expect to see the same results if we had compared our calories data to mortality instead of incidence.
+
 ```{r}
 # uses the combined sex since male and female cancer have the same trend
 sub_mort <- read_csv('resources/processed_data/combined_mortality.csv')
@@ -438,7 +417,6 @@ mort_cal_cor <- mort_cals_tidy %>% dplyr::group_by(food_group) %>% dplyr::summar
 temp <- mort_cals_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(p_value = round(cor.test(perc_dif, Rate)$p.value, 4))
 mort_cal_cor$p_value <- temp$p_value
 
-
 # Comparison between food groups and caloric intake for cancer incidence and mortality
 cal_inc <- canc_cal_cor %>%
   arrange(desc(Correlation)) %>%
@@ -459,7 +437,6 @@ total_foods_mort = merge(topnafoods_tidy, distinct(mort_cals_tidy[c("Year", "Rat
 food_mort_cor <- total_foods_mort %>% dplyr::group_by(food_group) %>% dplyr::summarise(Correlation = round(cor(perc_dif, Rate), 2))
 temp <- total_foods_mort %>% dplyr::group_by(food_group) %>% dplyr::summarise(p_value = round(cor.test(perc_dif, Rate)$p.value, 4))
 food_mort_cor$p_value <- temp$p_value
-
 
 # Comparison between top 25 foods for cancer incidence and mortality
 foods_inc <- food_inc_cor %>%
@@ -488,8 +465,4 @@ combined_cals <- cal_mort + cal_inc
 combined_cals + plot_layout(guides = "collect") + plot_annotation("Total Calorie/Major Food Group Intake Correlations: Incidence vs Mortality")
 ```
 
-
-Through these graphs we can see that the same foods and food groups that were correlated with the increase/decrease in cancer incidence were also associated with the increase/decrease of cancer mortality, albiet to slightly different degrees. 
-
-
-
+Albeit to different degrees, that is indeed the case.

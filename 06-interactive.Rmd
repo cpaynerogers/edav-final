@@ -1,5 +1,9 @@
 # Interactive
 
+For our interactive component, we wanted to give everyone a chance to explore the same date we've presented so far. We also wanted to simplify it as much as possible. The following plot gets updated with each press of the "Update" button, and with the data described in the drop down menu. The x-axis in the plot shows the average caloric intake over an entire year. The y-axis shows either the male or female cancer incidence or mortality.
+
+Selections with a downward trend suggest that more consumption of that food correlates with lower rates of digestive cancer. An upward trend suggests that more consumption of the food correlates with higher rates of digestive cancer. We've chosen a few suspicious or common foods, to limit the hundreds of data we have available.
+
 <!-- load d3 v6 -->
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
@@ -12,6 +16,8 @@
     <option value="apples">Apples</option>
     <option value="whiteWholeFlour">Flour</option>
     <option value="carrots">Carrots</option>
+    <option value="cabbage">Cabbage</option>
+    <option value="chicken">Chicken </option>
   </select></th>
   <th><select name="selectCancer" id="selectCancer">
     <option value="incidence">Incidence</option>
