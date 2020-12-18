@@ -491,7 +491,7 @@ foods_mort <- food_mort_cor %>%
 combined_foods <- foods_inc + foods_mort
 combined_foods + plot_layout(guides = "collect") + plot_annotation("Top Food Correlations: Incidence vs Mortality")
 combined_cals <- cal_mort + cal_inc
-combined_cals + plot_layout(guides = "collect") + plot_annotation("Total Calorie/Major Food Group Intake Correlations: Incidence vs Mortality")
+combined_cals + plot_layout(guides = "collect") + plot_annotation("Total Calorie/Food Group Intake Correlations: Incidence vs Mortality")
 ```
 
 
