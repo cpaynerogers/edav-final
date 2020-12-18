@@ -26,8 +26,8 @@ meateggsnuts <- read_csv("resources/processed_data/meateggsnuts.csv")
 mortality <- read_csv("resources/processed_data/mortality.csv")
 sugars <- read_csv("resources/processed_data/sugars.csv")
 vegetables <- read_csv("resources/processed_data/vegetables.csv")
-# total_cals <- read_csv("resources/processed_data/total.csv")
 
+# creates total dataframe for each of the major food groups
 Year = dairy$Year
 `Meat, eggs, and nuts` <- rowSums(meateggsnuts[,c(2:length(meateggsnuts))], na.rm=TRUE)
 Dairy <- rowSums(dairy[,c(2:length(dairy))], na.rm=TRUE)
@@ -37,10 +37,9 @@ Vegetables = rowSums(vegetables[,c(2:length(vegetables))], na.rm=TRUE)
 `Added fats and oils and dairy fats` <- rowSums(fats[,c(2:length(fats))], na.rm = TRUE)
 `Sugar and sweeteners (Added)` <- rowSums(sugars[,c(2:length(sugars))], na.rm=TRUE)
 
-
 total_cals <- data.frame(Year, `Meat, eggs, and nuts`, Dairy, Fruit, Vegetables, `Flour and cereal products`, `Added fats and oils and dairy fats`, `Sugar and sweeteners (Added)`, check.names = FALSE)
 
-# Large portions of the data are NA so removing the data from these years in totals
+# Large portions of the data are NA so removing the data from these years in totals also selects 2000 and up years
 total_cals$`Added fats and oils and dairy fats`[42:48] = NA
 
 total_cals$Total <- rowSums(total_cals[c(2:length(total_cals))])
@@ -78,7 +77,6 @@ mort <- ggplot(data=mortality)+
   ylab("Rate (per 100,000 people)")+
   scale_color_manual(values=c("black", "red", "blue"))
 
-#fix axes
 # takes the incidence and mortality plots and puts them on the same line with shared legend (1)
 combined <- inc + mort & theme(legend.position = "bottom")
 combined + plot_layout(guides = "collect") + plot_annotation("Digestive System Cancer Incidence and Mortality Rates From 2000 to 2017")
@@ -245,7 +243,7 @@ ggplot(canc_cals_tidy, aes(perc_dif, Rate))+
     geom_point()+
     geom_smooth(method=lm, color="blue", fill="blue")+
     ylab("Rate (per 100,000 people)")+
-    xlab("Percent Difference Per Capita Calorie Intake from 2000")+
+    xlab("Percent Difference from 2000 Per Capita Calorie Intake")+
     ggtitle("Cancer Incidence vs Calorie Intake per Major Food Group/Total Calorie Intake")+
     facet_wrap(~food_group)
 
@@ -286,7 +284,7 @@ According to this scatter plot matrix, our hunch about other major food groups b
 We then moved to look at the foods that contributed the most to caloric intake to discover their association with digestive cancer.
 
 ```{r}
-
+# Creating dataframe that has the correlation coefficient for each variable
 total_foods_inc = merge(topnafoods_tidy, distinct(canc_cals_tidy[c("Year", "Rate")]), by="Year")
 
 
@@ -317,24 +315,6 @@ food_inc_cor %>%
     xlab("Foods")+
     ggtitle("Correlation Coefficients of Top 25 Foods vs Cancer Incidence")+
     theme(axis.text.x = element_text(angle=60, hjust=1))
-
-
-# total_cals_inc$`Sugar and sweeteners (Added)`
-# ggplot(total_cals_inc) +
-#   geom_point(aes(`Sugar and sweeteners (Added)`, Rate, color=Sex))
-#
-# sugar_inc = merge(sugars, sub_inc, by="Year")
-# sugar_inc$`Cane and Beet Sugar`
-# ggplot(sugar_inc) +
-#   geom_point(aes(`Cane and Beet Sugar`, Rate, color=Sex))
-#
-# meat_inc = merge(meateggsnuts, sub_inc, by="Year")
-# ggplot(meat_inc) +
-#   geom_point(aes(Peanuts, Rate, color=Sex))
-#
-# cor(meat_inc$Beef, test$Rate)
-# cor.test(meat_inc$Beef, test$Rate)
-
 ```
 
 
@@ -361,26 +341,17 @@ veg_tidy <- veg_tidy %>% dplyr::group_by(food_group) %>%
 # makes a dataframe for the mean calorie intake for each food
 meanveg <- veg_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(Mean = round(mean(calories, na.rm = TRUE), 2))
 
-# takes the top 25 foods that have the highest mean calorie intake for analysis and gets rid of foods that have na values for certain years
+# takes the top 20 vegetables that have the highest mean calorie intake for analysis and gets rid of vegetables that have na values for certain years
 topveg <- head(meanveg %>% arrange(desc(Mean)), 20)
 meannaveg <- veg_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(Mean = round(mean(calories, na.rm = TRUE), 2))
 topveg <- head(meannaveg %>% arrange(desc(Mean)), 20)
 
 topveg_tidy <- subset(veg_tidy, food_group %in% topveg$food_group)
-# bar graph of the top 25 foods that contribute the most to total caloric intake
-topveg %>%
-  mutate(food_group=factor(food_group, levels=food_group)) %>%
-  ggplot()+
-    geom_bar(aes(x=food_group, y=Mean), stat="identity") +
-    ylab("Mean Daily Per Capita Calories")+
-    xlab("Foods")+
-    ggtitle("Top 20 Calorie Intake Vegetable Sources")+
-    theme(axis.text.x = element_text(angle=60, hjust=1))
 
 topveg_inc = merge(topveg_tidy, distinct(canc_cals_tidy[c("Year", "Rate")]), by="Year")
 
 
-# Cancer incidence and top 25 food calories
+# Cancer incidence and top 20 vegetables calories
 ggplot(topveg_inc, aes(perc_dif, Rate))+
     geom_point()+
     geom_smooth(method=lm, color="blue", fill="blue")+
@@ -398,7 +369,7 @@ For vegetables we found that potatoes, head lettuce, and sweet corn all had a st
 
 
 ```{r}
-# top fruits and vegetables
+# top fruits
 fruit_inc = merge(fruits, sub_inc, by="Year")
 
 fruit_inc_tidy <- gather(fruit_inc, foods, calories, colnames(fruit_inc)[!colnames(fruit_inc) %in% c("Year", "Sex", "Population", "Cases")], -c(Year, Rate))
@@ -409,33 +380,23 @@ fruit_tidy <- tidy_calorie_data(fruits)
 fruit_tidy$calories <- as.numeric(fruit_tidy$calories)
 fruit_tidy <- fruit_tidy %>% dplyr::group_by(food_group) %>% dplyr::filter(!any(is.na(calories)))
 
-# gets the percent difference from 2000 for each year for each food
+# gets the percent difference from 2000 for each year for each fruit
 fruit_tidy <- fruit_tidy %>% dplyr::group_by(food_group) %>%
   dplyr::mutate(perc_dif = round((calories-first(calories))/first(calories)*100, 4))
 
-# makes a dataframe for the mean calorie intake for each food
+# makes a dataframe for the mean calorie intake for each fruit
 meanfruit <- fruit_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(Mean = round(mean(calories, na.rm = TRUE), 2))
 
-# takes the top 25 foods that have the highest mean calorie intake for analysis and gets rid of foods that have na values for certain years
+# takes the top 20 fruits that have the highest mean calorie intake for analysis and gets rid of fruits that have na values for certain years
 topfruit <- head(meanfruit %>% arrange(desc(Mean)), 20)
 meannafruit <- fruit_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(Mean = round(mean(calories, na.rm = TRUE), 2))
 topfruit <- head(meannafruit %>% arrange(desc(Mean)), 20)
 
 topfruit_tidy <- subset(fruit_tidy, food_group %in% topfruit$food_group)
-# bar graph of the top 25 foods that contribute the most to total caloric intake
-topfruit %>%
-  mutate(food_group=factor(food_group, levels=food_group)) %>%
-  ggplot()+
-    geom_bar(aes(x=food_group, y=Mean), stat="identity") +
-    ylab("Mean Daily Per Capita Calories")+
-    xlab("Foods")+
-    ggtitle("Top 20 Calorie Intake Vegetable Sources")+
-    theme(axis.text.x = element_text(angle=60, hjust=1))
 
 topfruit_inc = merge(topfruit_tidy, distinct(canc_cals_tidy[c("Year", "Rate")]), by="Year")
 
-
-# Cancer incidence and top 25 food calories
+# Cancer incidence and top 20 fruits calories
 ggplot(topfruit_inc, aes(perc_dif, Rate))+
     geom_point()+
     geom_smooth(method=lm, color="blue", fill="blue")+
@@ -478,19 +439,7 @@ temp <- mort_cals_tidy %>% dplyr::group_by(food_group) %>% dplyr::summarise(p_va
 mort_cal_cor$p_value <- temp$p_value
 
 
-# # Keep this graph (5)
-# ggplot(mort_food_tidy, aes(perc_dif, Rate))+
-#     geom_point()+
-#     geom_smooth(method=lm, color="blue", fill="blue")+
-#     facet_wrap(~food_group)
-#
-# # Keep this graph (6)
-# ggplot(mort_total_tidy, aes(perc_dif, Rate))+
-#     geom_point()+
-#     geom_smooth(method=lm, color="blue", fill="blue")+
-#     facet_wrap(~food_group)
-#
-# # Keep this graph (7)
+# Comparison between food groups and caloric intake for cancer incidence and mortality
 cal_inc <- canc_cal_cor %>%
   arrange(desc(Correlation)) %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
@@ -510,23 +459,6 @@ total_foods_mort = merge(topnafoods_tidy, distinct(mort_cals_tidy[c("Year", "Rat
 food_mort_cor <- total_foods_mort %>% dplyr::group_by(food_group) %>% dplyr::summarise(Correlation = round(cor(perc_dif, Rate), 2))
 temp <- total_foods_mort %>% dplyr::group_by(food_group) %>% dplyr::summarise(p_value = round(cor.test(perc_dif, Rate)$p.value, 4))
 food_mort_cor$p_value <- temp$p_value
-
-# # Keep this graph (5)
-# ggplot(total_foods_mort, aes(perc_dif, Rate))+
-#     geom_point()+
-#     geom_smooth(method=lm, color="blue", fill="blue")+
-#     facet_wrap(~food_group)
-#
-#
-# # Keep this graph (7)
-# food_mort_cor %>%
-#   arrange(desc(Correlation)) %>%
-#   mutate(food_group=factor(food_group, levels=food_group)) %>%
-#   ggplot(aes(x=food_group, y=Correlation))+
-#     geom_bar(stat="identity") +
-#     geom_text(aes(label=p_value), size=2, color="red", position = position_stack(vjust = .5))+
-#     annotate("text", label = "Red text within bar graph is the p value associated with correlation", x = 5, y = -1, size = 2, colour = "red")+
-#     theme(axis.text.x = element_text(angle=60, hjust=1))
 
 
 # Comparison between top 25 foods for cancer incidence and mortality
