@@ -381,7 +381,7 @@ ggplot(topfruit_inc, aes(perc_dif, Rate))+
     ylab("Rate (per 100,000 people)")+
     xlab("Percent Difference Per Capita Calorie Intake from 2000")+
     xlim(-100, 100)+
-    ggtitle("Cancer Incidence vs Calorie Intake per Top 20 Vegetables")+
+    ggtitle("Cancer Incidence vs Calorie Intake per Top 20 Fruits")+
     theme(axis.text.x = element_text(size=5.5, angle = 45))+
     facet_wrap(~food_group)
 ```
@@ -423,6 +423,9 @@ cal_inc <- canc_cal_cor %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
   ggplot(aes(x=food_group, y=Correlation))+
     geom_bar(stat="identity") +
+    ggtitle("Incidence")+
+    ylim(-1, 1)+
+    xlab("Foods")+
     theme(axis.text.x = element_text(angle=60, hjust=1))
 
 cal_mort <- mort_cal_cor %>%
@@ -430,6 +433,9 @@ cal_mort <- mort_cal_cor %>%
   mutate(food_group=factor(food_group, levels=food_group)) %>%
   ggplot(aes(x=food_group, y=Correlation))+
     geom_bar(stat="identity") +
+    ggtitle("Mortality")+
+    ylim(-1, 1)+
+    xlab("Foods")+
     theme(axis.text.x = element_text(angle=60, hjust=1))
 
 #combines all foods with mortality dataframe then gets correlation between top foods and mortality for graphs
@@ -462,7 +468,7 @@ foods_mort <- food_mort_cor %>%
 combined_foods <- foods_inc + foods_mort
 combined_foods + plot_layout(guides = "collect") + plot_annotation("Top Food Correlations: Incidence vs Mortality")
 combined_cals <- cal_mort + cal_inc
-combined_cals + plot_layout(guides = "collect") + plot_annotation("Total Calorie/Major Food Group Intake Correlations: Incidence vs Mortality")
+combined_cals + plot_layout(guides = "collect") + plot_annotation("Total Calorie/Food Group Intake Correlations: Incidence vs Mortality")
 ```
 
 Albeit to different degrees, that is indeed the case.
