@@ -447,7 +447,7 @@ cal_inc <- canc_cal_cor %>%
     geom_bar(stat="identity") +
     ggtitle("Incidence")+
     ylim(-1, 1)+
-    xlab("Foods")
+    xlab("Foods")+
     theme(axis.text.x = element_text(angle=60, hjust=1))
 
 cal_mort <- mort_cal_cor %>%
